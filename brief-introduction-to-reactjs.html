@@ -135,7 +135,20 @@ Then create the project directory (if you didn't do so yet) and start the develo
 <b>cd my-car-app<br/>
 npm start</b><p/>
 
-<h3>To be continued...</h3>
+<h3>Creating First App With ReactJS</h3><p/>
+
+If everything went right you should have a skeleton for your first ReactJS app by now. The main application file has
+been generated as ./src/App.js. You can just start tweaking it to create an app you always wanted to have.<p/>
+
+When you want to publish the production version of your App make sure that you have a pushstate server installed:<p/>
+
+<b>npm install -g pushstate-server</b><p/>
+
+Note that you might run into problems if you are running Debian "Wheezy". If that's the case upgrade your Debian to "Jessie" or just use Ubuntu.<p/>
+
+And finally build your app:<p/>
+
+<b>pushstate-server build</b><p/>
                 </div>
             </div>
         </div>
