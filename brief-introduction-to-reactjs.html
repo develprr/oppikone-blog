@@ -60,7 +60,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('http://www.oppikone.fi/templates/oppikone/files/nature/tree-footer.jpg')">
+    <header class="intro-header" style="background-image: url('http://www.oppikone.fi/templates/oppikone/files/nature/world-footer.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -79,7 +79,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		Okay, it's time to get serious with ReactJS.<p/>
+          		<h3>Why ReactJS?</h3>
+
+If you think you are good at JavaScript programming there are
+changes that you still won't get a project unless you are familiar with ReactJS.
+That is because ReactJS is momentarily being hyped. According to forecast,
+The ReactJS hype will survive about year or two until the next 
+framework that will get the crown. Remember, the previous hype-king was AngularJS
+and before that there very many others like Backbone, JavaScriptMVC, EmberJS etc. etc.
+But right now, despite all of its conceptual plunders, you'd better know ReactJS!<p/>
+
+<h3>Installation</h3><p/>
 
 It's always useful to get started with new frameworks by checking out some complete examples that already have
 a readily made project structure. For ReactJS, there are many tutorial repos available for instance 
@@ -87,9 +97,19 @@ a readily made project structure. For ReactJS, there are many tutorial repos ava
 But of course, you can also install a very basic example project directly from <a href="https://facebook.github.io/react/docs/installation.html">Facebook's repository</a>.
 <p/>
 But please note that if you use Ubuntu Linux and want to install NodeJS via apt-get you will encounter a problem when trying to use
-ReactJS-related npm tools that depend on NodeJS:<p/>
+ReactJS-related npm tools that depend on NodeJS. When you execute:<p/>
 
+create-react-app hello-world
+<p/>
+There are changes that you'll get:
+	
 /usr/bin/env: node: No such file or directory<p/>
+
+No need to panic! The problem occurs only because in Ubuntu, NodeJS is is named as "nodejs" while
+npm expects "node". You just need to create a symbolink link
+that fixes the problem: <p/>
+
+sudo ln -s /usr/bin/nodejs /usr/bin/node
 
 <h3>To be continued...</h3>
                 </div>
