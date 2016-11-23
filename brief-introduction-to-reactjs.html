@@ -98,17 +98,17 @@ But of course, you can also install a very basic example project directly from <
 But please note that if you use Ubuntu Linux and want to install NodeJS via apt-get you will encounter a problem when trying to use
 ReactJS-related npm tools that depend on NodeJS. When you execute:<p/>
 
-create-react-app hello-world
+<b>create-react-app hello-world</b>
 <p/>
 There are changes that you'll get an error:<p/>
 	
-/usr/bin/env: node: No such file or directory<p/>
+<b>/usr/bin/env: node: No such file or directory</b><p/>
 
-No need to panic! The problem occurs only because in Ubuntu, NodeJS is is named as "nodejs" while
-npm expects "node". You just need to create a symbolink link
+No need to panic! The problem occurs only because in Ubuntu, NodeJS is named as "nodejs" while
+npm expects "node". You just need to create a symbolic link
 that fixes the problem: <p/>
 
-sudo ln -s /usr/bin/nodejs /usr/bin/node
+<b>sudo ln -s /usr/bin/nodejs /usr/bin/node</b>
 
 <h3>To be continued...</h3>
                 </div>
