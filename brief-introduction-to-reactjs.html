@@ -85,7 +85,7 @@ If you think you are good at JavaScript programming there are
 changes that you still won't get a project unless you are familiar with ReactJS.
 That is because ReactJS is momentarily in the center of a hype-storm and will remain there until the next 
 framework pops up that will get the hyper crown. Remember, the previous hyper king was AngularJS
-and before that there very many others like Backbone, JavaScriptMVC, EmberJS etc.
+and before that there were many others like Backbone, JavaScriptMVC, EmberJS etc.
 But right now, despite all of its conceptual blunders, you'd better know some ReactJS!<p/>
 
 <h3>Installation</h3><p/>
@@ -152,7 +152,22 @@ And finally build your app:<p/>
 
 <iframe style="border-radius:10x;max-width:300px;width:100%;height:300px" src="http://www.oppikone.fi/reactjs-demo/my-car-app-0"></iframe><p/>
 
-That's how it works. The result should look something like <a href="http://www.oppikone.fi/reactjs-demo/my-car-app-0">this!</a>
+That's how it works. The result is also available <a href="http://www.oppikone.fi/reactjs-demo/my-car-app-0">here.</a>In the next
+demo I'll add a search feature into Car App to find car models.<p/>
+
+<h3>Conclusion</h3><p/>
+
+There are some parties that are erratically praising ReactJS as some kind of a silver bullet in
+UI development. However, ReactJS covers really only the View aspect of MVC (Model-View-Controller) trinity. 
+Any software, whether running in a browser or somewhere else, 
+consists of many aspects and rendering views is just a tip of the ice berg.<p/>
+To build good software, ReactJS is not all what you need. You can use ReactJS to render views but you don't need ReactJS really
+to do it. There are many alternatives for rendering views. Also ReactJS's virtual DOM operations are rather cumbersome compared
+with JQuery's power and flexibility. ReactJS tries to solve this issue by using JSX templates. However, JSX has a downside that it
+must be embedded in "JavaScript" code (which isn't true JavaScript either) that is then compiled into real JavaScript. If you
+really want to separate templates from JavaScript code (which is truly recommendable) you'll be better off when you
+use some templating engine such as EmbeddedJS (EJS) or MustacheJS. Those templates can be loaded dynamically from server on demand using Ajax.
+When making Ajax requsts, JQuery is what you need. ReactJS does not provide Ajax features.<p/>
                 </div>
             </div>
         </div>
