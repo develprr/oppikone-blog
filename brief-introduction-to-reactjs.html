@@ -158,10 +158,10 @@ That's how it works. The result is also available <a href="http://www.oppikone.f
 a concept of "Virtual DOM". You can declare your own elements and use them just as if they were any normal DOM elements.<p/>
 
 <code>
-<b>var</b> CustomAppHeader = React.createClass( {<br/>
+<b>var CustomAppHeader = React.createClass( {<br/>
 	render: <b>function()</b> {<br/>
 		<b>return</b> (<br/>
-			<h1>This is a Demo App for {this.props.name}</h1><br/>
+			<h 1>This is a Demo App for <b>{this.props.name}</b></h 1><br/>
 		);<br/>
 	}<br/>
 });<p/>
@@ -173,10 +173,10 @@ And syntax for using CustomAppHeader would look like this:<p/>
 </code>
 <p>Besides all hype, what we have here is really yet another templating engine. "Elements" are really partial views that
 render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
-traditional templating engines mix code into templates. However, If you like to harness the power of JQuery and separe templates
-from controller, take a look at heavy lifting template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
-or <a href="http://mustache.github.io/">MustacheJS</a>. My preference is EmbeddedJS because it reminds of JSP but MustacheJS is likely just as good.
-Take advantage of these template engines when you are ready to get serious!<p/>
+traditional templating engines mix code into templates. However, If you like to harness the power of JQuery and separate templates
+from the controller layer, take a look at template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
+or <a href="http://mustache.github.io/">MustacheJS</a>. It doesn't matter so much which template engine you use choose or how actively they're
+being 'developed'. A Template engine is a template engine, it's just simple as that. They just differ somewhat in their syntax.<p/>
 
 <h3>Conclusion</h3><p/>
 
