@@ -98,23 +98,19 @@ So that's why I guess that we need to start by coding a neuron:
 
 <p>
 
-<b>var</b> Neuron = {<br/>
-&nbsp;&nbsp;&nbsp;<br/>
-};</p>
+<b>var</b> Neuron = {};<p/>
 
 That's the neuron class. Now I'll add a constructor method so we can get many instances of neurons. I guess, to create 
 a clever thing we need to have tons of neurons.<p/>
 
 Neuron.<b>new</b> = function() {<br/>
 &nbsp;&nbsp;&nbsp; //let's figure out later what a neuron contains<br/>
-&nbsp;&nbsp;&nbsp;<b>return</b> {};
+&nbsp;&nbsp;&nbsp;<b>return</b> {};<br/>
 }</br>
 
 <p>And to have a really cluster of neurons we need a neural network to contain all neurons:</p>
 
-<b>var</b> NeuralNet = {<br/>
-&nbsp;&nbsp;&nbsp;<br/>
-};</p>
+<b>var</b> NeuralNet = {};<p/>
 
 <p>Now I see all what I have made, and it is very good.  A very basic
 neural network known as multilayer perceptron typically has a layer of input neurons, hidden neurons and output neurons.
@@ -126,7 +122,7 @@ NeuralNet.new = <b>function</b>(inputNeuronCount,hiddenLayerCount,outputNeuronCo
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputNeuronCount: inputNeuronCount,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hiddenNeuronCount: hiddenNeuronCount,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputNeuronCount: outputNeuronCount<br/>
-&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;}<br/>
 };</p>
 
 <h3>To Be Continued...</h3>
