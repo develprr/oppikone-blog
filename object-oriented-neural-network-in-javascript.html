@@ -114,7 +114,7 @@ Neuron.<b>new</b> = function() {<br/>
 Let's add a constructor that takes those values as parameters:
 
 <p>
-NeuralNet.new = <b>function</b>(inputNeuronCount,hiddenLayerCount,outputNeuronCount) { <br/>
+NeuralNet.new = <b>function</b>(inputNeuronCount,hiddenNeuronCount,outputNeuronCount) { <br/>
 &nbsp;&nbsp;&nbsp;<b>return</b> {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputNeuronCount: inputNeuronCount,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hiddenNeuronCount: hiddenNeuronCount,<br/>
@@ -123,9 +123,8 @@ NeuralNet.new = <b>function</b>(inputNeuronCount,hiddenLayerCount,outputNeuronCo
 };</p>
 
 The parameters passed above instruct the neural network on configuration of its layers. A multilayer perceptron (MLP)
-contains really three layers of neurons. They are always one input layer, one hidden layer and one output layer.
-For this reason, a better name for this kind of a neuron model would be "<b>triple</b> layer perceptron". It is possible to have many hidden
-layers but it appearantly usually serves for nothing. Therefore, "multilayer" perceptron might be initially disappointing to those 
+often only contains really three layers of neurons. It is possible to have many hidden
+layers but it depends on the case. Adding many hidden layers does not automatically make a network "more clever". Therefore, "multilayer" perceptron might be initially disappointing to those 
 who wish to see a software equivalent to brain neurons: brain neurons appear to form endlessly deep networks. A "multilayer"
 neuron that only can afford three layers hardly resembles the construcion of thousands or billions of layers that can be found in 
 a biological neural network<p/>
@@ -166,19 +165,37 @@ input, output and hidden layers that extend the base class.<p/>
 		}
        };
 </textarea>
-
+<p/>
 Now the classes for layers have been introduced. Please check my <a href="http://www.oppikone.fi/blog/javascript-oop.html">previous post</a> for <b>extend</b> function. 
 The next step is to modify NeuralNet's constructor to initialize the layers:
-
+<p/>
 <textarea style="width:100%;height:300px" disabled>
-	NeuralNet.new = function (inputNeuronCount,hiddenLayerCount,outputNeuronCount) { 
+	NeuralNet.new = function (inputNeuronCount,hiddenNeuronCount,outputNeuronCount) { 
 		return  {
 			inputLayer: InputLayer.new(inputNeuronCount),
-			hiddenLayer: HiddenLayer.new(hiddenLayerCount),
+			hiddenLayer: HiddenLayer.new(hiddenNeuronCount),
 			outputLayer: OutputLayer.new(outputLayerCount)
 		};
 	};
 </textarea>
+
+<p>In case the neural network needs to have more than one hidden layer it is useful to modify the constructor to allow multiple hidden layers:</p>
+
+<textarea style="width:100%;height:300px" disabled>
+	NeuralNet.new = function (inputNeuronCount,hiddenNeuronCount,outputNeuronCount,numberOfHiddenLayers) { 
+		var neuralNet  {
+			inputLayer: InputLayer.new(inputNeuronCount),
+			hiddenLayers: [],
+			outputLayer: OutputLayer.new(outputLayerCount)
+		};
+		for (var i = 0; i < numberOfHiddenLayers; i++) {
+			hiddenLayers.push(HiddenLayer.new(hiddenNeuronCount));
+		}
+		return neuralNet;
+	};
+</textarea>
+
+
 
 <h3>To Be Continued...</h3>
                 </div>
