@@ -194,7 +194,25 @@ The next step is to modify NeuralNet's constructor to initialize the layers:
 		return neuralNet;
 	};
 </textarea>
+<p/>
+Now it's time to have a new iteration of neuron layers. Each layer contains an array of neurons. We'll modify NeuronLayer
+to initialize its neurons instead of jus holding a dummy number to tell the total number of neurons.<p/>
 
+<textarea style="width:100%;height:400px" disabled>
+      
+       var NeuronLayer = {
+		new: function(neuronCount) {
+			var neuronLayer {
+				neurons: []
+			}
+			for ( var i = 0; i < neuronCount; i++) {
+				var neuron = Neuron.new();
+				neuronLayer.neurons.push(neuron);
+			}
+			return neuronLayer;	
+		}
+	};
+</textarea>
 
 
 <h3>To Be Continued...</h3>
