@@ -244,7 +244,7 @@ logic of a XOR operator. Let's create training data for XOR operator:<p/>
 			for (var i = 0; i < 100; i++) {
 				var param1 = this.getRandomZeroOrOne();
 				var param2 = this.getRandomZeroOrOne();
-				var result = (param1 === param2) ? 1 : 0; // XOR OPERATOR!!!
+				var result = (param1 === param2) ? 0 : 1; // XOR OPERATOR!!!
 				matrix.push([param1,param2,result]);
 			}
 			return matrix;
