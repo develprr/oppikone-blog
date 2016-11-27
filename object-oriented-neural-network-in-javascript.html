@@ -204,9 +204,9 @@ to initialize its neurons instead of jus holding a dummy number to tell the tota
       
        var NeuronLayer = {
 		new: function(neuronCount) {
-			var neuronLayer {
+			var neuronLayer = {
 				neurons: []
-			}
+			};
 			for ( var i = 0; i < neuronCount; i++) {
 				var neuron = Neuron.new();
 				neuronLayer.neurons.push(neuron);
