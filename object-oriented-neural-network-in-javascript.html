@@ -225,8 +225,40 @@ case is more tricky because then the categories must be normalized which will th
 it works, anyway. The data must be also normalized so that all values will be something between 0 and 1. 
 A neural network consisting of multiplayer percetrons is useful in classifying tasks. For instance, you can teach
 the network labeled examples of different species of flowers. Then you can let the trained network use its "wisdom"
-and label some new unlabeled data. A classic example of this is the Iris dataset that contains variations of Iris
-flower subspecies fetal lengths. Let's have Iris dataset as traindata for our object oriented neural network.
+and label some new unlabeled data. A classical example of this is the Iris dataset that contains variations of Iris
+flower subspecies fetal lengths.<p/>
+
+The simplest and probably most common example training data sample, however, is XOR operator. XOR operator data is already
+in normalized form (1's and 0's) and its training data is easy to generate. XOR operator takes two parameters and returns true
+if they differ from each other and false if they are same. The task is to teach the neural network to understand the
+logic of a XOR operator. Let's create training data for XOR operator:
+
+<textarea style="width:100%;height:500px" disabled>
+	var XORTrainData = {
+		getRandomZeroOrOne: function() {
+			return parseInt(Math.random() + 0.5);
+		},
+				
+		generate: function() {
+			var param1 = XORTrainData.getRandomZeroOrOne();
+			var param2 = XORTrainData.getRandomZeroOrOne();
+			var result = (param1 === param2) ? 1 : 0;
+			var matrix = [];
+			for (var i = 0; i < 100; i++) {
+				matrix.push([param1,param2,result]);
+			}
+			return result;
+
+		}
+		
+	}
+</textarea>
+<p/>
+Now, we get our training data for XOR operator:<p/>
+
+<b>var</b> trainingData = XORTrainData.generate();<p/>
+
+
 
 <h3>To be continued</h3>
                 </div>
