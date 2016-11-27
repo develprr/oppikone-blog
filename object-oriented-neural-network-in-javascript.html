@@ -85,7 +85,7 @@ In my <a href="http://www.oppikone.fi/blog/javascript-oop.html">previous post</a
 I used some examples with imaginary cars to demonstrate inheritance. However, it would be great to have examples that already have practical value as such.<p/>
 Therefore I'll try to demonstrate JavaScript OOP with some more useful examples than just cars. Let's try to create a neural network in JavaScript.<p/>
 
-<h3>Creating A Neuron</h3><p/>
+<h3>Creating Neuron And Neural Net</h3><p/>
 
 Animal and human brains consist of billions of neurons that are somehow interconnected and somehow enable those animal
 and human brains to think.<p/>
@@ -132,6 +132,8 @@ a biological neural network.<p/>
 But no need to be discouraged! Despite of their hollowness, multilayer perceptrons are apparently still very useful for machine learning 
 purpose. They can be used as building blocks for truly deep networks. It just does not happen by adding more hidden layers but
 rather chaining them up into recurrent networks instead.
+
+<h3>Creating Layers</h3><p/>
 
 <p>NeuralNet class serves as a container for layers that are created when the neural net is instantiated. Let us create constructors 
 for layers. We create first a super class NeuronLayer that will contain the common features of a neuron layer. Then we create
@@ -214,8 +216,19 @@ to initialize its neurons instead of jus holding a dummy number to tell the tota
 	};
 </textarea>
 
+<h3>Training Data</h3><p/>
 
-<h3>To Be Continued...</h3>
+Neural network's purpose is to learn a certain dataset. The dataset is basically a table of numbers. Each column of the 
+table represents a certain property and each row represents a possible value combination for those properties. This
+goes well for all datasets that already has continuous values. In case of discrete values (such as categories) the 
+case is more tricky because then the categories must be normalized which will then cause a lot more columns. But 
+it works, anyway. The data must be also normalized so that all values will be something between 0 and 1. 
+A neural network consisting of multiplayer percetrons is useful in classifying tasks. For instance, you can teach
+the network labeled examples of different species of flowers. Then you can let the trained network use its "wisdom"
+and label some new unlabeled data. A classic example of this is the Iris dataset that contains variations of Iris
+flower subspecies fetal lengths. Let's have Iris dataset as traindata for our object oriented neural network.
+
+<h3>To be continued</h3>
                 </div>
             </div>
         </div>
