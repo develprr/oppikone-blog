@@ -83,7 +83,7 @@
 
 In my <a href="http://www.oppikone.fi/blog/javascript-oop.html">previous post</a> I introduced some easy techniques that enable you to program with JavaScript in an object oriented manner.
 I used some examples with imaginary cars to demonstrate inheritance. However, it would be great to have examples that already have practical value as such.<p/>
-Therefore I'll try to demonstrate JavaScript OOP with some more useful examples than just cars. Let's create a neural network in JavaScript!<p/>
+Therefore I'll try to demonstrate JavaScript OOP with some more useful examples than just cars. Let's try to create a neural network in JavaScript.<p/>
 
 <h3>Creating A Neuron</h3><p/>
 
@@ -121,6 +121,18 @@ NeuralNet.new = <b>function</b>(inputNeuronCount,hiddenLayerCount,outputNeuronCo
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputNeuronCount: outputNeuronCount<br/>
 &nbsp;&nbsp;&nbsp;}<br/>
 };</p>
+
+The parameters passed above instruct the neural network on configuration of its layers. A multilayer perceptron (MLP)
+contains really three layers of neurons. They are always one input layer, one hidden layer and one output layer. Therefore
+"triple layer perceptron" would be a better name for this kind of a neuron model. It is possible to have many hidden
+layers but it appearantly usually serves for nothing. Therefore, "multilayer" perceptron might be initially disappointing to those 
+who wish to see a software equivalent to brain neurons: brain neurons appear to form endlessly deep networks. A "multilayer"
+neuron that only can afford three layers hardly resembles the construcion of thousands or billions of layers that can be found in 
+a biological neural network<p/>
+
+But no need to be discouraged! Despite of their hollowness, multilayer perceptrons are apparently still very useful for machine learning 
+purpose. They can be used as building blocks for truly deep networks. It just does not happen by adding more hidden layers but
+rather chaining them up into recurrent networks instead.
 
 <h3>To Be Continued...</h3>
                 </div>
