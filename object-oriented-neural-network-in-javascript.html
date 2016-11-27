@@ -240,15 +240,14 @@ logic of a XOR operator. Let's create training data for XOR operator:
 		},
 				
 		generate: function() {
-			var param1 = XORTrainData.getRandomZeroOrOne();
-			var param2 = XORTrainData.getRandomZeroOrOne();
+			var param1 = this.getRandomZeroOrOne();
+			var param2 = this.getRandomZeroOrOne();
 			var result = (param1 === param2) ? 1 : 0;
 			var matrix = [];
 			for (var i = 0; i < 100; i++) {
 				matrix.push([param1,param2,result]);
 			}
-			return result;
-
+			return matrix;
 		}
 		
 	}
