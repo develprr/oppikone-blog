@@ -157,7 +157,7 @@ rather chaining them up into recurrent networks instead.
 for layers. We create first a super class NeuronLayer that will contain the common features of a neuron layer. Then we create
 input, output and hidden layers that extend the base class.<p/>
 
-<textarea style="width:100%;height:400px" disabled>
+<textarea style="width:100%;height:400px" >
       
        var NeuronLayer = {
 		new: function(neuronCount) {
@@ -189,7 +189,7 @@ input, output and hidden layers that extend the base class.<p/>
 Now the classes for layers have been introduced. Please check my <a href="http://www.oppikone.fi/blog/javascript-oop.html">previous post</a> for <b>extend</b> function. 
 The next step is to modify NeuralNet's constructor to initialize the layers:
 <p/>
-<textarea style="width:100%;height:300px" disabled>
+<textarea style="width:100%;height:300px" >
 	NeuralNet.new = function (inputNeuronCount,hiddenNeuronCount,outputNeuronCount) { 
 		return  {
 			inputLayer: InputLayer.new(inputNeuronCount),
@@ -201,7 +201,7 @@ The next step is to modify NeuralNet's constructor to initialize the layers:
 
 <p>In case the neural network needs to have more than one hidden layer it is useful to modify the constructor to allow multiple hidden layers:</p>
 
-<textarea style="width:100%;height:500px" disabled>
+<textarea style="width:100%;height:500px" >
 	NeuralNet.new = function (inputNeuronCount,hiddenNeuronCount,outputNeuronCount,numberOfHiddenLayers) { 
 		var neuralNet  {
 			inputLayer: InputLayer.new(inputNeuronCount),
@@ -218,7 +218,7 @@ The next step is to modify NeuralNet's constructor to initialize the layers:
 Now it's time to have a new iteration of neuron layers. Each layer contains an array of neurons. We'll modify NeuronLayer
 to initialize its neurons instead of jus holding a dummy number to tell the total number of neurons.<p/>
 
-<textarea style="width:100%;height:400px" disabled>
+<textarea style="width:100%;height:400px" >
       
        var NeuronLayer = {
 		new: function(neuronCount) {
@@ -251,7 +251,7 @@ in normalized form (1's and 0's) and its training data is easy to generate. XOR 
 if they differ from each other and false if they are same. The task is to teach the neural network to understand the
 logic of a XOR operator. Let's create training data for XOR operator:<p/>
 
-<textarea style="width:100%;height:500px" disabled>
+<textarea style="width:100%;height:500px" >
 	var XORTrainData = {
 		getRandomZeroOrOne: function() {
 			return parseInt(Math.random() + 0.5);
@@ -282,7 +282,7 @@ the error margin decreases. Training is ready when the error is smaller than a t
 stopped until a desired number of iterations is reached. This means that two barrier values must be set before the 
 training starts: maximum number of iterations and error threshold value. For example:<p/>
 
-<textarea style="width:100%;height:500px" disabled>
+<textarea style="width:100%;height:500px">
 	var trainData = XORTrainData.generate();
 	
 	var inputNeuronCount = 3;
@@ -297,9 +297,49 @@ training starts: maximum number of iterations and error threshold value. For exa
 			numberOfHiddenLayer);
 	
 	var maxIterationsCount = 100;
-	var errorThresholdValue = 0.5;	
+	var errorThresholdValue = 0.01;	
 	network.train(trainData, maxIterationsCount,errorThresholdValue);
 </textarea>
+
+<p>This procedure can be compared with a blind man with a paintball marker whom you want to teach hitting your neighbour's annoying privacy-violating drone. Every time you shout
+"fire!" the blind fellow shoots. You check by how wide margin he misses the copter and then you tell him something like "adjust left 2 meters". 
+The blind fellow then shoots again. You repeat this procedure until the freaking toy gets downed (threshold value reached)
+or you just run out of paintballs (maximum number of iterations reached). ( <i> <-- meanwhile in the province of Kainuu, North Finland </i> ) </p>
+
+Given that the blind man is the neural network and his brain cells are neurons and given that <b>NeuralNet.train()</b> function is the
+procedure for teaching him to hit the target then what we need is to implement functions for <b>fire!</b> and <b>adjust!</b> actions. Right?<p/>
+
+<textarea style="width:100%;height:800px">
+
+NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {	
+	
+	this.setTargetErrorMargin(errorThresholdValue);	
+	this.setCurrentErrorMargin(1.0);
+
+	var currentIterationCount = 0;
+
+	//while drone is flying...
+	while (this.getCurrentErrorMargin() > errorThresholdValue)
+		
+		//blind man shoots...
+		this.fire(trainData);
+		
+		//if paintballs run out...
+		if (currentIterationCount === maxIterationCount) {
+			break;
+		}
+
+		//tell him to target aim better
+		var newErrorMargin = this.adjust(trainData);
+		this.setCurrentErrorMargin(newErrorMargin);
+		
+		currentIterationCount++;
+	}
+}
+
+</textarea>
+
+<h3>To Be Continued...</h3> 
                 </div>
             </div>
         </div>
