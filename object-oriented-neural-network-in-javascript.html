@@ -329,7 +329,7 @@ NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {
 			break;
 		}
 
-		//tell him to target aim better
+		//tell him to aim better
 		var newErrorMargin = this.adjust(trainData);
 		this.setCurrentErrorMargin(newErrorMargin);
 		
