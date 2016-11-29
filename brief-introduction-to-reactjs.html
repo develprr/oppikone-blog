@@ -85,8 +85,18 @@ If you think you are good at JavaScript programming there are
 changes that you still won't get a project unless you are familiar with ReactJS.
 That is because ReactJS is momentarily in the center of a hype-storm and will remain there until the next 
 framework pops up that will get the hyper crown. Remember, the previous hyper king was AngularJS
-and before that there were many others like Backbone, JavaScriptMVC, EmberJS etc.
-But right now, despite all of its conceptual blunders, you'd better know some ReactJS!<p/>
+and before that there were many others like Backbone, JavaScriptMVC, EmberJS etc.<p/>
+
+<h3>"But We Want To Use React!"</h3>
+
+Interestingly, there is a common misconception lately that ReactJS kind of "solves" the UI. A serious browser based single page app (SPA), for instance, inevitably
+needs networking functionality (AJAX). Yet ReactJS' "networking" functionality is a very primitive fetch wrapper function.
+That does not compare well with JQuery's advanced Ajax options. It is okay to use ReactJS for rendering views but really,
+you'll be better off using JQuery for networking. And once you include JQuery into your project, why not to use also JQuery's 
+superior DOM manipulation methods? But of course, that is kind of conflictory with ReactJS's "virtual DOM" idea, right? 
+In my opinion, when looking for someone to create a web app, requiring ReactJS skills without event mentioning JQuery is a bit like ordering a car without an engine. But it's only
+my opinion! I hope I can prove in the near term future that I am wrong. And since ReactJS has some interesting features anyway, it's still justified to have a look at 
+it and play around a little.<p/>
 
 <h3>Installation</h3><p/>
 
@@ -172,11 +182,23 @@ And syntax for using CustomAppHeader would look like this:<p/>
 <CustomAppHeader name="Cars"/>
 </textarea>
 
+<h3><i>(More ReactJS Examples Coming Soon Here...)</i></h3>
+
 <p>Aside from all hype, what we have here is really yet another templating engine. "Elements" are really partial views that
 render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
 traditional templating engines mix code into templates. However, If you like to harness the power of JQuery and separate templates
 from the controller layer, take a look at template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
 or <a href="http://mustache.github.io/">MustacheJS</a>.<p/>
+
+<h3>Model Bindings</h3><p/>
+
+ReactJS model binding provides a certain advantage in updating the model layer from user inputs. It is a nice
+practical shortcut that you can add a model binding to a UI element that will automatically update
+the model when user edits a text area, text input field or selects a checkbox. This works OK for very simple
+core components. Yet it is not that much more difficult to just add a classic event listener "onchange" 
+and write an updater method. Basic model binding will fall short anyway when 
+you try to add a just little bit more advanced UI widget. Then you will need to revert to custom updater methods anyway if you set up any
+component that is more sophisticated than a primary html form component. And there are many advanced widgets available.<p/>
 
 <h3>Conclusion</h3><p/>
 
@@ -190,7 +212,7 @@ with JQuery's power and flexibility. ReactJS tries to solve this issue by using 
 must be embedded in "JavaScript" code (which isn't true JavaScript either) that is then compiled into real JavaScript. If you
 really want to separate templates from JavaScript code (which is truly recommendable) you'll be better off when you
 use some templating engine such as EmbeddedJS (EJS) or MustacheJS. Those templates can be loaded dynamically from server on demand using Ajax.
-When making Ajax requsts, JQuery is what you need. ReactJS does not provide Ajax features.<p/>
+When creating a true SPA with serious networking capability, JQuery is what you need.<p/>
                 </div>
             </div>
         </div>
