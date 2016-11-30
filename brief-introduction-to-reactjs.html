@@ -90,13 +90,17 @@ and before that there were many others like Backbone, JavaScriptMVC, EmberJS etc
 
 Interestingly, there is a common misconception that ReactJS kind of "solves" the UI. But a serious browser based single page app (SPA), for instance, inevitably
 needs networking functionality (AJAX). Yet ReactJS' "networking" functionality is a very primitive fetch wrapper function.
-That does not compare well with JQuery's advanced Ajax options. It is okay to use ReactJS for rendering views but really,
+That does not compare well with JQuery's advanced AJAX options. It is okay to use ReactJS for rendering views but really,
 you'll be better off using JQuery for networking. And once you include JQuery into your project, why not to use also JQuery's 
 superior DOM manipulation methods? But of course, that would be in conflict with ReactJS's sweet "virtual DOM" idea, right?<p/>
-In my opinion, when looking for someone to create a web app, requiring ReactJS skills without even mentioning JQuery is a bit like ordering a car without an engine. But it's only
-my opinion! I hope I can prove in the near term future that I am wrong. I'll be writing some examples and comparisons between
-frameworks and concepts. And since ReactJS has some interesting features anyway, it's still justified to have a look at 
-it and play around a little.<p/>
+In my opinion, when looking for someone to create a web app, requiring ReactJS skills without even mentioning JQuery is a bit like ordering a car without an engine.
+<p>
+If what you actually want to do is rendering views on server side using ReactJS then you are just reinventing the wheel
+and doing exactly the same thing what they always did with PHP, JSP, ASP, RoR, Django etc. Then you are just using ReactJS as a yet another server side
+templating engine - even if this time JavaScript based and decorated with new buzzwords - but conceptually really just continuing a tradition from the last millenium. It is okay to do so and 
+it's great for creating static content but then <b>please just don't call it SPA</b> because the point of an SPA is that the browser client renders the views and not the server. And that
+<b>requires networking with AJAX</b> because the client needs to load templates data dynamically from the server.
+Ideally a true SPA only loads data and templates - not readily rendered views.<p/>
 
 <h3>Installation</h3><p/>
 
@@ -198,7 +202,7 @@ the model when user edits a text area, text input field or selects a checkbox. T
 core components. Yet it is not that much more difficult to just add a classic event listener "onchange" 
 and write an updater method. Basic model binding will fall short when 
 you try to add a just little bit more advanced UI widget. And it will fall short when you want to add some custom validation.
-And you <i>will be</i> needing custom validations. In the end of the day, you will be writing custom updater methods anyway.<p/>
+And you <i>will be</i> needing custom validations. At the end of the day, you will be writing custom updater methods anyway.<p/>
 
 <h3>Putting It Into Context</h3><p/>
 
