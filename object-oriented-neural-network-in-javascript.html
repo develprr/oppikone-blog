@@ -301,6 +301,14 @@ training starts: maximum number of iterations and error threshold value. For exa
 	network.train(trainData, maxIterationsCount,errorThresholdValue);
 </textarea>
 
+<p>This procedure can be compared with a blind man with a golf club whom you want to teach hitting the hole. Every time you shout
+"fire!" the blind fellow launches. You check by how wide margin he misses the hole and then you tell him something like "adjust left 2 meters". 
+The blind fellow then launches again. You repeat this procedure until the ball hits the hole (threshold value reached) or you just run out of golf balls (maximum number of iterations reached).</p>
+
+<img src="http://www.blindgolf.co.uk/uploads/images/Jim%20Hole%20in%20one.jpg" style="width:100%;max-width:350px"/>
+
+Given that the blind man is a neural network (actually, he is!) and his brain cells are neurons (in deed, they are!) and given that <b>NeuralNet.train()</b> function is the
+procedure for teaching him to hit the target then what we need is to implement functions for <b>fire!</b> and <b>adjust!</b> actions. Right?<p/>
 <p>And here is a reference to training function:</p>
 
 <textarea style="width:100%;height:800px">
