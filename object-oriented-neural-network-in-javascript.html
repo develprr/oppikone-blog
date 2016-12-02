@@ -149,7 +149,8 @@ a biological neural network.<p/>
 
 But no need to be discouraged! Despite of their hollowness, multilayer perceptrons are apparently still very useful for machine learning 
 purpose. They can be used as building blocks for truly deep networks. It just does not happen by adding more hidden layers but
-rather chaining them up into recurrent networks instead.
+rather chaining them up into recurrent networks instead. According to my current understaning, neural network models better suited for recurrency than MLP are Hopfield, Elman and bi-directional RNN.
+But MLP is a good workhorse for many classification tasks and a robust launchpad for seeking deeper wisdom!<p/>
 
 <h3>Creating Layers</h3><p/>
 
@@ -307,35 +308,40 @@ The blind fellow then launches again. You repeat this procedure until the ball h
 
 <img src="http://www.blindgolf.co.uk/uploads/images/Jim%20Hole%20in%20one.jpg" style="width:100%;max-width:350px"/><p/>
 
-Given that the blind man is a neural network (actually, he is!) and his brain cells are neurons (in deed, they are!) and given that <b>NeuralNet.train()</b> function is the
-procedure for teaching him to hit the target then what we need is to implement functions for <b>fire!</b> and <b>adjust!</b> actions. Right?<p/>
-<p>And here is a reference to training function:</p>
+Given that the blind man is a neural network (actually, he is!) and his brain cells are neurons (in deed, they are!) then let <b>NeuralNet.train()</b> be the function to 
+to teach him to hit the hole. Training consists of many repetitions until the targeted skill level is reached (threshold) or the
+resources reserved for training are suffocated without reaching the objective (max iterations). Basically
+almost any training has one thing in common. It is a procedure of exhaustive iterations. Think about teaching 
+a dog to do a trick, a ski jumper pursuing a new record, just anything. Training a neural network can be modeled
+in JavaScript program code similarly:<p/> 
 
 <textarea style="width:100%;height:800px">
 
 NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {	
 	
-	this.setTargetErrorMargin(errorThresholdValue);	
-	this.setCurrentErrorMargin(1.0);
-
+	
 	var currentIterationCount = 0;
+	var currentErrorMargin = 1.0;
 
-	while (this.getCurrentErrorMargin() > errorThresholdValue)
-		
-		this.fire(trainData);
+	while (currentErrorMargin > errorThresholdValue)
 		
 		if (currentIterationCount === maxIterationCount) {
 			break;
-		}
+		}	
 
-		var newErrorMargin = this.adjust(trainData);
-		this.setCurrentErrorMargin(newErrorMargin);
-		
+		currentErrorMargin = NeuralNet.iterate(trainData);
+
 		currentIterationCount++;
 	}
 }
 
 </textarea>
+
+This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations!
+<p>
+
+<b>NeuralNet.iterate(trainData);</b><p/>
+
 
 <h3>To Be Continued...</h3> 
                 </div>
