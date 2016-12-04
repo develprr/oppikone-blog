@@ -259,7 +259,101 @@ case is more tricky because then the categories must be normalized which will th
 it works, anyway. The data must be also normalized so that all values will be something between 0 and 1. 
 A neural network consisting of multilayer percetrons is useful in classifying tasks. For instance, you can teach
 the network labeled examples of different species of flowers. Then you can let the trained network use its "wisdom"
-and label some new unlabeled flower data. A classical
+and label some new unlabeled flower data. A classical example of this is the Iris dataset that contains variations of Iris
+-flower subspecies pedal lengths.<p/>
+
+The simplest and probably most common example training data sample, however, is XOR operator. XOR operator data is already
+in normalized form (1's and 0's) and its training data is easy to generate. XOR operator takes two parameters and returns true
+if they differ from each other and false if they are same. The task is to teach the neural network to understand the
+logic of a XOR operator. Let's create training data for XOR operator:<p/>
+
+<textarea style="width:100%;height:500px" >
+	var XORTrainData = {
+		getRandomZeroOrOne: function() {
+			return parseInt(Math.random() + 0.5);
+		},
+				
+		generate: function() {	
+			var matrix = [];
+			for (var i = 0; i < 100; i++) {
+				var param1 = this.getRandomZeroOrOne();
+				var param2 = this.getRandomZeroOrOne();
+				var result = (param1 === param2) ? 0 : 1; // XOR OPERATOR!!!
+				matrix.push([param1,param2,result]);
+			}
+			return matrix;
+		}
+		
+	}
+</textarea>
+<p/>
+Now, we get our training data for XOR operator:<p/>
+
+<b>var</b> trainingData = XORTrainData.generate();<p/>
+
+<h3>Training Procedure</h3><p/>
+
+When training a neural network with train data, the data matrix is being fed into the neural network row by row. On each iteration,
+the error margin decreases. Training is ready when the error is smaller than a threshold value. Training can also be
+stopped until a desired number of iterations is reached. This means that two barrier values must be set before the 
+training starts: maximum number of iterations and error threshold value. For example:<p/>
+
+<textarea style="width:100%;height:500px">
+	var trainData = XORTrainData.generate();
+	
+	var inputNeuronCount = 2;
+	var outputNeuronCount = 1;
+	var hiddenLayerCounts = [4];
+	
+	var network = NeuralNet.new(
+			inputNeuronCount,
+			outputNeuronCount,
+			hiddenLayerCounts);
+	
+	var maxIterationsCount = 100;
+	var errorThresholdValue = 0.01;	
+	network.train(trainData, maxIterationsCount,errorThresholdValue);
+</textarea>
+
+<p>This procedure can be compared with a blind man with a golf club whom you want to teach hitting the hole. Every time you shout
+"fire!" the blind fellow launches. You check by how wide margin he misses the hole and then you tell him something like "adjust left 2 meters". 
+The blind fellow then launches again. You repeat this procedure until the ball hits the hole (threshold value reached) or you just run out of golf balls (maximum number of iterations reached).</p>
+
+<img src="http://www.blindgolf.co.uk/uploads/images/Jim%20Hole%20in%20one.jpg" style="width:100%;maxwidth:350px"/><p/>
+
+Given that the blind man is a neural network (actually, he is!) and his brain cells are neurons (in deed, they are!) then let <b>NeuralNet.train()</b> be the function to 
+to teach him to hit the hole. Training consists of many repetitions until the targeted skill level is reached (threshold) or the
+resources reserved for training are suffocated without reaching the objective (max iterations). Basically
+almost any training has one thing in common. It is a procedure of exhaustive iterations. Think about teaching 
+a dog to do a trick, a ski jumper pursuing a new record, just anything. Training a neural network can be modeled
+in JavaScript program code similarly:<p/> 
+
+<textarea style="width:100%;height:800px">
+
+NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {	
+	
+	
+	var currentIterationCount = 0;
+	var currentErrorMargin = 1.0;
+
+	while (currentErrorMargin > errorThresholdValue)
+		
+		if (currentIterationCount === maxIterationCount) {
+			break;
+		}	
+
+		currentErrorMargin = NeuralNet.iterate(trainData);
+
+		currentIterationCount++;
+	}
+}
+
+</textarea>
+
+This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations!
+<p>
+
+<b>NeuralNet.iterate(trainData);</b><p/>
                 </div>
             </div>
         </div>
