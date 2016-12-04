@@ -224,12 +224,12 @@ indicates an integer value and "hiddenLayerNeuron<b>Counts</b>" refers to an arr
 
 Using the constructor I described above, let's create a neural net with two input neurons, one output neuron and one hidden layer with four neurons:<p/>
 
-<b>var neuralNet = NeuralNet.new(2,1,[4]);<b/><p/>
+<b>var neuralNet = NeuralNet.new(2,1,[4]);</b><p/>
 
 For comparison, if we wanted a neural net with two input neurons, one output neuron, one hidden layer with four neurons and
 one hidden layer with three neurons, we would code:<p/>
 
-<b>var neuralNet = NeuralNet.new(2,1,[4,3]);<b/><p/>
+<b>var neuralNet = NeuralNet.new(2,1,[4,3]);</b><p/>
 
 Now it's time to have a new iteration of neuron layers. Each layer contains an array of neurons. We'll modify NeuronLayer
 to initialize its neurons instead of jus holding a dummy number to tell the total number of neurons.<p/>
