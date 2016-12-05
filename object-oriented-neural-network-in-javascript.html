@@ -279,7 +279,7 @@ logic of a XOR operator. Let's create training data for XOR operator:<p/>
 				var param1 = this.getRandomZeroOrOne();
 				var param2 = this.getRandomZeroOrOne();
 				var result = (param1 === param2) ? 0 : 1; // XOR OPERATOR!!!
-				matrix.push([param1,param2,result]);
+				matrix.push([[param1,param2],[result]]);
 			}
 			return matrix;
 		}
@@ -287,7 +287,9 @@ logic of a XOR operator. Let's create training data for XOR operator:<p/>
 	}
 </textarea>
 <p/>
-Now, we get our training data for XOR operator:<p/>
+
+Each entry of our training data is an array containing two more arrays. First array contains a sample set of parameters 7
+and the second array contains an observed result of that parameter combinations. Now, we get our training data for XOR operator:<p/>
 
 <b>var</b> trainingData = XORTrainData.generate();<p/>
 
@@ -323,7 +325,7 @@ The blind fellow then launches again. You repeat this procedure until the ball h
 
 Given that the blind man is a neural network (actually, he is!) and his brain cells are neurons (in deed, they are!) then let <b>NeuralNet.train()</b> be the function to 
 to teach him to hit the hole. Training consists of many repetitions until the targeted skill level is reached (threshold) or the
-resources reserved for training are suffocated without reaching the objective (max iterations). Basically
+resources reserved for training are used up without reaching the objective (max iterations). Basically
 almost any training has one thing in common. It is a procedure of exhaustive iterations. Think about teaching 
 a dog to do a trick, a ski jumper pursuing a new record, just anything. Training a neural network can be modeled
 in JavaScript program code similarly:<p/> 
@@ -338,11 +340,21 @@ NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {
 
 	while (currentErrorMargin > errorThresholdValue)
 		
+		// stop when enough is enough
 		if (currentIterationCount === maxIterationCount) {
 			break;
 		}	
 
-		currentErrorMargin = NeuralNet.iterate(trainData);
+		// stop when there is no entries left in the train data
+		if (trainData.length === 0) {
+		 	break;
+		}
+	
+		//we take the next example from the traindata stack.
+		
+		var pattern = trainData.shift();
+		
+		currentErrorMargin = NeuralNet.learnPattern(pattern);
 
 		currentIterationCount++;
 	}
@@ -350,10 +362,12 @@ NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {
 
 </textarea>
 
-This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations!
+This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations of learning:
 <p>
+<b>NeuralNet.learnPattern(pattern);</b><p/>
 
-<b>NeuralNet.iterate(trainData);</b><p/>
+
+<h3>To Be Continued...</h3>
                 </div>
             </div>
         </div>
