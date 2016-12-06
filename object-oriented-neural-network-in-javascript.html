@@ -149,7 +149,8 @@ a biological neural network.<p/>
 
 But no need to be discouraged! Despite of their hollowness, multilayer perceptrons are apparently still very useful for machine learning 
 purpose. They can be used as building blocks for truly deep networks. It just does not happen by adding more hidden layers but
-rather chaining them up into recurrent networks instead. According to my current understaning, neural network models better suited for recurrency than MLP are Hopfield, Elman and bi-directional RNN.
+rather chaining them up into recurrent networks instead. With MLP, you can have one or two hidden layers, depending on the case. But adding more 
+than that won't make the network any better. My understanding is that neural network models better suited for recurrency than MLP are at least Hopfield, Elman and bi-directional RNN.
 But MLP is a good workhorse for many classification tasks and a robust launchpad for seeking deeper wisdom!<p/>
 
 <h3>Creating Layers</h3><p/>
@@ -344,27 +345,57 @@ NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {
 		if (currentIterationCount === maxIterationCount) {
 			break;
 		}	
-
 		// stop when there is no entries left in the train data
 		if (trainData.length === 0) {
 		 	break;
 		}
-	
 		//we take the next example from the traindata stack.
-		
 		var pattern = trainData.shift();
-		
-		currentErrorMargin = NeuralNet.learnPattern(pattern);
-
+		var inputs = pattern[0];
+	        var outputs = pattern[1];
+		currentErrorMargin = this.iterate(inputs,outputs);
 		currentIterationCount++;
 	}
 }
 
 </textarea>
 
-This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations of learning:
+Notice that I declared Neural network's train function as a <i>static method</i>. Is it a bad practice for object oriented 
+programming?<b>Absolutely no</b>, if you know that your application is only going to handle one neural network at time!
+And <b>absolutely yes</b>, if your application must handle many neural networks simultaneously. For simplicity,
+we are using static methods here. We only need one neural network for any given time.<p/>
+
+
+This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations of learning.
+Warning, this is going to be very complicated, almost rocket science:
 <p>
-<b>NeuralNet.learnPattern(pattern);</b><p/>
+
+<textarea style="width:100%;height:800px">
+NeuralNet.iterate = function(inputs,outputs) {
+	
+	//old man launches golf ball
+	this.fire(inputs);
+
+	//you tell him how much he must adjust
+	this.adjust(outputs);
+
+	//you check if the result is good enough
+	return this.calculateError(outputs);
+}
+</textarea>
+
+Just kidding! Each iteration really consists of these very primitive steps. To understand the next part, however,
+it's important to understand the nature of a neuron.
+
+<h3>What Is A Neuron?</h3>
+
+When you were little, did you ever observe how rain drops behave on window glass when it's raining? I believe you did. You stared at window glass and saw how a rain drop would
+stay in one place, growing a little bit every time another raindrop flew down and joined it. And when the raindrop was big enough,
+it would suddenly divide in two! One part remained where it was while the other part rapidly ran downward until it joined another rain drop further below. 
+That's exactly how neurons are! Nature repeats itself everywhere! The same neural pattern can be observed in every place. When you fill a coffee cup
+and it spills over when it's full, that has something in common with a neuron!<p/>
+
+<p>To put it short, <b>neuron is a container that absorbs stimuli and fires one big stimuli when it's full.<b/><p/>
 
 
 <h3>To Be Continued...</h3>
