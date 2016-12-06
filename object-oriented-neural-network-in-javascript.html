@@ -358,12 +358,12 @@ NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {
 	}
 }
 
-</textarea>
+</textarea><p/>
 
 Notice that I declared Neural network's train function as a <i>static method</i>. Is it a bad practice for object oriented 
 programming?<b>Absolutely no</b>, if you know that your application is only going to handle one neural network at time!
 And <b>absolutely yes</b>, if your application must handle many neural networks simultaneously. For simplicity,
-we are using static methods here. We only need one neural network for any given time.<p/>
+we are using static methods here. We only need one neural network at any given time.<p/>
 
 
 This is all very simple so far. But miracles start to unravel when we dive in to explore what happens inside all those countless iterations of learning.
