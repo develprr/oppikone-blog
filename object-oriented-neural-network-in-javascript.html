@@ -361,7 +361,7 @@ NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {
 </textarea><p/>
 
 Notice that I declared Neural network's train function as a <i>static method</i>. Is it a bad practice for object oriented 
-programming?<b>Absolutely no</b>, if you know that your application is only going to handle one neural network at time!
+programming? <b>Absolutely no</b>, if you know that your application is only going to handle one neural network at time!
 And <b>absolutely yes</b>, if your application must handle many neural networks simultaneously. For simplicity,
 we are using static methods here. We only need one neural network at any given time.<p/>
 
@@ -387,7 +387,7 @@ NeuralNet.iterate = function(inputs,outputs) {
 Just kidding with rocket science! Each iteration really consists of these very primitive steps. To understand the next part, however,
 it's important to understand the nature of a neuron.
 
-<h3>What Is A Neuron?</h3>
+<h3>What Is A Neuron?</h3><p/>
 
 When you were little, did you ever observe how raindrops behave on a window glass when it's raining? I believe you did. You stared at a window glass and saw how a raindrop would
 stay in one place, growing a little bit every time another raindrop flew down and joined it. And when the raindrop was big enough,
