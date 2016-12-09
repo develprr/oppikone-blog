@@ -436,7 +436,7 @@ Therefore neurons are not directly connected to each other but rather through br
 Since no neuron is useful if it is isolated from others, we'll modify neuron's constructor in a fashion that it takes in all its input neurons and
 generates corresponding dendrites when instantiated.<p/>
 
-<textarea style="width:100%;height:500px">
+<textarea style="width:100%;height:550px">
 
 Neuron.new = function(inputNeurons) {
 	var newNeuron = {
@@ -454,14 +454,14 @@ Neuron.new = function(inputNeurons) {
 	}
 	return newNeuron;
 }
-
 </textarea> <p/>
 
 In our model, it is the dendrites that will contain the "wisdom" of the neural network. The dendrites will contain a weight
 value that simulates the signal strength of biological neurons. The purpose of a neural network is to learn correlations between
 input data and their observed result. The correlation is stored in neuron's dendrites and it is being further tuned toward
-the optimum each time the neuron is fed with new data sample. 
-<i>To Be Continued...</i>
+the optimum each time the neuron is fed with new data sample. <p/>
+
+<h3>To Be Continued...</h3>
                 </div>
             </div>
         </div>
