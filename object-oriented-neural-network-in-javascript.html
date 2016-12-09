@@ -436,7 +436,7 @@ Therefore neurons are not directly connected to each other but rather through br
 Since no neuron is useful if it is isolated from others, we'll modify neuron's constructor in a fashion that it takes in all its input neurons and
 generates corresponding dendrites when instantiated.<p/>
 
-<textarea style="width:100%;height:300px">
+<textarea style="width:100%;height:500px">
 
 Neuron.new = function(inputNeurons) {
 	var newNeuron = {
@@ -452,7 +452,7 @@ Neuron.new = function(inputNeurons) {
 		var dendrite = Dendrite.new(thisNeuron,axon);
 		newNeuron.dendrites.push(dendrite);
 	}
-	return thisNeuron;
+	return newNeuron;
 }
 
 </textarea> <p/>
