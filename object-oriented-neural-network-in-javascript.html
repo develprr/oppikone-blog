@@ -493,7 +493,7 @@ var Dendrite.new = function(neuron) {
 			}
 			this.loaded = false;
 			var outboundValue = inboundValue * this.weight;
-			this.neuron.addValue(outboundValue);
+			this.neuron.addDendriteValue(outboundValue);
 		},
 		reload: function() {
 			this.loaded = true;
@@ -507,14 +507,14 @@ Let's implement that function for Neuron class. It's purpose is to add a new wei
 Neuron will keep track of these droplets joining in and when all dendrite channels have spitted out their values Neuron will
 sum up those values and invoke its outbound signal system, the axon:<p/>
 
-<textarea style="width:100%;height:750px">
+<textarea style="width:100%;height:950px">
 
 	//new instance methods for Neuron...
 	..
-	addValue: function(newIncomingDendriteValue) {
+	addDendriteValue: function(newIncomingDendriteValue) {
 		this.values.push(newIncomingDendriteValue);
 		//check if all dendrites have given their value
-		if (this.values.length != this.dendrites.length) {
+		if (this.dendriteValues.length != this.dendrites.length) {
 			return;
 		}
 		var sumValue = this.sumDendriteValues();
@@ -542,7 +542,7 @@ sum up those values and invoke its outbound signal system, the axon:<p/>
 
 </textarea><p/>
 
-Neuron's new instance methods described above will wake up neuron every time a dendrite pukes in its content. 
+Neuron's new instance methods described above will wake up neuron every time a dendrite pours in its content. 
 Neuron checks whether all dendrites have given their value. If so then those values are summed up and passed
 over to the axon. After that all dendritic values are cleaned up and dendrites reloaded so that they can fire again.
 
