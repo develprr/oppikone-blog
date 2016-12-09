@@ -449,7 +449,7 @@ Neuron.new = function(inputNeurons) {
 	for (var i = 0; i < inputNeurons.length; i++) {
 		var inputNeuron = inputNeurons[i];
 		var axon = inputNeuron.getAxon();
-		var dendrite = Dendrite.new(thisNeuron,axon);
+		var dendrite = Dendrite.new(newNeuron,axon);
 		newNeuron.dendrites.push(dendrite);
 	}
 	return newNeuron;
