@@ -512,7 +512,7 @@ sum up those values and invoke its outbound signal system, the axon:<p/>
 	//new instance methods for Neuron...
 	..
 	addDendriteValue: function(newIncomingDendriteValue) {
-		this.values.push(newIncomingDendriteValue);
+		this.dendriteValues.push(newIncomingDendriteValue);
 		//check if all dendrites have given their value
 		if (this.dendriteValues.length != this.dendrites.length) {
 			return;
