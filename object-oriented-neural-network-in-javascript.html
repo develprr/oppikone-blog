@@ -500,10 +500,11 @@ var Dendrite.new = function(neuron) {
 }
 </textarea><p/>
 
-Please note that Dendrite is now calling neuron's method <b>addValue</b> that I didn't define yet.
-Let's implement that function for Neuron class. It's purpose is to add a new weighed value to Neuron dripping in from its many neurons.
-Neuron will keep track of these droplets joining in and when all dendrite channels have spitted out their values Neuron will
-sum up those values and invoke its outbound signal system, the axon:<p/>
+Please note that Dendrite is now calling neuron's method <b>addDendriteValue</b> that I didn't define yet.
+Let's implement that function for Neuron class. It's purpose is to add a new weighed value to Neuron. 
+These values will be flowing in to join the neuron like <b>raindrops on a rainy day!</b>
+Neuron will keep track of these droplets joining in and when all dendrite channels have spitted out their values 
+then the neuron will sum up those values and invoke its outbound signal system, the axon:<p/>
 
 <textarea style="width:100%;height:1000px">
 
