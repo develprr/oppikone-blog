@@ -479,7 +479,9 @@ crazy and "voting" many times.
 
 <textarea style="width:100%;height:750px">
 
-var Dendrite.new = function(neuron) {
+var Dendrite = {};
+
+Dendrite.new = function(neuron) {
 	return {
 		id: Dendrite.generateId(),
 		neuron: neuron,
