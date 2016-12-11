@@ -565,9 +565,9 @@ implementation then wouldn't affect the Dendrite's implementation.
 <p>While that sort of "modularity" provides a certain theoretical advantage, experience shows that it comes with an enormous cost. <b>Overuse of events makes it difficult to follow the program flow</b>.
  If you try to follow the program execution you are, generally speaking, lost almost every time the code fires an event. You don't know what parts of the software
 are listening to the event. You can't be sure of the execution order of those listeners. It's going to be a maintainer's nightmare. Of course you can make
-it easier by using an IDE that automatially searches for occurences that adds a listener to the component. But that only proves that there should be a direct shortcut
+it easier by using an IDE that automatially searches for occurences that add a listener to the component. But that only proves that there should be a direct shortcut
 from the event shooter to the listener. And that shortcut has a name, ladies and gentlemen, and the name is <i>direct invocation</i>.
-Therefore, the observer pattern should only be applied if there are very heavy arguments for it. Such might by some asynchronous cases, for instance when catching user events in the UI.
+<p/>For reasons described above, the observer pattern should only be applied if there are very heavy arguments for it. Such might be some asynchronous cases, for instance when catching user events in the UI.
 Or cases where the result of an action is highly mutable, having many different possible listeners that could be expected to be catching outbound events. 
 But it is another story and it isn't the case with dendrites of this article: firing a dendrite will always be only a concern of it's very host neuron. 
 </div><p/>
