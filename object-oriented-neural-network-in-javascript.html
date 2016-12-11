@@ -466,7 +466,14 @@ Neuron.new = function(inputNeurons) {
 }
 </textarea> <p/>
 
-In our model, it is the dendrites that will contain the "wisdom" of the neural network. The dendrites will contain a weight
+<h3>Anatomy Of The Dendrite</h3><p/>
+
+The dendrites really are a very integral part of the biological neuron. They are bridges delivering inbound signal traffic into the neuron. But typically,
+software implementations of neural networks don't contain dendrites. Typically, they don't really have that much in common with true biological neural networks. 
+They don't introduce any good object oriented models of real neurons. 
+But since my objective is to demostrate OOP, my computational neuron model will in deed include the dendrite.<p/>
+
+In this model, it is the dendrites that will contain the "wisdom" of the neural network. The dendrites will contain a weight
 value that simulates the signal strength of biological neurons. The purpose of a neural network is to learn correlations between
 input data and their observed result. The correlation is stored in neuron's dendrites and it is being further tuned toward
 the optimum each time the neuron is fed with a new data sample. When a dendrite is created, it will have a random initial weight between 0 and 1. 
@@ -505,6 +512,9 @@ Dendrite.new = function(neuron) {
 Please note that Dendrite is now calling neuron's method <b>addDendriteValue</b> that I didn't define yet.
 Let's implement that function for Neuron class. It's purpose is to add a new weighed value to Neuron. 
 These values will be flowing in to join the neuron like <b>raindrops on a rainy day!</b>
+
+<h3>Neuron's Response to Dendrite Activity</h3><p/>
+
 Neuron will keep track of these droplets joining in and when all dendrite channels have spitted out their values 
 then the neuron will sum up those values and invoke its outbound signal system, the axon:<p/>
 
@@ -542,6 +552,23 @@ then the neuron will sum up those values and invoke its outbound signal system, 
 	..
 
 </textarea><p/>
+
+<p/>
+<div style="background-color:cyan;font-size:smaller;width:100%">
+<b>How About Modularity?</b></p>
+
+Note that I could have used here <b>observer pattern</b> to implement the interaction between the neuron and its dendrites.
+That would mean that I would, instead of allowing a dendrite to call directly <b>addDendriteValue</b>
+of its host neuron, rather let the dendrite fire an "onchange" event when it's been invoked. Some say, that would 
+increase the maintainability through modular isolation, allowing to separate <i>Dendrite</i> from <i>Neuron</i>. Changes made to Neuron's
+implementation then wouldn't affect the Dendrite's implementation. Experience shows that while that sort of "modularity" theoretically
+provides a certain advantage, it comes with an enormous cost. <b>Overly using events makes it difficult to follow the program flow</b>. If you
+try to follow the program flow you are lost every time the code fires an event. You don't know what parts of the software
+are listening to the event. You can't be sure of the execution order of those listeners. It's going to be a maintainer's nightmare.
+Therefore, the observer pattern should only be applied if there are very heavy arguments for it. Such might by some asynchronous cases, for instance when listening user events in the UI.
+Or cases where the result of an action is highly mutable, when many different possible listeners can be expected to be catching outbound events. 
+But it is another story and it isn't the case with dendrites: firing a dendrite will always be only a concern of it's very host neuron. 
+</div><p/>
 
 Neuron's new instance methods described above will wake up neuron every time a dendrite pours in its content. 
 Neuron checks whether all dendrites have given their value. If so then those values are summed up and passed
