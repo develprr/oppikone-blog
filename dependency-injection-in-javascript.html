@@ -98,10 +98,10 @@ enrolled on that lecture:<p/>
 
 <textarea style="width:100%;height:250px;">
 
-var StundentListController = {};
+var StudentListController = {};
 
-StundentListController.renderStundents = function(lectureId) {
-	var stundentList = this.studentListService.findStudents(lectureId);
+StudentListController.renderStudents = function(lectureId) {
+	var studentList = this.studentListService.findStudents(lectureId);
 	return Template.parse("studentListTemplate", studentList);
 };
 
@@ -118,7 +118,7 @@ It came through dependency injection. Therefore, <i>StudentListController</i> mu
 
 <textarea style="width:100%;height:250px;">
 
-StundentListController.setStudentListService = function(studentListService) {
+StudentListController.setStudentListService = function(studentListService) {
 	this.studentListService = studentListService;
 };
 
