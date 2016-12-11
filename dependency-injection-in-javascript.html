@@ -116,7 +116,7 @@ For object oriented programming, have a look at my article on <a href="http://ww
 Please note that <i>StudentListController</i> has a reference to <i>studentListService</i>. Where did <i>studentListService</i> come from?
 It came through dependency injection. Therefore, <i>StudentListController</i> must have an injection method for the student list service:
 
-<textarea style="width:100%;height:250px;">
+<textarea style="width:100%;height:150px;">
 
 StudentListController.setStudentListService = function(studentListService) {
 	this.studentListService = studentListService;
@@ -127,7 +127,7 @@ StudentListController.setStudentListService = function(studentListService) {
 This is almost too easy to be true, right? True dependency injection without any framework! Someone from Java planet might raise his
 hand at this point, to announce his strong objection: "Hey hey hey, how about interfaces?" But that's the fun part of dynamic languages: you don't need interfaces!
 Interfaces, once considered to be one of most ingenious inventions in Java, actually only solve a self-imposed problem. Interfaces
-solve a limitation that only exists if the programming language has a (self-imposed) requirement for strongly typed data structures! With
+solve a limitation that only exists if the programming language has a requirement for strongly typed data structures! With
 no types, there is no need for interfaces. No types, no worries!<p/>
                 </div>
             </div>
