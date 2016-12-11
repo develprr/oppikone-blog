@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="No, you don't need any "framework" at all!">
+    <meta name="author" content="Oppikone">
+
+    <title>Dependency Injection In JavaScript</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div style="display:none" class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="http://www.oppikone.fi">Oppikone</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul style display="none" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="http://www.oppikone.fi">Oppikone</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('http://www.oppikone.fi/templates/oppikone/files/nature/world-footer.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Dependency Injection In JavaScript</h1>
+                        <h2 class="subheading">No, you don't need any "framework" at all!</h2>
+                        <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 2016-12-11</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          		There has been lately some talk about "dependency injection support" in different JavaScript "frameworks". 
+I saw even a funny article comparing JQuery and AngularJS, concluding that AngularJS, unlike JQuery, 
+"supports dependency injection". Seriously! A statement like that can't be possibly formulated either
+without extreme poverty of imagination or at least fundamental lack in conceptual understanding of weakly typed programming languages.<p/>
+
+<p/><i>The great secret is: you don't need any "framework" at all to have "dependency injection".</i><p/>
+
+In JavaScript, like in any dynamic language, <i>dependency injection design pattern</i> actually is a feature so inherent to
+the very programming concept that changes are it actually never crosses your mind to start thinking about "dependency injection" at all. 
+I am going to demonstrate dependency injection in vanilla JavaScript, which means <i>without any framework</i>. 
+In the following example I will create a controller with an injected dependency. Yes, a true controller as in MVC (Model-View-Contoller) pattern.
+With MVC design pattern, just like with "dependency injection", you don't really need any "framework" to use MVC either. You just need some
+basic programming skills and a little bit imagination!<p/>
+
+Now, I am going to write a "Student List Controller" that gets the lecture ID as parameter and renders a list of students
+enrolled on that lecture:<p/>
+
+<textarea style="width:100%;height:250px;">
+
+var StundentListController = {};
+
+StundentListController.renderStundents = function(lectureId) {
+	var stundentList = this.studentListService.findStudents(lectureId);
+	return Template.parse("studentListTemplate", studentList);
+};
+
+</textarea><p/>
+
+The code I describe above introduces a Student List Controller that can render a html view containing a student listing.
+This code is vanilla JavaScript and does not require any additional framework as such. Controller actions can be typically
+static methods since there is conceptually only one instance of each controller in any given application. Should there be 
+any need to define controllers as instances - which I strongly doubt - that wouldn't be any problem in vanilla JavaScript either.
+For object oriented programming, have a look at my article on <a href="http://www.oppikone.fi/blog/javascript-oop.html"> object oriented programming in Javascript.</a><p/>
+
+Please note that <i>StudentListController</i> has a reference to <i>studenListservice</i>. Where did <i>studenListservice</i> come from?
+It came through dependency injection. Therefore, <i>StudentListController</i> must have an injection method for the student list service:
+
+<textarea style="width:100%;height:250px;">
+
+StundentListController.setStudentListService = function(studentListService) {
+	this.studentListService = studentListService;
+};
+
+</textarea><p/>
+
+This is almost too easy to be true, right? True dependency injection without any framework! Someone from Java planet might raise his
+hand at this point, to announce his strong objection: "Hey hey hey, how about interfaces?" But that's the fun part of dynamic languages: you don't need interfaces!
+Interfaces, once considered to be one of most ingenious inventions in Java, actually only solve a self-imposed problem. Interfaces
+solve a limitation that only exists if the programming language has a (self-imposed) requirement for strongly typed data structures! With
+no types, there is no need for interfaces. No types, no worries!<p/>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul style="display:none" class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+		    <p class="copyright text-muted">View this article on <a href="https://github.com/develprr/oppikone-blog/commits/master/dependency-injection-in-javascript.html">GitHub!</a></p>
+                    <p class="copyright text-muted">Copyright &copy; Oppikone 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
