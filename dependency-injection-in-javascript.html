@@ -87,7 +87,7 @@ without extreme poverty of imagination. The great secret is:<p/>
 <p/><i>You don't need any framework at all to have dependency injection.</i><p/>
 
 In JavaScript, like in any dynamic language, <i>dependency injection design pattern</i> actually is a feature so inherent to
-the very programming concept that chances are it actually never crosses your mind to start thinking about "dependency injection" at all. 
+the very programming concept that chances are it actually never crosses your mind to start thinking about it at all. 
 I am going to demonstrate dependency injection in vanilla JavaScript, which means <i>without any framework</i>. 
 In the following example I will create a controller with an injected dependency. Yes, a true controller as in true MVC (Model-View-Contoller) pattern.
 The case with MVC design pattern is just the same as with "dependency injection". You don't really need any framework to use MVC either. You just need some
@@ -101,7 +101,7 @@ var StudentListController = {};
 
 StudentListController.renderStudents = function(lectureId) {
 	var studentList = this.studentListService.findStudents(lectureId);
-	return Template.parse("studentListTemplate", studentList);
+	return this.templateEngine.parse("studentListTemplate", { students: studentList });
 };
 </textarea><p/>
 
@@ -114,12 +114,15 @@ For object oriented programming, have a look at my article on <a href="http://ww
 Please note that <i>StudentListController</i> has a reference to <i>studentListService</i>. Where did <i>studentListService</i> come from?
 It came through dependency injection. Therefore, <i>StudentListController</i> must have an injection method for the student list service:
 
-<textarea style="width:100%;height:200px;">
+<textarea style="width:100%;height:400px;">
 
 StudentListController.setStudentListService = function(studentListService) {
 	this.studentListService = studentListService;
 };
 
+StudentListController.setTemplateEngineService = function(templateEngineService) {
+	this.templateEngine = templateEngineService;
+};
 </textarea><p/>
 
 This is almost too easy to be true, right? True dependency injection without any framework! Someone from Java planet might raise his
@@ -127,6 +130,47 @@ hand at this point, to announce his strong objection: "Hey hey hey, how about in
 Interfaces, once considered to be one of most ingenious inventions in Java, actually only solve a self-imposed problem. Interfaces
 solve a limitation that only exists if the programming language has a requirement for strongly typed data structures! With
 no types, there is no need for interfaces. No types, no worries!<p/>
+
+Conveniently, it is useful to have one centralized location for initializing dependencies. You can basically name the
+class for this procedure as you wish. I like to have it in App class. It is common that the first class of the Application is named "App". App is the 
+starting point of the whole application. Typically it is initalized in web page's onload event.
+
+<textarea style="width:100%;height:500px;">
+var App = {}
+
+App.initializeDependencies = function() {
+
+	// initializing services
+	var studentListService = JSONRequestStudentListService.new();
+	var templateEngine = EJSTemplateEngine.new();
+
+	//injecting services 
+	StudentListController.setStudentListService(studentListService);
+	StudentListController.setTemplateEngineService(templateEngine);
+	
+};
+
+//invoked in body's onload
+App.init = function() {
+	this.initializeDependencies();
+
+	//other initializations follow here
+}
+
+</textarea>
+
+Now, this architecture makes it possible to swap implementations for the student list service and the template engine
+on the fly. For instance, you might want to use some other template engine than EJS. In that case, you only need to replace
+<i>EJSTemplateEngine</i> with another implementation, for instance <i>MustacheTemplateEngine.</i>. Make sure that both templating  
+engines implement <i>parse</i> function. JavaScript will only complain when it's time to try out! Similarly, when the data format for the student list feed changes,
+you might need to use <i>XMLRequestStudentListService</i> instead of <i>JSONRequestStudentListService</i>. With dependency injection,
+you will only need to update the dependency initialization section of the software.<p/>
+
+While dependency injection's theory makes a lot sense, the benefit you might gain from it often remains only theoretical. 
+Most likely you will only need one template engine during the life time of your application. And chances are that
+that there won't be true need to change any service implementation either. While over-engineering is a lot of fun and probably makes you feel noble,
+always remember that it's the customer's wallet that ultimately decides whether your awesome design patterns will land in the history books
+or a garbage bin next door!
                 </div>
             </div>
         </div>
