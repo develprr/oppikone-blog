@@ -108,7 +108,7 @@ by yourself.<p/>
 Animal and human brains consist of billions of neurons that are somehow interconnected and somehow enable those animal
 and human brains to think.<p/>
 
-<img style="width:100%;max-width:300px" src="https://upload.wikimedia.org/wikipedia/commons/1/15/PurkinjeCell.jpg"/><p/>
+<img style="width:100%;max-width:500px" src="https://upload.wikimedia.org/wikipedia/commons/1/15/PurkinjeCell.jpg"/><p/>
 
 So that's why I guess that we need to start by coding a neuron:
 
@@ -289,7 +289,7 @@ logic of a XOR operator. Let's create training data for XOR operator:<p/>
 <p/>
 
 Each entry of our training data is an array containing two more arrays. First array contains a sample set of parameters 7
-and the second array contains an observed result of that parameter combinations. Now, we get our training data for XOR operator:<p/>
+and the second array contains an obseved result of that parameter combinations. Now, we get our training data for XOR operator:<p/>
 
 <b>var</b> trainingData = XORTrainData.generate();<p/>
 
@@ -321,7 +321,7 @@ training starts: maximum number of iterations and error threshold value. For exa
 "fire!" the blind fellow launches. You check by how wide margin he misses the hole and then you tell him something like "adjust left 2 meters". 
 The blind fellow then launches again. You repeat this procedure until the ball hits the hole (threshold value reached) or you just run out of golf balls (maximum number of iterations reached).</p>
 
-<img src="http://www.blindgolf.co.uk/uploads/images/Jim%20Hole%20in%20one.jpg" style="width:100%;max-width:350px"/><p/>
+<img src="http://www.blindgolf.co.uk/uploads/images/Jim%20Hole%20in%20one.jpg" style="width:100%;max-width:500px"/><p/>
 
 Given that the blind man is a neural network (actually, he is!) and his brain cells are neurons (in deed, they are!) then let <b>NeuralNet.train()</b> be the function to 
 to teach him to hit the hole. Training consists of many repetitions until the targeted skill level is reached (threshold) or the
@@ -389,7 +389,7 @@ it would suddenly divide in two! One part remained where it was while the other 
 That's exactly how neurons are! Nature repeats itself everywhere. The same neural pattern can be observed in every place. When you fill a coffee cup
 and it spills over when it's full, that has something in common with a neuron!<p/>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/GGB_reflection_in_raindrops.jpg" style="width:100%;max-width:350px"/><p/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/71/GGB_reflection_in_raindrops.jpg" style="width:100%;max-width:500px"/><p/>
 
 <i>Neuron is a container that absorbs many stimuli and fires one big stimulus when it's full.</i><p/>
 
@@ -417,7 +417,7 @@ If you were to observe neurons through a microscope, you wouldn't see any matric
 like pralines in a christmas calendar. You would rather see a tree-like structure. Neurons connect to each other in a fashion that
 resembles trees.<p/>
 
-<img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Tree_of_life_1500px_coloured.png/800px-Tree_of_life_1500px_coloured.png" style="width:100%;max-width:350px"/><br/>
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Tree_of_life_1500px_coloured.png/800px-Tree_of_life_1500px_coloured.png" style="width:100%;max-width:500px"/><br/>
 <i>Tree of Taxonomy</i><p/>
 
 Tree-like structures are natural. They are everywhere. In river deltas, in blood vessels, under the ground where plants form their Internet of roots, on
@@ -437,7 +437,7 @@ Therefore neurons are not directly connected to each other but rather through br
 
 <b>Neuron -> Axon -> Dendrites -> Neurons</b><p/>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Neuron_Hand-tuned.svg/400px-Neuron_Hand-tuned.svg.png" style="width:100%;max-width:350px"/><p/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Neuron_Hand-tuned.svg/400px-Neuron_Hand-tuned.svg.png" style="width:100%;max-width:500px"/><p/>
 
 Since no neuron is useful if it is isolated from others, we'll modify neuron's constructor in a fashion that it takes in all its input neurons and
 generates corresponding dendrites when instantiated.<p/>
@@ -469,7 +469,7 @@ Neuron.new = function(inputNeurons) {
 
 <h3>Anatomy Of The Dendrite</h3><p/>
 
-The dendrites really are a very integral part of the biological neuron. They are bridges delivering inbound signal traffic into the neuron. But typically,
+Dendrites really are a very integral part of the biological neuron. They are bridges delivering inbound signal traffic into the neuron. But typically,
 software implementations of neural networks don't contain dendrites. Typically, they don't really have that much in common with true biological neural networks. 
 They don't introduce any good object oriented models of real neurons. 
 But since my objective is to demostrate OOP, my computational neuron model will in deed include the dendrite.<p/>
@@ -491,7 +491,6 @@ var Dendrite = {};
 
 Dendrite.new = function(neuron) {
 	return {
-		id: Dendrite.generateId(),
 		neuron: neuron,
 		weight: Math.random(), // random between 0 and 1
 		loaded: true,
@@ -514,7 +513,7 @@ Please note that Dendrite is now calling neuron's method <b>addDendriteValue</b>
 Let's implement that function for Neuron class. It's purpose is to add a new weighed value to Neuron. 
 These values will be flowing in to join the neuron like <b>raindrops on a rainy day!</b>
 
-<h3>Neuron's Response to Dendrite Activity</h3><p/>
+<h3>Neuron's Response to Dendritic Activity</h3><p/>
 
 Neuron will keep track of these droplets joining in and when all dendrite channels have spitted out their values 
 then the neuron will sum up those values and invoke its outbound signal system, the axon:<p/>
@@ -554,11 +553,14 @@ then the neuron will sum up those values and invoke its outbound signal system, 
 
 </textarea><p/>
 
+Neuron's new instance methods described above will wake up neuron every time a dendrite pours in its content. 
+Neuron checks whether all dendrites have given their value. If so then those values are summed up and passed
+over to the axon. After that all dendritic values are cleaned up and dendrites reloaded so that they can fire again.
 <p/>
 <div style="background-color:cyan;font-size:smaller;width:100%">
 <b>How About Modularity?</b></p>
 
-Note that I could have used here <b>observer pattern</b> to implement the interaction between the neuron and its dendrites.
+Note that I could have used here <b>"The Event Listener"</b> to implement the interaction between the neuron and its dendrites.
 It would mean that I would, instead of allowing a dendrite to call directly <b>addDendriteValue</b>
 of its host neuron, rather let the dendrite fire an "onchange" event when it's been invoked. Some say, that would 
 increase the maintainability through modular isolation, allowing to separate <i>Dendrite</i> from <i>Neuron</i>. Changes made to Neuron's
@@ -568,14 +570,57 @@ implementation then wouldn't affect the Dendrite's implementation.
 are listening to the event. You can't be sure of the execution order of those listeners. It's going to be a maintainer's nightmare. Of course you can make
 it easier by using an IDE that automatially searches for occurences that add a listener to the component. But that only proves that there should be a direct shortcut
 from the event shooter to the listener. And that shortcut has a name, ladies and gentlemen, and the name is <i>direct invocation</i>.
-<p/>For reasons described above, the observer pattern should only be applied if there are very heavy arguments for it. Such might be some asynchronous cases, for instance when catching user events in the UI.
+<p/>For reasons described above, the event pattern should only be applied if there are very heavy arguments for it. Such might be some asynchronous cases, for instance when catching user events in the UI.
 Or cases where the result of an action is highly mutable, having many different possible listeners that could be expected to be catching outbound events. 
 But it is another story and it isn't the case with dendrites of this article: firing a dendrite will always be only a concern of it's very host neuron. 
 </div><p/>
 
-Neuron's new instance methods described above will wake up neuron every time a dendrite pours in its content. 
-Neuron checks whether all dendrites have given their value. If so then those values are summed up and passed
-over to the axon. After that all dendritic values are cleaned up and dendrites reloaded so that they can fire again.
+<h3>Anatomy Of The Axon</h3><p/>
+
+The axon is the output channel of a neuron. Neuron fires an outbound signal when the pressure in the dendrites "spills over". Axon 
+is also a broadcast object. It broadcasts its signal to all target dendrites it ís connected to. Those target
+dendrites then deliver the signal further to their host neurons.<p/>
+
+<img style="width:100%;max-width:500px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Action_Potential.gif/800px-Action_Potential.gif"/><p/>
+
+Since our neural network is going to be essentially an adaptation of multilayer perceptron with a more object
+oriented approach than usual and with a more biology-mimicking touch than usual, we'll use a classic Sigmoid-activation fubn
+function function that is often used with multilayer perceptrons and place it inside <i>Axon</i> class.
+Axon will dilute the signal before sending it on so it won't break the system. Just like any reasonable drummer who would
+want to wear earmuffs when banging their drums. (Mathematicians will want to kill me when they read this stuff.) <p/>
+
+<textarea style="width:100%;height:1000px">
+
+var Axon = {};
+
+Axon.new = function() {
+	return {
+		outboundDendrites: [],
+		fire:function(value) {
+			var activationValue = this.calculateActivationValue(value);
+			var dendrites = this.getOutboundDendrites();
+			for (var i = 0; i < dendrites.length; i++) {
+				var dendrite = dendrites[i];
+				dendrite.fire(activationValue);
+			}		
+		},
+		getOutboundDendrites: function() {
+			return this.outboundDendrites;
+		},
+		addOutboundDendrite: function(dendrite) {
+			this.outboundDendrites.push(dendrite);
+		},
+		//Sigmoid activation function
+		calculateActivationValue: function(value) {
+			return 1/(1+Math.pow(Math.E, -value));
+		}
+	}
+};
+
+</textarea>
+
+
+
 
 <h3>To Be Continued...</h3>
                 </div>
