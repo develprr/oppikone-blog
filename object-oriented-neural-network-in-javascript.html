@@ -559,7 +559,7 @@ over to the axon. After that all dendritic values are cleaned up and dendrites r
 <div style="background-color:cyan;font-size:smaller;width:100%">
 <b>How About Modularity?</b></p>
 
-Note that I could have used here <b>"The Event Listener"</b> to implement the interaction between the neuron and its dendrites.
+Note that I could have used here <b>"The Event Listener"</b> design pattern to implement the interaction between the neuron and its dendrites.
 It would mean that I would, instead of allowing a dendrite to call directly <b>addDendriteValue</b>
 of its host neuron, rather let the dendrite fire an "onchange" event when it's been invoked. Some say, that would 
 increase the maintainability through modular isolation, allowing to separate <i>Dendrite</i> from <i>Neuron</i>. Changes made to Neuron's
