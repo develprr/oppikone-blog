@@ -135,7 +135,7 @@ Conveniently, it is useful to have one centralized location for initializing dep
 class for this procedure as you wish. I like to have it in App class. It is common that the first class of the Application is named "App". App is the 
 starting point of the whole application. Typically it is initalized in web page's onload event.
 
-<textarea style="width:100%;height:500px;">
+<textarea style="width:100%;height:800px;">
 var App = {}
 
 App.initializeDependencies = function() {
@@ -167,10 +167,9 @@ you might need to use <i>XMLRequestStudentListService</i> instead of <i>JSONRequ
 you will only need to update the dependency initialization section of the software.<p/>
 
 While dependency injection's theory makes a lot sense, the benefit you might gain from it often remains only theoretical. 
-Most likely you will only need one template engine during the life time of your application. And chances are that
-that there won't be true need to change any service implementation either. While over-engineering is a lot of fun and probably makes you feel noble,
-always remember that it's the customer's wallet that ultimately decides whether your awesome design patterns will land in the history books
-or a garbage bin next door!
+Most likely you will only need one template engine during the life time of your application. And chances are there won't be true need to change any service implementation either. While over-engineering is a lot of fun and probably makes you feel noble,
+always remember that it's the customer's wallet that ultimately decides whether your awesome design patterns will land in the history books (I mean on customer's legacy server to be maintained by some turbine head)
+or a garbage bin next door (I mean yet another open source project in GitHub).
                 </div>
             </div>
         </div>
