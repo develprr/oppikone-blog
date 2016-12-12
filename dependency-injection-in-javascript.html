@@ -125,8 +125,18 @@ StudentListController.setTemplateEngineService = function(templateEngineService)
 };
 </textarea><p/>
 
-This is almost too easy to be true, right? True dependency injection without any framework! Someone from Java planet might raise his
-hand at this point, to announce his strong objection: "Hey hey hey, how about interfaces?" But that's the fun part of dynamic languages: you don't need interfaces!
+This is almost too easy to be true, right? True dependency injection without any framework! Technically, it's actually
+not necessary to implement any setters to inject a dependendency into an object. You could just write:<p/>
+
+StudentListController.templateEngine = myTemplateEngineWhatEver;<p/>
+
+However, I don't recommend this practice. It is better to implement setter methods and prefer injecting dependencies only through them.
+If you are determined to only inject dependencies through explicit setter methods, you will be rewarded later on when
+the software grows in complexity. If there is a problem with a dependency, for example it is null or something else than
+you expected, it is then easier to debug by adding a breakpoint inside the setter method and check when and what goes wrong. Just like it is easier
+for a door man to control ID's of the guests if they enter the restaurant only through the main entrance.<p/>
+
+All good so far. Now, someone from Java planet might raise his hand at this point, to voice out his furious objection: "Hey hey hey, how about interfaces?" But that's the fun part of dynamic languages: you don't need interfaces!
 Interfaces, once considered to be one of most ingenious inventions in Java, actually only solve a self-imposed problem. Interfaces
 solve a limitation that only exists if the programming language has a requirement for strongly typed data structures! With
 no types, there is no need for interfaces. No types, no worries!<p/>
