@@ -80,7 +80,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           		There has been lately some talk about "dependency injection support" in different JavaScript "frameworks". 
-I saw even a funny article comparing JQuery and AngularJS, concluding that AngularJS, unlike JQuery, 
+I even saw a funny article comparing JQuery and AngularJS, concluding that AngularJS, unlike JQuery, 
 "supports dependency injection". Seriously! A statement like that can't possibly be formulated 
 without extreme poverty of imagination. The great secret is:<p/>
 
@@ -97,14 +97,12 @@ Now, I am going to write a "Student List Controller" that gets the lecture ID as
 enrolled on that lecture:<p/>
 
 <textarea style="width:100%;height:250px;">
-
 var StudentListController = {};
 
 StudentListController.renderStudents = function(lectureId) {
 	var studentList = this.studentListService.findStudents(lectureId);
 	return Template.parse("studentListTemplate", studentList);
 };
-
 </textarea><p/>
 
 The code I describe above introduces a Student List Controller that can render a html view containing a student listing.
@@ -116,7 +114,7 @@ For object oriented programming, have a look at my article on <a href="http://ww
 Please note that <i>StudentListController</i> has a reference to <i>studentListService</i>. Where did <i>studentListService</i> come from?
 It came through dependency injection. Therefore, <i>StudentListController</i> must have an injection method for the student list service:
 
-<textarea style="width:100%;height:150px;">
+<textarea style="width:100%;height:200px;">
 
 StudentListController.setStudentListService = function(studentListService) {
 	this.studentListService = studentListService;
