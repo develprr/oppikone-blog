@@ -626,9 +626,9 @@ Axon.new = function() {
 Now that all moving parts of a neuron have been modeled as JavaScript objects, it is time to put these parts
 together to create a neural network. Neural network is basically a construction containing three or four layers of neurons.
 When the neural network is trained with data samples, then those samples travel through all those layers filling 
-each neural cell with different values. Each neuron takes data in from the previous neuron in the previous layer,
+each neural cell with different values. Each neuron takes data in from all previous neurons in the previous layer,
 makes a calculation and passes data on to the neurons in the next layer. But if neurons in each layer get their
-data from neurons in the previous layer so where can the neurons in the first layer get their data? The neurons
+data from neurons in the previous layer so where can the neurons in the first layer get their data from? The neurons
 in the first layer can't have any input neurons because they are in the front line. For this reason we need to have another
 way to feed the first neurons. Luckily we already implemented method <b>addInboundDendrite()</b> in the constructor.
 It will be particularly useful when feeding data into the first neuron layer of the neural network!<p/>
