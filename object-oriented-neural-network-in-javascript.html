@@ -646,7 +646,7 @@ For example, I want the layer to absorb two zeros, which is one possible input v
 inputLayer.fire([0,0]);<p/>
 
 Now, let's have a look how <i>InputLayer</i> looks with <i>fire</i> function implementation:<p/>
-
+<textarea style="width:100%;height:900px">
        var InputLayer = {
 		new: function(neuronCount) {
 			var inputLayer = {
@@ -679,7 +679,7 @@ Now, let's have a look how <i>InputLayer</i> looks with <i>fire</i> function imp
 		}
        };
 
-<textarea style="width:100%;height:900px">
+</textarea>
 
 The upgraded <i>InputLayer</i> class described above is now capable of feeding its neurons directly by using their dendrites
 as entrances. Next step is to create the next layer in the neural network. Creating the input layer was straightforward because
