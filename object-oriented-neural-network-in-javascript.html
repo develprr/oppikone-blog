@@ -638,14 +638,15 @@ we only need two input values. XOR operator, after all, has only two input param
 
 <b>var inputLayer = InputLayer.new(2);</b><p/>
 
-Input layer's constructor method create a new layer containing two neurons. Those neurons must be fed with data explicitly
+I just used input layer's constructor method to create a new layer containing two neurons. Those neurons must be fed with data explicitly
 since they don't have any anterior neurons. We want to make it easy by adding a special <i>fire</i> function to the input
 layer. It will take an array of numbers as parameters. Those numbers are the train data sample we want the neural network to study.
 For example, I want the layer to absorb two zeros, which is one possible input value combination for the XOR operator:<p/>
 
-inputLayer.fire([0,0]);<p/>
+<b>inputLayer.fire([0,0]);</b><p/>
 
-Now, let's have a look how <i>InputLayer</i> looks with <i>fire</i> function implementation:<p/>
+Now, let's have a look at <i>InputLayer</i> with <i>fire</i> function implementation:<p/>
+
 <textarea style="width:100%;height:950px">
        var InputLayer = {
 		new: function(neuronCount) {
