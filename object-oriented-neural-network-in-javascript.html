@@ -132,7 +132,7 @@ Neuron.<b>new</b> = function() {<br/>
 Let's add a constructor that takes those values as parameters:
 
 <p>
-NeuralNet.new = <b>function</b>(inputNeuronCount,hiddenNeuronCount,outputNeuronCount) { <br/>
+NeuralNet.new = <b>function</b>(inputNeuronCount, hiddenNeuronCount, outputNeuronCount) { <br/>
 &nbsp;&nbsp;&nbsp;<b>return</b> {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputNeuronCount: inputNeuronCount,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hiddenNeuronCount: hiddenNeuronCount,<br/>
@@ -192,7 +192,7 @@ Now the classes for layers have been introduced. Please check my <a href="http:/
 The next step is to modify NeuralNet's constructor to initialize the layers:
 <p/>
 <textarea style="width:100%;height:300px" >
-	NeuralNet.new = function (inputNeuronCount,hiddenNeuronCount,outputNeuronCount) { 
+	NeuralNet.new = function (inputNeuronCount, hiddenNeuronCount, outputNeuronCount) { 
 		return  {
 			inputLayer: InputLayer.new(inputNeuronCount),
 			hiddenLayer: HiddenLayer.new(hiddenNeuronCount),
@@ -204,7 +204,7 @@ The next step is to modify NeuralNet's constructor to initialize the layers:
 <p>In case the neural network needs to have more than one hidden layer it is useful to modify the constructor to allow multiple hidden layers:</p>
 
 <textarea style="width:100%;height:500px" >
-	NeuralNet.new = function (inputNeuronCount,outputNeuronCount,hiddenLayerNeuronCounts) { 
+	NeuralNet.new = function (inputNeuronCount, outputNeuronCount, hiddenLayerNeuronCounts) { 
 		var neuralNet  {
 			inputLayer: InputLayer.new(inputNeuronCount),
 			hiddenLayers: [],
@@ -335,7 +335,7 @@ in JavaScript program code similarly:<p/>
 
 <textarea style="width:100%;height:800px">
 
-NeuralNet.train = function(trainData,maxIterationsCount,errorThresholdValue) {	
+NeuralNet.train = function(trainData, maxIterationsCount, errorThresholdValue) {	
 	
 	
 	var currentIterationCount = 0;
