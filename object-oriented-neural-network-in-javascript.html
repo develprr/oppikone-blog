@@ -638,15 +638,68 @@ we only need two input values. XOR operator, after all, has only two input param
 
 <b>var inputLayer = InputLayer.new(2);</b><p/>
 
-Next step is to create the next layer in the neural network. Creating the input layer was straightforward because
-the input neurons don't have any previous neurons that they depend on. The next layer, which is called a hidden layer,
+Input layer's constructor method create a new layer containing two neurons. Those neurons must be fed with data explicitly
+since they don't have any anterior neurons. We want to make it easy by adding a special <i>fire</i> function to the input
+layer. It will take an array of numbers as parameters. Those numbers are the train data sample we want the neural network to study.
+For example, I want the layer to absorb two zeros, which is one possible input value combination for the XOR operator:<p/>
+
+inputLayer.fire([0,0]);<p/>
+
+Now, let's have a look how <i>InputLayer</i> looks with <i>fire</i> function implementation:<p/>
+
+       var InputLayer = {
+		new: function(neuronCount) {
+			var inputLayer = {
+				fire:function(inputValues) {
+					var dendrites = this.getDendrites();
+					
+					//make sure that the input value count matches the dendrite count
+					if (dednrites.length != inputValues.length) {
+						throw new Error("InputLayer: invalid input value array");
+					}
+					for (var i = 0; i < dendrites.length; i++) {
+						var dendrite = dendrites[i];
+						var inputValue = inputValues[i];
+						dendrite.fire(inputValue);
+					}
+				},
+				getDendrites: function() {
+					var neurons = this.getNeurons();
+					var allDendrites = [];
+					for (var i = 0; i < neurons.length: i++) {
+						var neuron = neurons[i];
+						var dendrites = neuron.getInboundDendrites();
+						allDendrites = allDendrites.concat(dendrites);
+					}
+					return allDendrites;
+				}
+			};
+			
+			return extend(NeuronLayer.new(neuronCount),inputLayer);
+		}
+       };
+
+<textarea style="width:100%;height:900px">
+
+The upgraded <i>InputLayer</i> class described above is now capable of feeding its neurons directly by using their dendrites
+as entrances. Next step is to create the next layer in the neural network. Creating the input layer was straightforward because
+the input neurons don't have any previous neurons to depend on. The next layer, which is called a hidden layer,
 however needs the neurons if the input layer as input channels. We <i>need</i> the input layer to create
 the next hidden layer. For this reason it is convenient to have a creation method in <i>NeuronLayer</i> class
 for creating follow-up layers:<p/>
 
-<b>var hiddenLayer = inputLayer.createLayer(2);</b><p/>
+<b>var hiddenLayer = inputLayer.createNextLayer(2);</b><p/>
 
-Now let's have look at <i>createLayer()</i> method:<p/>
+Now let's have look at <i>createNextLayer()</i> method:<p/>
+
+<textarea style="width:100%;height:900px">
+//...
+// inside layer object:
+createNextLayer: function(neuronCount) {
+	for (var i = 0; i < neuronCount
+}
+
+</textarea>
 
 <h3>To Be Continued...</h3>
                 </div>
