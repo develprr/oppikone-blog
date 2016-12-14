@@ -646,10 +646,10 @@ For example, I want the layer to absorb two zeros, which is one possible input v
 inputLayer.fire([0,0]);<p/>
 
 Now, let's have a look how <i>InputLayer</i> looks with <i>fire</i> function implementation:<p/>
-<textarea style="width:100%;height:900px">
+<textarea style="width:100%;height:950px">
        var InputLayer = {
 		new: function(neuronCount) {
-			var inputLayer = {
+			return extend(NeuronLayer.new(neuronCount), {
 				fire:function(inputValues) {
 					var dendrites = this.getDendrites();
 					
@@ -673,9 +673,7 @@ Now, let's have a look how <i>InputLayer</i> looks with <i>fire</i> function imp
 					}
 					return allDendrites;
 				}
-			};
-			
-			return extend(NeuronLayer.new(neuronCount),inputLayer);
+			});
 		}
        };
 
