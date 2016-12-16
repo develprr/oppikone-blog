@@ -246,7 +246,7 @@ to initialize its neurons instead of jus holding a dummy number to tell the tota
 				}
 			};
 			for ( var i = 0; i < neuronCount; i++) {
-				var neuron = Neuron.new([]);
+				var neuron = Neuron.new();
 				neuronLayer.neurons.push(neuron);
 			}
 			return neuronLayer;	
@@ -441,13 +441,13 @@ Therefore neurons are not directly connected to each other but rather through br
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Neuron_Hand-tuned.svg/400px-Neuron_Hand-tuned.svg.png" style="width:100%;max-width:500px"/><p/>
 
-Since no neuron is useful if it is isolated from others, we'll modify neuron's constructor in a fashion that it takes in all its input neurons and
+Since no neuron is useful if it is isolated from others, we'll modify neuron in a fashion that input neurons can be injected into it:
 generates corresponding dendrites when instantiated.<p/>
 
 <textarea style="width:100%;height:750px">
 
-Neuron.new = function(inputNeurons) {
-	var newNeuron = {
+Neuron.new = function() {
+	return {
 		dendrites: [],
 		dendriteValues: [],
 		axon: Axon.new(),
@@ -456,16 +456,22 @@ Neuron.new = function(inputNeurons) {
 		},
 		addInboundDendrite: function(newDendrite) {
 			this.dendrites.push(newDendrite);
+		},
+		injectInputNeurons: function(inputNeurons) {
+			for (var i = 0; i < inputNeurons.length; i++) {
+				var inputNeuron = inputNeurons[i];
+				var axon = inputNeuron.getAxon();
+				var dendrite = Dendrite.new(newNeuron);
+				axon.addOutboundDendrite(dendrite);
+				newNeuron.addInboundDendrite(dendrite);
+			}
+			return newNeuron;
 		}
-	};
-	for (var i = 0; i < inputNeurons.length; i++) {
-		var inputNeuron = inputNeurons[i];
-		var axon = inputNeuron.getAxon();
-		var dendrite = Dendrite.new(newNeuron);
-		axon.addOutboundDendrite(dendrite);
-		newNeuron.addInboundDendrite(dendrite);
 	}
-	return newNeuron;
+};
+
+
+	
 }
 </textarea> <p/>
 
@@ -695,10 +701,31 @@ Now let's have look at <i>createNextLayer()</i> method:<p/>
 //...
 // inside layer object:
 createNextLayer: function(neuronCount) {
-	for (var i = 0; i < neuronCount
+	var newLayer = NeuronLayer.new(neuronCount);
+	var neurons = this.getNeurons();
+	newLayer.injectInputNeurons(neurons);
+	return newLayer;
+};
+
+</textarea><p/>
+
+Method described above is capable of creating a new layer. The constructor creates a new neuron layer and
+injects the input neurons into it. I'll implement the neuron injection method. All neurons of the preliminary layer
+will be injectd as input neurons to each neuron of the following layer:
+
+<textarea style="width:100%;height:200px">
+//...
+// inside layer object:
+injectInputNeurons: function(inputNeurons) {
+	var neurons = this.neurons;
+	for (var i = 0; i < neurons.length; i++) {
+		var neuron = neurons[i];
+		neuron.injectInputNeurons(inputNeurons);
+	}
 }
 
 </textarea>
+
 
 <h3>To Be Continued...</h3>
                 </div>
