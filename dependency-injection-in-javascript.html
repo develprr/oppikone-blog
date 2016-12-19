@@ -128,7 +128,7 @@ StudentListController.setTemplateEngineService = function(templateEngineService)
 This is almost too easy to be true, right? True dependency injection without any framework! Technically, it's actually
 not necessary to implement any setters to inject a dependendency into an object. You could just write:<p/>
 
-StudentListController.templateEngine = myTemplateEngineWhatEver;<p/>
+<b>StudentListController.templateEngine = myTemplateEngineWhatEver;</b><p/>
 
 However, I don't recommend this practice. It is better to implement setter methods and prefer injecting dependencies only through them.
 If you are determined to only inject dependencies through explicit setter methods, you will be rewarded later on when
@@ -145,7 +145,7 @@ Conveniently, it is useful to have one centralized location for initializing dep
 class for this procedure as you wish. I like to have it in App class. It is common that the first class of the Application is named "App". App is the 
 starting point of the whole application. Typically it is initalized in web page's onload event.
 
-<textarea style="width:100%;height:800px;">
+<textarea style="width:100%;height:70px;">
 var App = {}
 
 App.initializeDependencies = function() {
@@ -169,14 +169,16 @@ App.init = function() {
 
 </textarea>
 
-Now, this architecture makes it possible to swap implementations for the student list service and the template engine
+<p/>Now, this architecture makes it possible to swap implementations for the student list service and the template engine
 on the fly. For instance, you might want to use some other template engine than EJS. In that case, you only need to replace
 <i>EJSTemplateEngine</i> with another implementation, for instance <i>MustacheTemplateEngine.</i>. Make sure that both templating  
 engines implement <i>parse</i> function. JavaScript will only complain when it's time to try out! Similarly, when the data format for the student list feed changes,
 you might need to use <i>XMLRequestStudentListService</i> instead of <i>JSONRequestStudentListService</i>. With dependency injection,
 you will only need to update the dependency initialization section of the software.<p/>
 
-All this being said, it is time for a word of warning. Engineering is fun. Overengineering is a lot of fun. It can make you feel noble.
+<h3>Conclusion</h3>
+
+All this being said, it is time for a word of warning. Engineering is fun. Over-engineering is a lot of fun. It can make you feel noble.
 But your customer's wallet might have a different opinion. It's a typical beginner's mistake to try to create something extremely
 configurable, reusable and parametrizable. For instance, you might like to create an architecture that makes it easy to 
 change the template engine on thy fly. But chances are that there won't be any need to do it during the app's lifetime. You might
