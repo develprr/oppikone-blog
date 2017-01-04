@@ -208,7 +208,7 @@ let's create a hard-coded dummy component to render a html list element containi
 class CarList extends React.Component {
   render() {
     return (
-      <div className="shopping-list">
+      <div className="car-list">
         <h3>Car List for {this.props.name}</h3>
         <ul>
           <li>Audi</li>
@@ -246,11 +246,51 @@ class App extends Component {
 
 <p>Looks nice? Hold on! The truth is that we created some code that is not browser-supported JavaScript. ReactJS compiles this code into a
 machine-generated "bundle.js" file that isn't a particularly encouraging target for debugging. You don't need all this to write object oriented JavaScript code.
-Have a look at my article on <a href="http://www.oppikone.fi/blog/javascript-oop.html"> OOP in JavaScript</a> for retrospection. Aside from all hype, what we have here is really yet another templating engine. "Elements" are really partial views that
+Have a look at my article on <a href="http://www.oppikone.fi/blog/javascript-oop.html">OOP in JavaScript</a> for retrospection.
+But don't let me discourage you! Let's proceed and create a more advanced car list component that takes an array of car models as input parameter
+and renders it as an html list:<p/>
+
+<textarea style="width:100%;height:400px;" >
+class ParameterCarList extends React.Component {
+	render() {
+		var carMap = this.props.cars.map((car) =>
+			<li key={car.toString()}>
+			      {car}
+			</li>
+  		);
+		return(
+			<ul>{carMap}</ul>
+		)
+	}
+}
+</textarea><p/>
+
+If you think that the code above turns a categorically drop-dead simple concept such as rendering a list in a template into
+an overly complicated and counter-intuitive hogwash, then take a look at some conventional template engine such as MustacheJS or EJS that does not
+force you to write any pseudo-JavaScript either. Now, let's embed <b>ParameterCarList</b> into the main app:<p/>
+
+<b><ParameterCarList cars={this.getCarList()} /></b><p/>
+
+Note that the ParameterCarList component here takes the value for cars parameter from getCarList function. We'll implement that
+function in our main <b>App</b> class:
+
+<textarea style="width:100%;height:200px;" >
+getCarList() {
+	return [
+		"Audi",
+		"Porsche",
+		"Tesla"
+	];
+}
+</textarea><p/>
+
+Aside from all hype, what we have here is really yet another templating engine. "Components" are really partial views that
 render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
 traditional templating engines mix code into templates. However, If you like to harness the power of JQuery and separate templates
 from the controller layer, take a look at template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
-or <a href="http://mustache.github.io/">MustacheJS</a>.<p/>
+or <a href="http://mustache.github.io/">MustacheJS</a>. There are also many others. It doesn't matter so much which 
+template engine you choose. The difference is usually mostly only syntactical since rendering templates is a rather universal
+principle.<p/>
 
 <h3>Model Bindings</h3><p/>
 
