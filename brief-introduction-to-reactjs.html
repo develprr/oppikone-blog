@@ -178,7 +178,7 @@ to check it out.
 <p>Now, let's take a look at ReactJS's ideology. ReactJS is a framework really focused in manipulating DOM, introducing
 a concept of "Virtual DOM". You can declare your own elements and use them just as if they were any normal DOM elements.<p/>
 
-<textarea style="width:100%;height:300px;resize:none" disabled>
+<textarea style="width:100%;height:300px;" >
 var CustomAppHeader = React.createClass( {
 	render: function() {
 		return (
@@ -188,12 +188,98 @@ var CustomAppHeader = React.createClass( {
 });
 </textarea>
 
+
 And syntax for using CustomAppHeader would look like this:<p/>
-<textarea style="width:100%;resize:none" disabled>
+<textarea style="width:100%;" >
 <CustomAppHeader name="Cars"/>
+</textarea><p/>
+
+<h3>Creating Complex Components</h3>
+
+Next, I'll show how to create more complex components. When you render any virtual DOM component you can embed your custom
+components into the output html of each component. That will, by definition, lead to more complex composite components. Given that
+we want to list car branches on our website, we'll need, first of all, introduce a list component. A list component
+takes as input an array of strings and renders them in a list element:<p/>
+
+<textarea style="width:100%;height:300px;" >
+
+var List = React.createClass({
+  render: function(){
+    return (
+      <ul>
+      {
+        this.props.items.map(function(item) {
+          return <li key={item}>{item}</li>
+        })
+       }
+      </ul>
+    )  
+  }
+</textarea><p/>
+
+The next step is to populate the list with car models. In a production app I would load the list with AJAX, preferrably with JQuery,
+from a microservice, but at this point we'll just have a hard coded car list. Therefore I'll implement a CarList element that
+contains the car data and then renders those cars using the readily made List component:<p/>
+
+<textarea style="width:100%;height:600px;" >
+
+var CarList = React.createClass({
+  
+  getInitialState: function(){
+     return {
+       initialItems: [
+         "Audi",
+         "Ferrari",
+         "Porche",
+         "Tesla"
+       ],
+       items: []
+     }
+  },
+  componentWillMount: function(){
+    this.setState({items: this.state.initialItems})
+  },
+  render: function(){
+    return (
+      <div className="car-list">
+      	<List items={this.state.items}/>
+      </div>
+    );
+  }
+});
+
+</textarea><p/>
+
+CarList component has basicly an "items" property which will contain the car list. When the component mounts, the items property
+will be populated with component's initial items, which is hard coded string array. Note that the inital state is the point to where
+we'll intervene when we want to get serious and load the data from a microservice instead. Now, we are ready to add
+the CarList component to the main view and have our cars listed on the web page:<p/>
+
+<textarea style="width:100%;height:500px;" >
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h2>A ReactJS Demo by Heikki / Oppikone </h2>
+        </div>
+        <p className="App-intro">
+		<AppTitle name="Cars" />
+        </p>
+	<p className="App-carlist">
+		<CarList/>
+	</p>
+      </div>
+    );
+  }
+}
+
+
 </textarea>
 
-<p>Aside from all hype, what we have here is really yet another templating engine. "Elements" are really partial views that
+<p>Looks nice? But aside from all hype, what we have here is really yet another templating engine. "Elements" are really partial views that
 render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
 traditional templating engines mix code into templates. However, If you like to harness the power of JQuery and separate templates
 from the controller layer, take a look at template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
