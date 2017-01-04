@@ -80,7 +80,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           		<p>I wrote earlier <a href="http://www.oppikone.fi/blog/brief-introduction-to-reactjs">a blog post about creating a simple app with ReactJS</a>. ReactJS is a template engine
-that pretends to be something greater than just another template engine like it is. But just like with any template engine, at the end of the day you'll have  
+that pretends to be something much greater than just another template engine with some candy like it mostly is.  But just like with any template engine, at the end of the day you'll have  
 some generated html code and a heavy burden on your shoulders because you must also make it look fashionable. And you are still just an engineer, nothing greater.
 Therefore I tell you, do not worry about your layout. Because Bootstrap can take away this burden from your shoulders!</p>
 
@@ -100,7 +100,7 @@ When you generate the base for ReactJS app the template index file becomes avail
 And remember that when you are writing ReactJS virtual DOM objects, you'll be using <b>className</b> attributes instead of
 <b>class</b> attributes. Remember that when formatting a list in Bootsrap, you must add <b>list-group</b> class to the <b>ul</b>-element and <b>list-group-item</b> class to each <b>li</b>-element. That's all, pretty much. A Bootstrap-enabled ReactJS component will look like this:
 
-<textarea style="width:100%;height:600px">
+<textarea style="width:100%;height:400px">
 class CarList extends React.Component {
 	render() {
 		var carMap = this.props.cars.map((car) =>
@@ -117,7 +117,12 @@ class CarList extends React.Component {
 }
 </textarea><p/>
 
-If you want to check all of the source code take a look at my <a href="https://github.com/develprr/reactjs-tutorial">GitHub repo</a>.
+If you want to check all of the source code take a look at my <a href="https://github.com/develprr/reactjs-tutorial">GitHub repo</a>. Our tweaks
+will result in a ReactJS app with nice Bootstrap layouts: <p/>
+
+<iframe src="http://www.oppikone.fi/reactjs-demo/my-car-app-1" style="border-radius:10x;max-width:300px;width:100%;height:300px"></iframe><p/>
+
+The example is also available <a href="http://www.oppikone.fi/reactjs-demo/my-car-app-1">here.</a>
                 </div>
             </div>
         </div>
