@@ -269,7 +269,9 @@ If you think that the code above turns a categorically drop-dead simple concept 
 an overly complicated and counter-intuitive hogwash, then take a look at some conventional template engine such as MustacheJS or EJS that does not
 force you to write any pseudo-JavaScript either. Now, let's embed <b>ParameterCarList</b> into the main app:<p/>
 
-<b><ParameterCarList cars={this.getCarList()} /></b><p/>
+<textarea style="width:100%;height:50px;"> 
+<ParameterCarList cars={this.getCarList()} />
+</textarea><p/>
 
 Note that the ParameterCarList component here takes the value for cars parameter from getCarList function. We'll implement that
 function in our main <b>App</b> class:
