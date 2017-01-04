@@ -201,8 +201,7 @@ components into the output html of each component. That will, by definition, lea
 we want to list car branches on our website, we'll need, first of all, introduce a list component. A list component
 takes as input an array of strings and renders them in a list element:<p/>
 
-<textarea style="width:100%;height:300px;" >
-
+<textarea style="width:100%;height:350px;" >
 var List = React.createClass({
   render: function(){
     return (
@@ -221,10 +220,8 @@ The next step is to populate the list with car models. In a production app I wou
 from a microservice, but at this point we'll just have a hard coded car list. Therefore I'll implement a CarList element that
 contains the car data and then renders those cars using the readily made List component:<p/>
 
-<textarea style="width:100%;height:600px;" >
-
+<textarea style="width:100%;height:700px;" >
 var CarList = React.createClass({
-  
   getInitialState: function(){
      return {
        initialItems: [
@@ -247,7 +244,6 @@ var CarList = React.createClass({
     );
   }
 });
-
 </textarea><p/>
 
 CarList component has basicly an "items" property which will contain the car list. When the component mounts, the items property
@@ -255,8 +251,7 @@ will be populated with component's initial items, which is hard coded string arr
 we'll intervene when we want to get serious and load the data from a microservice instead. Now, we are ready to add
 the CarList component to the main view and have our cars listed on the web page:<p/>
 
-<textarea style="width:100%;height:500px;" >
-
+<textarea style="width:100%;height:600px;" >
 class App extends Component {
   render() {
     return (
@@ -275,8 +270,6 @@ class App extends Component {
     );
   }
 }
-
-
 </textarea>
 
 <p>Looks nice? But aside from all hype, what we have here is really yet another templating engine. "Elements" are really partial views that
