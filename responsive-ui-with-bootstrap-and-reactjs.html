@@ -79,16 +79,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		I wrote earlier <a href="http://www.oppikone.fi/blog/brief-introduction-to-reactjs">a blog post about creating a simple app with ReactJS</a>. ReactJS is a template engine
+          		<p>I wrote earlier <a href="http://www.oppikone.fi/blog/brief-introduction-to-reactjs">a blog post about creating a simple app with ReactJS</a>. ReactJS is a template engine
 that pretends to be something greater than just another template engine like it is. But just like with any template engine, at the end of the day you'll have  
 some generated html code and a heavy burden on your shoulders because you must also make it look fashionable. And you are still just an engineer, nothing greater.
-Therefore I tell you, do not worry about your layout. Because Bootstrap can take away this burden from your shoulders!<p/>
+Therefore I tell you, do not worry about your layout. Because Bootstrap can take away this burden from your shoulders!</p>
+
+But before we start, please note that this is not an article about a certain "React-Bootstrap library" that someone has written.
+There is absolutely no need to use any additional library or hock-us-pock-us to incorporate Bootstrap with ReactJS. There is a strong wind
+of over-engineering and wheel-reinvention in ReactJS community. Its purpose is just to make simple things appear complicated - just 
+as ReactJS itself is just a new fashion of a template engine with a bunch of new buzzwords for age old concepts.
+But let's not worry about it for now.<p/>
 
 When you generate the base for ReactJS app the template index file becomes available in public folder. Let's tweak that file and add Bootstrap layout:<p/>
 
 <textarea style="width:100%;height:150px">
  	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </textarea>
+
+<p>Now you are good to go adding Bootstrap to your ReactJS app. Remember that in Bootstrap, everything must be inside a container div.
+And remember that when you are writing ReactJS virtual DOM objects, you'll be using <b>className</a> attributes instead of
+<b>class</b> attributes. Remember that when formatting a list in Bootsrap, you must add <b>list-group</b> class to the <b>ul</b>-element and <b>list-group-item</b> class to each <b>li</b>-element. That's all, pretty much. A Bootstrap-enabled ReactJS component will look like this:
+
+<textarea style="width:100%;height:600px">
+class CarList extends React.Component {
+	render() {
+		var carMap = this.props.cars.map((car) =>
+			<li className="list-group-item" key={car.toString()}>
+			      {car}
+			</li>
+  		);
+		return(
+			<div className="container-fluid">
+				<ul className="list-group">{carMap}</ul>
+			</div>
+		)
+	}
+}
+</textarea><p/>
+
+If you want to check all of the source code take a look at my <a href="https://github.com/develprr/reactjs-tutorial">GitHub repo</a>.
                 </div>
             </div>
         </div>
