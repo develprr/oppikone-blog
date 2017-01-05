@@ -266,8 +266,7 @@ class ParameterCarList extends React.Component {
 </textarea><p/>
 
 If you think that the code above turns a categorically drop-dead simple concept such as rendering a list in a template into
-an overly complicated and counter-intuitive hogwash, then take a look at some conventional template engine such as MustacheJS or EJS that does not
-force you to write any pseudo-JavaScript either. Now, let's embed <b>ParameterCarList</b> into the main app:<p/>
+an overly complicated and counter-intuitive hogwash, then take a look at some conventional template engine such as MustacheJS or EJS. Now, let's embed <b>ParameterCarList</b> into the main app:<p/>
 
 <textarea style="width:100%;height:150px;"> 
 <ParameterCarList cars={this.getCarList()} />
@@ -296,6 +295,86 @@ Our car list formatted with Bootstrap will look like this:<p/>
 <iframe src="http://www.oppikone.fi/reactjs-demo/my-car-app-1" style="border-radius:10x;width:100%;height:500px"></iframe><p/>
 
 The example is also available <a href="http://www.oppikone.fi/reactjs-demo/my-car-app-1">here.</a><p/>
+
+<h3>Filtering Lists</h3><p/>
+
+We want to stay in car business we must be able to offer many different car models. And when we add more cars to the list 
+then users must be abl to filter the list somewhat to find exactly those cars they are looking for. Let's implement a CarFilterList that
+includes a search field, list filtering logic and the actual list element, all formatted nicely with Bootstrap:<p/>
+
+<textarea style="width:100%;height:800px;" >
+class CarFilterList extends React.Component {
+	
+	constructor(props) {
+		super(props);
+		this.handleChange = this.handleChange.bind(this);
+		this.state = {items: this.getAllItems(), initialItems: this.getAllItems()};
+	}
+	getAllItems() {
+		return  [
+				"Audi",
+				"Porsche",
+				"Tesla",
+				"Bugatti",
+				"Ferrari",
+				"Lamborghini"
+			];
+	}
+
+	handleChange(event) {
+		var searchPhrase = event.target.value;
+		var items = this.state.initialItems;
+		var filteredItems = [];
+		for (var i = 0; i < items.length; i++) {
+			var item = items[i];
+			if (item.toLowerCase().indexOf(searchPhrase.toLowerCase()) === -1) {
+				continue;
+			}
+			filteredItems.push(item);
+		}
+		this.setState({items: filteredItems});
+		
+	}
+
+	
+	render() {
+		return (
+			<div className="form-group row">
+				<p/>
+				<div className="col">
+					<input className="form-control" type="text" placeholder="Search" onChange={this.handleChange}/>
+				</div>
+				<p/>
+				<BootstrapList items={this.state.items}/>
+			</div>
+			
+		);
+ 	 }
+}
+</textarea><p/>
+
+Note that I have embedded a <b>BootstrapList</b> component inside my <b>CarFilterList</b>. That's because I want CarFilterList
+to contain the logic for filtering cars and BootstrapList a somewhat more general component that just renders any list
+it gets as a parameter:
+
+<textarea style="width:100%;height:500px;" >
+class BootstrapList extends React.Component {
+	render() {
+		var itemMap = this.props.items.map((item) =>
+			<li className="list-group-item" key={item.toString()}>
+			      {item}
+			</li>
+  		);
+		return(
+			<div className="container-fluid">
+				<ul className="list-group">{itemMap}</ul>
+			</div>
+		)
+	}
+}
+</textarea><p/>
+
+<h3>Some Remarks</h3><p/>
  
 Aside from all hype, what we have here is really yet another templating engine. "Components" are really partial views that
 render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
