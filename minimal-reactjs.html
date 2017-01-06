@@ -94,7 +94,7 @@ example and start building some more serious features on top of it.<p/>
 
 Let's write the index html wrapper:<p/>
 
-<textarea style="width:100%;height:450px;font-size:small">
+<textarea style="width:100%;height:400px;font-size:small">
 <!DOCTYPE html>
 <html>
 	<head>
@@ -113,7 +113,7 @@ include my actual ReactJS app that I have named "hello-oppikone". Note that the 
 It is necessary because my app can't find th root node if it's initialized before the root node is rendered.<p/>
 
 The code for a minimal ReactJS app comes here:<p/>
-<textarea style="width:100%;height:300px;font-size:small">
+<textarea style="width:100%;height:250px;font-size:small">
 var HelloOppikone = React.createClass({
 	render: function() {
 		return React.createElement("h1",null,"Hello From Oppikone!");
@@ -142,7 +142,7 @@ transformation is done with Babel JavaScript library. Add this tag inside your h
 Now you can modify your actual ReactJS application file and simplify its syntax by converting cumbersome createElement-invocations into true
 HTML (or at least very similar XML):<p/>
 
-<textarea style="width:100%;height:350px;font-size:small">
+<textarea style="width:100%;height:300px;font-size:small">
 var HelloOppikone = React.createClass({
 	render: function() {
 		return (
@@ -165,11 +165,13 @@ on your PC! This is a good point to start diving deeper into ReactJS. Now let's 
 Now that we have verified that it is indeed possible to write ReactJS code using standard JavaScript it is time to start using
 ES6. ES6 is the recommended programming language for ReactJS. I showed already in my <a href="responsive-ui-with-bootstrap-and-reactjs.html">earlier post</a> that it is quite straightforward 
 to apply Bootstrap styles to a ReactJS app. Now the good news is that despite ES6 we can still use ReactJS on a web page
-just like any other JavaScript library. It is particularly encouraging because you don't want to install lots of shady <b>foreign</b> software
-on your PC just to add one little JavaScript library to your web page... Right?<p/>
+just like any other JavaScript library. It is particularly encouraging if you don't want to install lots of software
+on your PC just to add one little JavaScript library to your web page. And one more benefit is that you can use whatever
+web server to test your code. Most experienced web developers have some favorit web server for their local tests and they should have
+an option to keep their preferences.<p/>
 
-I wrote for you this Bootstrap-enhanced ES6-based ReactJS code example that you can just insert to your web page as script tag:<p/>
-<textarea style="width:100%;height:2000px;font-size:small">
+Here is the code snippet for a Bootstrap-enhanced ES6-based ReactJS code example that I wrote:<p/>
+<textarea style="width:100%;height:1950px;font-size:small">
 
 class AppTitle extends React.Component {
     render(){
