@@ -113,7 +113,7 @@ include my actual ReactJS app that I have named "hello-oppikone". Note that the 
 It is necessary because my app can't find th root node if it's initialized before the root node is rendered.<p/>
 
 The code for a minimal ReactJS app comes here:<p/>
-<textarea style="width:100%;height:350px">
+<textarea style="width:100%;height:350px;font-size:small">
 var HelloOppikone = React.createClass({
 	render: function() {
 		return React.createElement("h1",null,"Hello From Oppikone!");
@@ -135,14 +135,14 @@ Needless to say, generating DOM structure directly from JavaScript code by usng 
 too difficult for serious design. Therefore using JSX templates is a must. JSX templates can be embedded directly into JavaScript code. JSX
 transformation is done with Babel JavaScript library. Add this tag inside your html page's head section:<p/>
 
-<textarea style="width:100%;height:100px">
+<textarea style="width:100%;height:100px;font-size:small">
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </textarea><p/>
 
 Now you can modify your actual ReactJS application file and simplify its syntax by converting cumbersome createElement-invocations into true
 HTML (or at least very similar XML):<p/>
 
-<textarea style="width:100%;height:400px">
+<textarea style="width:100%;height:400px;font-size:small">
 var HelloOppikone = React.createClass({
 	render: function() {
 		return (
@@ -169,7 +169,7 @@ just like any other JavaScript library. It is particularly encouraging because y
 on your PC just to add one little JavaScript library to your web page... Right?<p/>
 
 I wrote for you this Bootstrap-enhanced ES6-based ReactJS code example that you can just insert to your web page as script tag:<p/>
-<textarea style="width:100%;height:1500px;font-size:small">
+<textarea style="width:100%;height:2000px;font-size:small">
 
 class AppTitle extends React.Component {
     render(){
