@@ -87,6 +87,8 @@ there is a grave trade-off writing ES6 code - many browsers don't support it yet
 That means that an ES5 approach is more lightweight for early adopters. Secondly, given that you are already some sort of a web developer, you can actually jump into ReactJS development right away
 without installing any additional ReactJS related tools.<p/>
 
+<h3>Minimal ReactJS Configuration</h3>
+
 Next, I'll show a minimal ReactJS configuration which is very easy to start with. It will be then quite intuitive to expand that
 example and start building some more serious features on top of it.<p/>
 
@@ -125,7 +127,41 @@ ReactDOM.render(
 </textarea><p/>
 
 The app defines first a ReactJS class for rendering a header tag with text. Then it instantiates an element for that class and
-attaches it to the root node. It's hard to figure out a ReactJS app simpler than that!
+attaches it to the root node. It's hard to figure out a ReactJS app simpler than that!<p/>
+
+<h3>Adding JSX Support</h3><p/>
+
+Needless to say, generating DOM structure directly from JavaScript code by usng React's <b>createElement</b> method is just
+too difficult for serious design. Therefore using JSX templates is a must. JSX templates can be embedded directly into JavaScript code. JSX
+transformation is done with Babel JavaScript library. Add this tag inside your html page's head section:<p/>
+
+<textarea style="width:100%;height:100px">
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</textarea><p/>
+
+Now you can modify your actual ReactJS application file and simplify its syntax by converting cumbersome createElement-invocations into true
+HTML (or at least very similar XML):<p/>
+
+<textarea style="width:100%;height:350px">
+var HelloOppikone = React.createClass({
+	render: function() {
+		return (
+			<h1>Hello from Oppikone!</h1>
+		)
+	}
+});
+
+ReactDOM.render(
+        <HelloOppikone/>,
+        document.getElementById('root')
+);
+</textarea><p/>
+
+That's it, pretty much! Now you have configured ReactJS in the most straightforward way, without installing anything alien
+on your PC! This is a good point to start diving deeper into ReactJS.
+
+
+
 
 
 
