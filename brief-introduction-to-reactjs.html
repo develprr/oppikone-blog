@@ -426,11 +426,11 @@ consists of many aspects and rendering views is just a tip of the ice berg.<p/>
 To build good software, ReactJS is not all what you need. You can use ReactJS to render views but you don't need ReactJS really
 to do it. There are many alternatives for rendering views. Also ReactJS's virtual DOM operations are rather cumbersome compared
 with JQuery's power and flexibility. ReactJS tries to solve this issue by using JSX templates. However, JSX has a downside that it
-must be embedded in "JavaScript" code (which isn't true JavaScript either) that is then compiled into real JavaScript. If you
-really want to separate templates from JavaScript code (which is truly recommendable) you'll be better off when you
+must be embedded in either ES5 (JavaScript) or ES6 code that is then compiled into a bundle that the browser (not human) can understand. But if you
+really want to separate templates from JavaScript code like many do, you'll be better off when you
 use some templating engine such as EmbeddedJS (EJS) or MustacheJS. Those templates can be loaded dynamically from server on demand using Ajax.
 When creating a true SPA with serious networking capability, JQuery is what you need for networking. And once you use JQuery,
-why not to take advantage of all power it has? And when you render templates, use a solution that doesn't mess controllers with views!<p/>
+why not to take advantage of all power it has?<p/>
                 </div>
             </div>
         </div>
