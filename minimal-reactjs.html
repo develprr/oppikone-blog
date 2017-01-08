@@ -327,8 +327,40 @@ Login component's <b>render</b> function returns a very classical html login for
 
 For simplicity, I am cheating a little here: <b>Login</b> class is not validating username and password yet. But most importantly, this demo demonstrates how to switch between views and transport messages through component hierarchy!<p/>
 
+Now, let's modify the main class <b>App</b> a little:<p/>
 
+<textarea style="width:100%;height:700px;font-size:small">
+class App extends React.Component {
+	
+	constructor(props) {
+		super(props);		
+		this.state = {loggedIn: false};
+		this.handleClick = this.handleClick.bind(this);	
+	}	
+	
+	handleClick(event) {
+		this.setState({ loggedIn: true });
+	
+	}
+	render() {	
+		if (this.state.loggedIn) {
+			var component = React.createElement(CarFilterList, null);
+			
+		} else {
+			var component = React.createElement(Login, { onClick: this.handleClick });
+		}
 
+		return (
+			<div className="container-fluid">
+				<div className="App">
+					<AppTitle name="Cars"/>
+					 { component }
+				</div>
+			</div>
+		);
+  	}
+}
+</textarea>
 
 
 
