@@ -364,13 +364,13 @@ class App extends React.Component {
 
 Inside <b>App</b> class's constructor, I added "loggedIn" state that's initially false - because the user isn't logged in initially. I also bound <b>handleLoginComplete</b> method to this class so the method will have this class as context thus being able to access its properties. The actual implementation of <b>handleLoginComplete</b> is super simple at this time. It changes the "loggedIn" state to true.<p/>
 The <b>render</b> method contains a state check. Depending on whether the user is logged in or not, the app is rendered either with <b>CarFilterList</b> or <b>Login</b> view. Note that I instantiate these components
-programmatically. I must do so because I don't want to implement two return statements differing from each other only in one component. If the user is logged in then the component is instantiated as a CarFilterList and if not, then we'll implement it as a Login component. I want the Login form to invoke App's <b>handleLoginComplete</b> on submit button click, therefore I pass <b>handleLoginComplete</b> as <b>onClick</b> to Login component. 
+programmatically. I must do so because I don't want to implement two return statements differing from each other only in one component. If the user is logged in then the component is instantiated as a CarFilterList and if not, then we'll implement it as a Login component. I want the Login form to invoke App's <b>handleLoginComplete</b> on submit button click, therefore I pass <b>handleLoginComplete</b> as <b>onClick</b> to Login component.<p/>
+
+The result of this exercise is now online! Please click the submit button on Login form to see that our code also works:<p/> 
  
+<iframe src="http://www.oppikone.fi/reactjs-demo/my-car-app-3" style="border-radius:10x;width:100%;height:600px"></iframe><p/>
 
-
-
-
- 
+The example is also available <a href="http://www.oppikone.fi/reactjs-demo/my-car-app-3">here.</a><p/> 
                 </div>
             </div>
         </div>
