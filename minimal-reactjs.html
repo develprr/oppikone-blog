@@ -305,15 +305,15 @@ class Login extends React.Component {
 		return (
 			<form>
 				  <div className="form-group">
-				    <label htmlFor="email">Email address:</label>
-				    <input type="email" className="form-control" id="email"/>
+				  	<label htmlFor="email">Email address:</label>
+				    	<input type="email" className="form-control" id="email"/>
 				  </div>
 				  <div className="form-group">
-				    <label htmlFor="pwd">Password:</label>
-				    <input type="password" className="form-control" id="pwd"/>
+				    	<label htmlFor="pwd">Password:</label>
+				    	<input type="password" className="form-control" id="pwd"/>
 				  </div>
 				  <div className="checkbox">
-				    <label><input type="checkbox"/> Remember me</label>
+				    	<label><input type="checkbox"/> Remember me</label>
 				  </div>
 				  <button type="submit" className="btn btn-default"  onClick={this.handleSubmit} >Submit</button>
 			</form>
@@ -321,13 +321,11 @@ class Login extends React.Component {
   	}
 
 }
-</textarea>
+</textarea><p/>
 
+Login component's <b>render</b> function returns a very classical html login form flavored with Bootstrap styles. However, note that unlike in HTML, input tags must be closed. Additionally, instead of <b>class</b> you must add <b>className</b> attributes and instead of <b>for</b> you must have <b>htmlFor</b>. I have also bound submit button's click event to <b>handleSubmit</b> function that I define in <b>Login</b> class. <b>handleSubmit</b> calls further a callback function <b>onClick</b>. Looking at <b>Login</b> class's code it's not clear where this onClick comes from but I can reveal already at this point that it is the callback function that we are going to implement in the parent class and then inject it into <b>Login</b> class upon instantiation. <b>handleSubmit</b> must prevent the event bubbling naturally through or it will cause unpredictable implications, therefore <b>event.preventDefault()</b> and <b>return false</b> at the end of the function.<p/>
 
-
-
-
-
+For simplicity, I am cheating a little here: <b>Login</b> class is not validating username and password yet. But most importantly, this demo demonstrates how to switch between views and transport messages through component hierarchy!<p/>
 
 
 
