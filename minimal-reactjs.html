@@ -362,9 +362,9 @@ class App extends React.Component {
 }
 </textarea><p/>
 
-Inside <b>App</b> class's constructor, I have added "loggedIn" state that's initially false - because the user isn't logged in initially. I also bind <b>handleLoginComplete</b> method this class so the method will have this class as context thus being able to access its properties. The actual implementation of <b>handleLoginComplete</b> is super simple at this time. It changes the "loggedIn" state to true.<p/>
-The <b>render</b> method contains a state check. Depending on whether the user is logged in or not, the app is rendered either with <b>CarFilterList</b> or <b>Login</b> view. Note that I instantiate thes components
-programmatically. I must do so because I don't want to implement two return statements differing from each other only in one component. If user is logged in then the component is instantiated as CarFilterList and if not, then we'll implement it as a Login component. I want the  Login form to invoke App's <b>handleLoginComplete</b> on submit button click, therefore I pass <b>handleLoginComplete</b> as <b>onClick</b> to Login component. 
+Inside <b>App</b> class's constructor, I added "loggedIn" state that's initially false - because the user isn't logged in initially. I also bound <b>handleLoginComplete</b> method to this class so the method will have this class as context thus being able to access its properties. The actual implementation of <b>handleLoginComplete</b> is super simple at this time. It changes the "loggedIn" state to true.<p/>
+The <b>render</b> method contains a state check. Depending on whether the user is logged in or not, the app is rendered either with <b>CarFilterList</b> or <b>Login</b> view. Note that I instantiate these components
+programmatically. I must do so because I don't want to implement two return statements differing from each other only in one component. If the user is logged in then the component is instantiated as a CarFilterList and if not, then we'll implement it as a Login component. I want the Login form to invoke App's <b>handleLoginComplete</b> on submit button click, therefore I pass <b>handleLoginComplete</b> as <b>onClick</b> to Login component. 
  
 
 
