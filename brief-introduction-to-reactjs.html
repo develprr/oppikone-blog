@@ -92,11 +92,11 @@ inexperienced programmers to emphasize importance of frameworks over design patt
 
 Interestingly, there is a common misconception that ReactJS kind of "solves" the UI. But a serious browser based single page app (SPA), for instance, inevitably
 needs networking functionality (AJAX). Yet ReactJS' "networking" functionality is a very primitive fetch wrapper function.
-That does not compare well with JQuery's advanced AJAX options. It is okay to use ReactJS for rendering views but really,
-you'll be better off using JQuery for networking. And once you include JQuery into your project, why not to use also JQuery's 
+That does not compare well with jQuery's advanced AJAX options. It is okay to use ReactJS for rendering views but really,
+you'll be better off using jQuery for networking. And once you include jQuery into your project, why not to use also jQuery's 
 superior DOM manipulation methods? But of course, that would be in conflict with ReactJS's sweet "virtual DOM" idea, right?<p/>
-When you are looking for someone to create a web app, requiring ReactJS skills without even mentioning JQuery is a bit like ordering a car without an engine. But of course,
-things don't need to be that black and white. There is nothing that can prevent you from loading the data with JQuery and then initializing ReactJS elements with that data.
+When you are looking for someone to create a web app, requiring ReactJS skills without even mentioning jQuery is a bit like ordering a car without an engine. But of course,
+things don't need to be that black and white. There is nothing that can prevent you from loading the data with jQuery and then initializing ReactJS elements with that data.
 I'll show later how!
 <p>
 If what you actually want to do is rendering views on server side using ReactJS then you are just reinventing the wheel
@@ -407,7 +407,7 @@ I'll cover this in another <a href="http://www.oppikone.fi/blog/minimal-reactjs"
 <p/>
 Speaking of hype, what we have here is really yet another templating engine. "Components" are really partial views that
 render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
-traditional templating engines mix code into templates. However, If you like to harness the power of JQuery and separate templates
+traditional templating engines mix code into templates. However, If you like to harness the power of jQuery and separate templates
 from the controller layer, take a look at template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
 or <a href="http://mustache.github.io/">MustacheJS</a>. There are also many others. It doesn't matter so much which 
 template engine you choose. The difference is usually mostly only syntactical since rendering templates is a rather universal
@@ -431,11 +431,11 @@ Any software, whether running in a browser or somewhere else,
 consists of many aspects and rendering views is just a tip of the ice berg.<p/>
 To build good software, ReactJS is not all what you need. You can use ReactJS to render views but you don't need ReactJS really
 to do it. There are many alternatives for rendering views. Also ReactJS's virtual DOM operations are rather cumbersome compared
-with JQuery's power and flexibility. ReactJS tries to solve this issue by using JSX templates. However, JSX has a downside that it
+with jQuery's power and flexibility. ReactJS tries to solve this issue by using JSX templates. However, JSX has a downside that it
 must be embedded in either ES5 (JavaScript) or ES6 code that is then compiled into a bundle that the browser (not human) can understand. But if you
 really want to separate templates from JavaScript code like many do, you'll be better off when you
 use some templating engine such as EmbeddedJS (EJS) or MustacheJS. Those templates can be loaded dynamically from server on demand using Ajax.
-When creating a true SPA with serious networking capability, JQuery is what you need for networking. And once you use JQuery,
+When creating a true SPA with serious networking capability, jQuery is what you need for networking. And once you use jQuery,
 why not to take advantage of all power it has?<p/>
                 </div>
             </div>
