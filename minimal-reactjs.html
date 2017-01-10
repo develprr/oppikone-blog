@@ -284,13 +284,13 @@ The example is also available <a href="http://www.oppikone.fi/reactjs-demo/my-ca
 <h3>Understanding Events and Views</h3><p/>
 
 Next I am going to explain a simple data flow/component interaction technique for ReactJS. 
-Please note that I am not taking the officially recommended Redux/Flux approach. 
+Please note that I am not taking the officially recommended Redux/Flux approach yet. 
 The official way including dispatchers and stores and containers and actions et cetera may not
-be as intuitive to understand as the callback-based technique I will introduce next.
-Applying a complicated solution to a simple problem is called over-engineering.
-For now, our demo app is yet quite simple and therefore a callback based data interaction is the fastest 
-way to go. Yet when the application grows in complexity its downsides become more evident. 
-I will cover this issue later on in detail. But we must implement first the easy way to understand its benefits and caveats.<p/>
+be as intuitive to understand and straightforward to implement as the callback-based technique that I will introduce next.
+For now, our demo app is yet quite simple and therefore a callback-based data interaction is the fastest 
+way to go. It is all right at this point because a complicated solution to a simple problem is called over-engineering. 
+Yet when the application grows in complexity its downsides become more evident. 
+I will cover this issue later on in detail. But we must implement first the easy way to understand its strengths and caveats!<p/>
  
 For starters, let's add more functionality to the app. I'll demonstrate next how to add a Bootstrap-enhanced login view to a React app. Then I'll show how to make components communicate with each other. It is important because we want to enable the login view to inform the main app when the login process was complete so the main app can let the user enter the main application. Let's create first the login view:<p/>
 
