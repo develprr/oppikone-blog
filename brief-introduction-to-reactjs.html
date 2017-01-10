@@ -387,31 +387,8 @@ that is almost impossible to debug. So good bye breakpoints! Well of course we c
 When you write ReactJS code you must also get used to the idea that you often see just a white screen and the only way to know what went wrong
 is to undo your additions word by word until you see that it works again. In my opinion, if you can't properly debug an app, it is a disaster. The ReactJS community
 is too ambitious forcing developers to use ES6 ahead of time. ES6 will be a part of future but a Babel-based solution, at least at the time of writing this,
-is just too bad because it sacrifices debuggability. Until that problem is properly fixed, many other debugger-friendly frameworks remain
-superior to ReactJS.<p/>
-
-<h3>"Beast of Babylon"</h3><p/>
-
-Of course, you can also use standard JavaScript to code ReactJS but it doesn't help the debugging problem either since the code must be first chewed by Babel interpreter anyway. It is really bad because Babel-monster appears to swallow up even basic exceptions.
-Let's say that you add an event handler to your component, for instance <b>handleChange</b>. Then, you have a callback to that handler in your JSX component (onClick definition). Later on, you decide to change the name of your event handler to <b>handleSubmit</b> but
-you forget to rename the callback accordingly. Normally, JavaScript interpreter would notice this mismatch and throw a <b>function not defined</b> error. That would help you find and fix your mistake. But since your code has
-been eaten up by Babel-monster you won't get any error whatsoever. You have to figure out by yourself why your submit button stopped working!<p/>
-
-<h3>Everything is Deprecated</h3><p/>
-
-To me, it appears that there is a particularly rapid pace of redefining everything in the React community. Obviously they have just deprecated even the standard JavaScript. ES6 is now the de facto recommended way to
-code with ReactJS. How wise was that? It means that all books and tutorials and examples written for ReactJS so far have suddenly become obsolete. I just bought a book on ReactJS that was published only half a year ago and all examples in the book are already mostly useless. I think being too hasty in upgrading standards and requirements does serious damage to any platform.<p/>
-
-But don't let me discourage you! One positive thing about ReactJS is that it is still possible to develop with ReactJS without installing all kinds of software on your PC. I find it really nice!
-I'll cover this in another <a href="http://www.oppikone.fi/blog/minimal-reactjs">blog post about "Minimal ReactJS"</a>.
-<p/>
-Speaking of hype, what we have here is really yet another templating engine. "Components" are really partial views that
-render other partial views. However, unlike many template engines, ReactJS virtual DOM mixes templates into program code whereas 
-traditional templating engines mix code into templates. However, If you like to harness the power of jQuery and separate templates
-from the controller layer, take a look at template engines like <a href="http://www.embeddedjs.com/">EmbeddedJS</a> 
-or <a href="http://mustache.github.io/">MustacheJS</a>. There are also many others. It doesn't matter so much which 
-template engine you choose. The difference is usually mostly only syntactical since rendering templates is a rather universal
-principle.<p/>
+is just too bad because it sacrifices debuggability. But there is a reason to expect improvement to this issue anytime soon
+when ES6 support becomes more available in browser implementations.<p/>
 
 <h3>Model Bindings</h3><p/>
 
