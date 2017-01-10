@@ -98,9 +98,9 @@ that already exist, for instance <a href="http://www.telerik.com/kendo-ui">Kendo
 
 <h3>Extending The Car App</h3>
 
-<p>I showed in my <a href="http://www.oppikone.fi/blog/minimal-reactjs.html">earlier article</a> how to code a small app with ReactJS and callbacks. Let's extend that app a little to turn it into a good cornerstone for demonstrating Kendo integration with jQuery. The app will have two primary modes: one that is displayed when the user is not logged in and one that is displayed when user is inside the app. When the user logged out they must be provided with log-in view and when they are logged in they shall see the actual app, which I am going to call the "Management View". We'll modify our car app accordingly. The App component shall serve as a switch between these primary modes:</p>
+<p>I showed in my <a href="http://www.oppikone.fi/blog/minimal-reactjs.html">earlier article</a> how to code a small app with ReactJS and callbacks. Let's extend that app a little to turn it into a good cornerstone for demonstrating Kendo integration with jQuery. The app will have two primary modes: one that is displayed when the user is not logged in and one that is displayed when the user is inside the app. When the user is logged out they must be provided with <b>LoginView</b> and when they are logged in they shall see the actual app, which I am going to call <b>ManagementView</b>. We'll modify our car app accordingly. The App component shall serve as a switch between these primary modes:</p>
 
-<textarea style="width:100%;height:800px;font-size:small">
+<textarea style="width:100%;height:750px;font-size:small">
 class App extends React.Component {
 	
 	constructor(props) {
@@ -122,7 +122,7 @@ class App extends React.Component {
 		if (this.state.loggedIn) {
 			return React.createElement(ManagementView, { fireExitRequest: this.handleExitRequest });
 		} else {
-			return React.createElement(Login, { fireLoginSuccess: this.handleLoginSuccess });
+			return React.createElement(LoginView, { fireLoginSuccess: this.handleLoginSuccess });
 		}
 	}
 
@@ -133,6 +133,89 @@ class App extends React.Component {
 				<AppTitle name="Cars"/>				
 				{viewComponent}
 			</div>
+		);
+  	}
+}
+</textarea><p/>
+
+Note that <b>render</b>-function contains a very simple html snippet which is mainly a Bootstrap wrapper around the actual view component. In render-function, the state of the app is checked. if user is logged in then the viewComponent is initialized as <b>ManagementView</b> and otherwise as <b>LoginView</b>. At this point the <b>App</b> doesn't need to know anything else than whether the user has been authenticated and must be let in and whether he requests to be logged out so the app can switch to <b>LoginView</b> mode. Therefore I couple LoginView's actíon <b>fireLoginSuccess</b> with callback <b>handleLoginSuccess</b> and <b>ManagementView</b>'s action <b>fireExitRequest</b> with <b>handleExitRequest</b>. These handlers swap the <b>App</b>'s state between logged in and logged out by updating <b>loggedIn</b> state accordingly. Now let's have a look at <b>ManagementView</b> component:<p/>
+
+<textarea style="width:100%;height:750px;font-size:small">
+class ManagementView extends React.Component {
+	
+	constructor(props) {
+		super(props);		
+		this.state = {loggedIn: true};
+		this.handleCarModelSelected = this.handleCarModelSelected.bind(this);
+		this.handleLoginSuccess = this.handleLoginSuccess.bind(this);	
+		this.handleBackwardRequest = this.handleBackwardRequest.bind(this);
+		this.handleExitRequest = this.handleExitRequest.bind(this);
+	}	
+	
+	
+	handleLoginSuccess(event) {
+		this.setState({ loggedIn: true });
+	}
+
+	handleCarModelSelected(carModelId) {
+		this.setState({ selectedCarModel: carModelId });
+	}
+	unSelectCarModel() {
+		var selectedCarModel = this.selectedCarModel;
+		this.setState({ 
+			selectedCarModel: null,
+			unSelectedCarModel: selectedCarModel		 
+		});
+	}
+	
+	reSelectCarModel() {
+		var unSelectedCarModel = this.state.unSelectedCarModel;
+		if (unSelectedCarModel) {
+			this.setState({ 
+				selectedCarModel: unSelectedCarModel	
+			});
+		}
+	}
+
+	handleBackwardRequest() {
+		if (this.state.selectedCarModel) {
+			this.unSelectCarModel();
+		} else {
+			this.reSelectCarModel();
+		}
+	}
+
+	handleExitRequest() {
+		this.props.fireExitRequest();
+	}
+
+	
+
+	createViewComponent() {
+		if (this.state.selectedCarModel) {
+			return React.createElement(CarDetailView, {
+				fireCloseRequested: this.handleCarModelUnselected, 
+				selectedCarModel: this.state.selectedCarModel
+			});
+		}		 
+		return React.createElement(CarFilterList, {fireCarModelSelected: this.handleCarModelSelected } );	
+
+	}
+	
+	
+	render() {	
+		var viewComponent = this.createViewComponent();
+		var showBackButton = this.state.selectedCarModel? true : false;	
+		return (
+			<div className="management-view">
+				<Navigation 
+					showBackButton={showBackButton}
+					fireBackwardRequest={this.handleBackwardRequest }
+					fireExitRequest={this.handleExitRequest }					
+				/>			 
+			 	{ viewComponent }
+			</div>
+	
 		);
   	}
 }
