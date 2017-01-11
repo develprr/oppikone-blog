@@ -221,9 +221,48 @@ selected then the view component will be instantiated as a <b>CarFilterList</b>.
 
 <p>This ReactJS app uses a simple callback technique to enable communication between components. It is a straightforward way to implement intercomponental communication and it's relatively simple to follow as well. Yet it has some caveats that justify a different approach called Redux. I will address the Redux way later on explaining in detail how it compares with a callback based approach.</p>
 
-<p>In this callback-based implementation, see how <b>CarFilterList</b> is instantiated with some constructor parameters. These parameters define ManagementView's handleCarModelSelected as a callback <b>fireCarModelSelected</b> inside CarFilterList. It means that when CarFilterList "thinks" it is calling fireCarModelSelected, it will actually cause its parent component ManagementView to invoke handleCarModelSelected. So what's the difference? What we see here is actually a JavaScript equivalent of Java's interfaces. We can consider that the method fireCarModelSelected that CarFilterList "sees" is as an <b>interface</b> that ManagementView <b>implements</b> in handleCarModelSelected method. One cool thing about this approach is that it promotes modularity! CarFilterList can happily fire a "car model selected" message into the bit space without needing to care what actually happens somewhere else.
+<p>In this callback-based implementation, see how <b>CarFilterList</b> is instantiated with some constructor parameters. These parameters define ManagementView's handleCarModelSelected as a callback <b>fireCarModelSelected</b> inside CarFilterList. It means that when CarFilterList "thinks" it is calling fireCarModelSelected, it will actually cause its parent component ManagementView to invoke handleCarModelSelected. So what's the difference? What we see here is actually a JavaScript equivalent of Java's interfaces. We can consider that the method fireCarModelSelected that CarFilterList "sees" is as an <b>interface</b> that ManagementView <b>implements</b> in handleCarModelSelected method. One cool thing about this approach is that it promotes modularity! CarFilterList can happily fire a "car model selected" message into the bit space without needing to care what actually happens somewhere else.<p/>
 
-<h3>To Be Continued...</h3>
+I also implemented a back button functionality here. ManagementView "listens" to Navigation component and handles backward navigation requests coming from there. For simplicity, I cheat here a little with back button functionality for now. Back button will be available only on <b>CarDetailView</b> an it will take back to ManagementView. This is achieved by unselecting the selected car. This state change will automatically lead to a view change which is certainly one strength of ReactJS approach. A proper way to implement back button functionality would be pushing view history into a stack and then popping them out one by one when back button is clicked. I'll address this issue later in more detail.<p/>
+Now let's have a look at <b>Navigation</b> component:<p/>
+
+<textarea style="width:100%;height:1000px;font-size:small">
+class Navigation extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.onBackButtonClicked = this.onBackButtonClicked.bind(this);
+		this.onExitButtonClicked = this.onExitButtonClicked.bind(this);
+	}
+	onBackButtonClicked() {
+		this.props.fireBackwardRequest();
+	}
+	
+	onExitButtonClicked() {
+		this.props.fireExitRequest();
+	}
+
+	componentDidMount() {
+		$("#back-button").click(this.onBackButtonClicked);
+		$("#exit-button").click(this.onExitButtonClicked);
+	}
+
+	render() {
+		return (
+			<div id="navigation-div" className="row">
+				<div className="col-xs-12">
+					 { this.props.showBackButton ? <BackButton fireBackButtonClicked={ this.onBackButtonClicked }/> : null }
+								
+					<button id="exit-button" type="button" className="btn btn-default btn-lg pull-right">
+						<span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> Exit
+					</button>
+				</div>
+			</div>	
+		)	
+	}
+
+}
+</textarea>
                 </div>
             </div>
         </div>
