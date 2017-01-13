@@ -258,7 +258,8 @@ class Navigation extends React.Component {
 }
 </textarea><p/>
 
-<p>Navigation view is pretty simple. But remarkable is here however that I injected click handlers to buttons using <b>jQuery</b> inside <b>componentDidMount</b> function. Why did I do so? <b>Just because I can!</b> Even that there is a risk it provokes some hard-core React-bishops who declare that jQuery is just plainly wrong similarly to the idea of the Earth being round and rotating around the Sun. But no kidding, the patient is still breathing and feeling fine. This is a small step for the mankind but a big step for coding some serious software! And I guarantee that the Sun will rise also tomorrow in the east!</p>
+<p>Navigation view is pretty simple. But remarkable is here however that I injected click handlers to buttons using <b>jQuery</b> inside <b>componentDidMount</b> function. ComponentDidMount is an ideal intervention point for jQuery injection because it is invoked when ReactJS has already done its job and
+generated the actual DOM structure. That is the point where you can do further modifications to the DOM structure. ReactJS won't see this further manipulation. Many libraries are designed to be used together with jQuery and at this point it is safe to apply them without causing any complications inside React engine.</p>
 
 See the Navigation component in action! Just click the cars on the list and you'll see how the back button works:<p/>
 
