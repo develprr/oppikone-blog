@@ -265,6 +265,93 @@ See the Navigation component in action! Just click the cars on the list and you'
 
 <iframe src="http://www.oppikone.fi/reactjs-demo/my-car-app-4" style="border-radius:10x;width:100%;height:700px"></iframe><p/>
 
+<h3>Data - Where Did It Come From?</h3><p/>
+
+You may have noticed that the example app I showed contains a list of cars with some more detail about each car. If your
+app runs in a browser, you load the data from a microservice over HTTP using jQuery. I'll be covering this
+subject later on in detail. But for this simple proof of concept, we'll have no problem to implement a mock
+data service with a hard-coded sample data. This enables you to push on to implement the actual client software
+in an all-out style lightning offensive well ahead of schedule while the server guys are still having
+their semantic debatte over the optimal data structure. When they finally get something concrete done at some point in distant future you can then just replace your mock
+data service with the real one. For more about this design pattern please check my article about <a href="http://www.oppikone.fi/blog/dependency-injection-in-javascript.html">Dependency Injection In JavaScript</a>. 
+For now, let's have a look at our data service placeholder:<p/>
+
+<textarea style="width:100%;height:800px;font-size:small">
+var CarModelService = {
+	findIds: function() {
+		return  [
+			"Audi",
+			"Porsche",
+			"Tesla",
+			"Bugatti",
+			"Ferrari",
+			"Lamborghini"
+		];
+	},
+	findIdsByKey: function(keyword) {
+		var models = this.findIds();
+		var filteredModels = [];
+		for (var i = 0; i < models.length; i++) {
+			var item = models[i];
+			if (item.toLowerCase().indexOf(keyword.toLowerCase()) === -1) {
+				continue;
+			}
+			filteredModels.push(item);
+		}
+		return filteredModels;	
+	},
+	
+	fetchCollection:function() {
+		return {	
+			"Audi": {
+				"speed": 170,
+				"color": "black",
+				"price": 28500,
+				"detections": 120
+			},
+			"Porsche": {
+				"speed": 250,
+				"color": "white",
+				"price": 61000,
+				"detections": 13
+			},
+			"Tesla": {
+				"speed": 280,
+				"color": "green",
+				"price": 79000,
+				"detections": 45
+			},
+			"Ferrari": {
+				"speed": 320,
+				"color": "red",
+				"price": 344000,
+				"detections": 5
+			},	
+			"Lamborghini": {
+				"speed": 334,
+				"color": "yellow",
+				"price": 521000,
+				"detections": 2
+			},		
+			"Bugatti": {
+				"speed": 420,
+				"color": "blue",
+				"price": 1591000,
+				"detections": 1
+			}		
+		}	
+	},		
+			
+	findModelById: function(carModelId) {
+		var collection = this.fetchCollection();
+		return collection[carModelId]; 
+	}
+};
+</textarea>
+
+<p>While this vanilla data service implementation serves well enough our demo app, please consider achieving 
+business-grade data integrity and have a look at <a href="http://www.oppikone.fi/blog/getting-started-with-redux.html">my article about Redux</a>.<p/>
+
 <h3>What's Next?</h3><p/>
 
 In this article, I hightlighed advantages on conceptual level that jQuery can provide for your app. I also showed that it is possible to inject jQuery capability into a ReactJS app. But this is just the
