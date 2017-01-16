@@ -64,9 +64,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1 style="color:blue">A Brief Introduction To ReactJS</h1>
-                        <h2 style="color:blue" class="subheading">On Strengths And Weaknesses Of ReactJS</h2>
+                    <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
+                        <h1 style="color:white">A Brief Introduction To ReactJS</h1>
+                        <h2 style="color:yellow" class="subheading">On Strengths And Weaknesses Of ReactJS</h2>
                         <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 2016-11-21</span>
                     </div>
                 </div>
@@ -132,7 +132,12 @@ There are changes that you'll get an error:<p/>
 <b>/usr/bin/env: node: No such file or directory</b><p/>
 
 No need to panic! The problem occurs only because in Ubuntu, NodeJS is named as "nodejs" while
-npm expects "node". You just need to create a symbolic link
+npm expects "node". There are two two ways to solve this problem. You can stick to your OS package manager's default Node installation or you 
+can download a brand new version directly from provider's web site.<p/>
+
+<h3>A) Install Node And NPM via Package Manager</h3>
+
+I warn: this is the hard way. But if you still prefer using the package manager you just need to create a symbolic link
 that fixes the problem: <p/>
 
 <b>sudo ln -s /usr/bin/nodejs /usr/bin/node</b><p/>
@@ -148,6 +153,19 @@ be deprecated. Uninstall npm and create a symlink to npm installation as well:<p
 
 <b>sudo ln -s /home/heikki/tools/node-v6.9.1-linux-x64/bin/npm /usr/bin/npm</b><p/>
 
+<h3>B) Install Node And NPM Directly From Website</h3><p/>
+
+I strongly recommend installing Node and NPM directly from the <a href="https://www.nodejs.com/">provider's website</a>. If you use the package manager 
+it is granted that you'll get an outdated version. Moreover, you must struggle with the above mentioned issues.
+Just downloaded the package and extract it to your favorite location. And remember add the binaries to your
+path by editing .bashrc file. I added a line as follows: <p/>
+
+<b>export PATH="$PATH:$HOME/tools/node-v6.9.4-linux-x64/bin"</b><p/>
+
+If your OS does not support Bash then I recommend installing a better one!<p/>
+
+<h3>Creating ReactJS Project</h3>
+
 Then create the project directory (if you didn't do so yet) and start the development server:<p/>
 <b>create-react-app my-car-app</b><br/>
 <b>cd my-car-app<br/>
@@ -161,11 +179,6 @@ been generated as ./src/App.js. You can just start tweaking it to create an app 
 When you want to publish the production version of your App make sure that you have a pushstate server installed:<p/>
 
 <b>npm install -g pushstate-server</b><p/>
-
-Note that you might run into problems if you are running Debian "Wheezy". If your command line does not find pushstate-server then
-make sure you have included it into your path. On Debian and Ubuntu you can edit .bashrc file. I added a line as follows: <p/>
-
-<b>export PATH="$PATH:$HOME/tools/node-v6.9.1-linux-x64/bin"</b><p/>
 
 It's particularly nice to have pushstate-server working because it helps you try out your build before publishing it.
 So, finally build your app:<p/>
