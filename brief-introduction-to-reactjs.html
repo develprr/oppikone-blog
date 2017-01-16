@@ -135,7 +135,7 @@ No need to panic! The problem occurs only because in Ubuntu, NodeJS is named as 
 npm expects "node". There are two two ways to solve this problem. You can stick to your OS package manager's default Node installation or you 
 can download a brand new version directly from provider's web site.<p/>
 
-<h3>A) Install Node And NPM via Package Manager</h3>
+<h3>Method 1: Install Node And NPM via Package Manager</h3><p/>
 
 I warn: this is the hard way. But if you still prefer using the package manager you just need to create a symbolic link
 that fixes the problem: <p/>
@@ -153,7 +153,7 @@ be deprecated. Uninstall npm and create a symlink to npm installation as well:<p
 
 <b>sudo ln -s /home/heikki/tools/node-v6.9.1-linux-x64/bin/npm /usr/bin/npm</b><p/>
 
-<h3>B) Install Node And NPM Directly From Website</h3><p/>
+<h3>Method 2: Install Node And NPM Directly From Website</h3><p/>
 
 I strongly recommend installing Node and NPM directly from the <a href="https://www.nodejs.com/">provider's website</a>. If you use the package manager 
 it is granted that you'll get an outdated version. Moreover, you must struggle with the above mentioned issues.
