@@ -87,14 +87,14 @@ while being a simple solution to implement a data store for your app, will have 
 growing in size. With Redux, you can equip your application with a more robust data store without compromising
 integrity. In this article, I will show how to extend your ReactJS app with Redux data store.<p/>
 
-<h3>Bubbling Vs. Dispatching Vs Direct Invocation</h3><p/>
+<h3>Bubbling Vs. Dispatching Vs. Direct Invocation</h3><p/>
 
 The basic idea of Redux is to ensure that your data model is consistent. If a certain data point changes we
 should always be sure that this data is immediately up-to-date in all sub-parts of the application. In Redux,
 this is achieved by dispatching actions that are then used to update states in the central data store. In my
 previous example, I showed how requests fired in different parts of the application would bubble upwards toward higher levels. That approach promotes modularity but it certainly has its drawbacks. Let's say
 that the user clicks on "Exit" button that is embedded in a component at the leaf in the component hierarchy.
-Now, leaving the application is understandably a function implemented at the top level of the software.
+Now, logging out is a function typically implemented at the top level of the software.
 If the events must bubble through all the hierarchy before they reach their target component then we must implement quite a long chain of local listeners and dispatchers. 
 If the event launches local variable changes on its way toward the root then it will likely cause bugs resulting from data states being out of sync in various parts of the application. 
 
