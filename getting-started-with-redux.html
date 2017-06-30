@@ -67,7 +67,7 @@
                     <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
                         <h1 style="color:white">Getting Started With Redux</h1>
                         <h2 style="color:yellow" class="subheading">Maintain Data Integrity While Your Solution Grows</h2>
-                        <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 2017-01-16</span>
+                        <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 16.01.2017 19:38:59</span>
                     </div>
                 </div>
             </div>
@@ -85,38 +85,55 @@
 how to use vanilla JavaScript to create a data service and a data model for your ReactJS app. That approach,
 while being a simple solution to implement a data store for your app, will have its caveats when your app starts
 growing in size. With Redux, you can equip your application with a more robust data store without compromising
-integrity. In this article, I will show how to extend your ReactJS app with Redux data store.<p/>
+integrity. In this article, I will show how to extend your ReactJS app with Redux data store.</p>
 
-<h3>Bubbling Vs. Dispatching Vs. Direct Invocation</h3><p/>
+<h3>About Events</h3>
 
-The basic idea of Redux is to ensure that your data model is consistent. If a certain data point changes we
+<p>Before getting started with Redux or event-driven programming in general, be careful not buying into hype. First of all, it is not difficult at all to implement from scratch a vanilla
+framework for dispatching and handling events. Please check my implementation of event framework <a href="https://www.npmjs.com/package/synchronous-dispatcher">Synchronous Dispatcher</a> for example. If you check source code, you see that implementing Redux-style event framework is quite easy. Note that my implementation is way simpler to use than Redux 
+as well, requiring smaller amount of code. I will show later how to implement an application wide data storage - similar to to Redux data storage but perhaps more intuitive - it's a question of taste!<p/> You can use an application wide data storage with or without event dispatching-handling mechanism. These two design patterns can be used together or as standalone solutions.</p> 
+
+<h3>Dangers of Event Driven Approach</h3>
+
+<p>There is some hype around event driven programming and its cousin, "reactive" programming (which in turn has nothing to do with React). But experience shows
+that using application wide events really can make code unreadable. You fire an event somewhere in your app. It will be handled somewhere else in the app.
+This jump destroys readability of code. You need to explicitly find the places where this event is being handled. And if the event is handled by many listeners
+in different parts of application - which all perform a different thing and you can't know their execution order... The corner stones for a real mess and disaster have
+already been laid! I learned dangers of event driven approach hard way already by 2009 when Adobe Flex - a predecessor of today's JavaScript-based techniques - was still hot. 
+Adobe Flex based <a href='https://mate.asfusion.com/'">Mate framework </a> providing event driven programming to ActionScript - similarly to Redux that is being mentioned often today -
+did not prove to be a magic bullet but a source of sorrow instead.</p>
+
+
+<h3>Bubbling Vs. Dispatching Vs. Direct Invocation</h3><
+
+<p>The basic idea of Redux is to ensure that your data model is consistent. If a certain data point changes we
 should always be sure that this data is immediately up-to-date in all sub-parts of the application. In Redux,
 this is achieved by dispatching actions that are then used to update states in the central data store. In my
 previous example, I showed how requests fired in different parts of the application would bubble upwards toward higher levels. That approach promotes modularity but it certainly has its drawbacks. Let's say
 that the user clicks on "Exit" button that is embedded in a component at the leaf in the component hierarchy.
 Now, logging out is a function typically implemented at the top level of the software.
 If the events must bubble through all the hierarchy before they reach their target component then we must implement quite a long chain of local listeners and dispatchers. 
-If the event launches local variable changes on its way toward the root then it will likely cause bugs resulting from data states being out of sync in various parts of the application. 
+If the event launches local variable changes on its way toward the root then it will likely cause bugs resulting from data states being out of sync in various parts of the application.</p> 
 
-<p/>It is truly a no-brainer to come up with a solution that lets the leaf component bypass all that hierarchy and deliver
+<p>It is truly a no-brainer to come up with a solution that lets the leaf component bypass all that hierarchy and deliver
 the information directly to the place where it is needed. This can be done either by dispatching a global action inside
 the leaf component or empowering it with a direct invocation handle to the data service component. Both
 solutions have their pros and cons. Redux favors dispatching actions. Before discussing benefits
-and caveats of each solution in detail let's revise how to implement a Redux-style dispatcher mechanism!<p/>
+and caveats of each solution in detail let's revise how to implement a Redux-style dispatcher mechanism!</p>
  
-<h3>Implementing a Dispatcher</h3><p/>
+<h3>Implementing a Dispatcher</h3>
 
-I am going to hightlight integrating Redux with React by extending our Car App with a feature that allows the user to add new cars to the data model.
-To achieve this, we are going to implement a dispatcher mechanism in Redux way. But before we start, let's not forget to enable Redux features in your app by adding following dependencies to your main app:<p/>
+<p>I am going to hightlight integrating Redux with React by extending our Car App with a feature that allows the user to add new cars to the data model.
+To achieve this, we are going to implement a dispatcher mechanism in Redux way. But before we start, let's not forget to enable Redux features in your app by adding following dependencies to your main app:</p>
 
 <b>
 import { createStore } from 'redux'<br/>
 import { Provider } from 'react-redux'
-</b><p/>
+</b>
 
-Now, we are good to go. The idea is that when the user clicks on "Add Car" button, the corresponding component
+<p>Now, we are good to go. The idea is that when the user clicks on "Add Car" button, the corresponding component
 dispatches an "AddCar" action that enriches the data model with one more car. Then all components representing
-this data should be updated automatically to match the new reality.<p/>
+this data should be updated automatically to match the new reality.</p>
 
 <h3>To Be Continued...</h3>
                 </div>
