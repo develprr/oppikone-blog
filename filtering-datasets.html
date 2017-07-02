@@ -88,9 +88,9 @@ that creating a home-made LinQ for your favorite programming language is not nec
 </p>
 
 <p>
-If you ever have used SQL (Structured Query Language) you probably know to respect the leverage it offers. Using SQL is great tool for finding information
-from a big database. However, making SQL-based queries into datasets usually requires that data to be placed in a database first. This will cause a great deal of complexity
-if your code maintains some dataset in dynamic memory and you want to filter out this data. Ideally, you will filter your dataset using a flexible query language similar to SQL. But in order to use SQL, you must place the data first into a database - only after then you can take advantage of the SQL implemantation that this database offers. It requires often a lot of configuration - especially if your application does not already use any database. Not to mention the overhead it takes to store your in-memory dat into database first - just for filtering purpose only! And even more bad news: web-based applications typically cannot directly access any database at all - browsers do not come with a database included!</p> 
+If you have ever used SQL (Structured Query Language) you probably know to respect the leverage it offers. SQL is a great tool for finding information
+from a big database. However, making SQL-based queries into datasets usually requires that data to be placed into a database first. This will cause a great deal of complexity
+if your code maintains some dataset in dynamic memory and you want to filter out that data. Ideally, you will filter your dataset using a flexible query language similar to SQL. But in order to use SQL, you must place the data into a database first - only after then you can take advantage of the SQL implemantation that this database offers. It requires often a lot of configuration - especially if your application does not already use any database. Not to mention the overhead it takes to store your in-memory data into database - just for filtering purpose only! And even more bad news: web-based applications typically cannot directly access any database at all - browsers do not come with a database included!</p> 
 
 <p>
 However, creating a miniature query language is quite easy if you know what to do. Basically, you can create your own query language following same guidelines and principles in most programming languages. Next, I will reveal the black art of implementing home-made in-memory query languages!
