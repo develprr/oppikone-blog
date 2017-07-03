@@ -99,8 +99,32 @@ However, creating a miniature query language is quite easy if you know what to d
 <h3>Evaluation Function Is The Key</h3>
 
 <p>
-To be continued...
+Most scripting languages have an evaluation function, often called <b>eval</b> as in Ruby and JavaScript. Though not often used by developers, this function is greatly useful
+when creating your own query languages. Consider following code in JavaScript:</p>
+
+<p>
+	var item = { forname: 'John', surname: 'Doe' }<br/>
+	var forname = eval(" item.forname ")
 </p>
+
+<p>
+With <b>eval</b> function, you can construct executable code on the fly in dynamic fashion and run it! This essentiatlly allow you to create
+self-programming software! Okay but what is the big deal here? Okay, I'll explain! Let's say that we have an array of items representing contact data. I have a use case that 
+I want to find those contacts who are younger than 40 and whose forname starts with "J". Here is how you implement this in JavaScript:
+</p>
+<textarea style="width:100%;height:250px;font-size:small">
+
+var filteredContacts = contacts.filter(function(contact) {
+   return contact.indexOf('J') === 0 && contact.age < 40 ? true : false
+})
+
+</textarea>
+
+<p>
+Quite nice. This code does exactly what I was looking for. But the problem is that the conditions ( name starts with 'J' and younger than 40 years ) are hard coded. This code is useless if I want to find anybody whose name starts with 'E'. Next, I'll be showing how <b>eval</b> function steps in to help us here!
+</p>
+
+<h3>To be continued...</h3>
                 </div>
             </div>
         </div>
