@@ -154,7 +154,7 @@ look and feel as intuitive as similar condition expressed in SQL - a language th
 <p>Now that we have a basic filtering engine, it's time to get down to secret art of baking query languages. I'll show how to convert an innocent natural language query into
 a bad-ass machine-readable condition expression that JavaScript engine understands. Let's say that I want to find all contacts whose</p>
 
-<b>forname starts with 'J' and surname contains 'nen' and age is less than 40 and zip code is either 88200 or 00610</b>
+<b>forname starts with 'J' and surname contains 'nen' and age is less than 40 and zip code is either '88200' or '00610'</b>
 
 <p>
 - that would be our nearly natural language query that will also be the syntax of our query language. It certainly sounds more intuitive than its translation in JavaScript:
@@ -165,7 +165,7 @@ a bad-ass machine-readable condition expression that JavaScript engine understan
 <p>And if we want to make sure null values in string attributes won't cause the execution crash, we need to buffer them with toString() function which will turn the condition
 even more ugly:</p>
 
-contact.forname.<b>toString()</b>.indexOf('J') == 0 && contact.surname.<b>toString()</b>.indexOf('nen') > -1 && contact.age < 40 && ( zip_code.<b>toString()</b> == '88200' || zip_code<b>toString()</b> == '00610')</b>
+contact.forname.<b>toString()</b>.indexOf('J') == 0 && contact.surname.<b>toString()</b>.indexOf('nen') > -1 && contact.age < 40 && ( contact.zip_code.<b>toString()</b> == '88200' || contact.zip_code.<b>toString()</b> == '00610')</b>
 
 <p>If you asked before why not forget the headache of using query language alltogether and define the conditions in native programming language in first place, maybe you are having some second thoughts by now. At least if you are not some hyper geek!</p>
 
