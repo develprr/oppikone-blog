@@ -172,23 +172,23 @@ contact.forname.<b>toString()</b>.indexOf('J') == 0 && contact.surname.<b>toStri
 <h3>Implementing Natural Language Parser</h3>
 
 <p>
-  There are dozens of parser implementations that aim at turning human-readable queries into executable condition expressions - no new innovations here. For comparison,
+  There are dozens of parser implementations that are intended to turn human-readable queries into executable condition expressions - no new innovations here. For comparison,
   check some UI libraries with nice filter implementations such as Kendo UI. Putting together new query parsers is therefore rather part of common cultural heritage, such as alphabets or algebra.
 </p>
 
 <p>Let's analyze the morphology of query. There is a clear pattern featuring [PROPERTY] [RELATIONAL_OPERATOR] [VALUE]. Queries then are combined using AND or OR operator. So we clearly must split combined query into atomic queries before parsing them. The split points are quite obviously all stop words AND and OR - with one exception! That excpetion is the custom subquery <b>zip code is either '88200' or '00610'</b> which as such includes syntax word OR -therefore we need to cancel that out first in order to avoid erroneus splitting of the combined query. So the query must be preprocessed first before splitting into parts: </p>
 
-<textarea style="width:100%;height:1000px;font-size:small">
+<textarea style="width:100%;height:600px;font-size:small">
 
 function extractEitherOrSubQueries(query) [
    var parts = query.split(' and ')
    var eoQueries = []
    parts.forEach(function(part) {
       if (part.indexOf(' is either ') > -1 && part.indexOf(' or ') > -1) {  
-        parts.push(part)
+        eoQueries.push(part)
       }
    })
-   return parts
+   return eoQueries
 }
 
 function maskEitherOrSubqueries(combinedQuery, eitherOrSubQueries) {
