@@ -109,7 +109,7 @@ when creating your own query languages. Consider following code in JavaScript:</
 </p>
 
 <p>
-With <b>eval</b> function, you can construct executable code on the fly in dynamic fashion and run it! This essentiatlly allows you to create and execute software code dynamically on the fly! Bbut what is the big deal here? Okay, I'll explain! Let's say that we have an array of items representing contact data. I have a use case that 
+With <b>eval</b> function, you can construct executable code on the fly in dynamic fashion and run it! But what is the big deal here? Okay, I'll explain! Let's say that we have an array of items representing contact data. I have a use case that 
 I want to find those contacts who are younger than 40 and whose forname starts with "J". Here is how you implement this in JavaScript:
 </p>
 <textarea style="width:100%;height:150px;font-size:small">
@@ -176,9 +176,28 @@ contact.forname.<b>toString()</b>.indexOf('J') == 0 && contact.surname.<b>toStri
   check some UI libraries with nice filter implementations such as Kendo UI. Putting together new query parsers is therefore rather part of common cultural heritage, such as alphabets or algebra.
 </p>
 
-<p>Let's analyze the morphology of query. There is a clear pattern featuring [PROPERTY] [RELATIONAL_OPERATOR] [VALUE]. Queries then are combined using AND or OR operator. So we clearly must split combined query into atomic queries before parsing them. The split points are quite obviously all stop words AND and OR - with one exception! That excpetion is the custom subquery <b>zip code is either '88200' or '00610'</b> which as such includes syntax word OR -therefore we need to cancel that out first in order to avoid erroneus splitting of the combined query. So the query must be preprocessed first before splitting into parts:</p>
+<p>Let's analyze the morphology of query. There is a clear pattern featuring [PROPERTY] [RELATIONAL_OPERATOR] [VALUE]. Queries then are combined using AND or OR operator. So we clearly must split combined query into atomic queries before parsing them. The split points are quite obviously all stop words AND and OR - with one exception! That excpetion is the custom subquery <b>zip code is either '88200' or '00610'</b> which as such includes syntax word OR -therefore we need to cancel that out first in order to avoid erroneus splitting of the combined query. So the query must be preprocessed first before splitting into parts: </p>
 
-<h3>To be continued...</h3>
+<textarea style="width:100%;height:300px;font-size:small">
+
+function preprocessEitherOrSubqueries(query) {
+   eitherOrSubqueries = extractEitherOrSubqueries(query)
+   query = maskEitherOrSubqueries(query, eitherOrSubqueries)
+   return query
+}
+
+function preprocessQuery(query) {
+   query = preorocessEitherOrSubQueries(query)
+   return splitQuery(query)qu
+}
+
+
+var query = "forname starts with 'M' and zip code is either '88200' or '00610'"
+query = preprocessQuery(query)
+
+</textarea>
+
+<h3>To be continued</h3>
                 </div>
             </div>
         </div>
