@@ -176,46 +176,48 @@ contact.forname.<b>toString()</b>.indexOf('J') == 0 && contact.surname.<b>toStri
   check some UI libraries with nice filter implementations such as Kendo UI. Putting together new query parsers is therefore rather part of common cultural heritage, such as alphabets or algebra.
 </p>
 
-<p>Let's analyze the morphology of query. There is a clear pattern featuring [PROPERTY] [RELATIONAL_OPERATOR] [VALUE]. Queries then are combined using AND or OR operator. So we clearly must split combined query into atomic queries before parsing them. The split points are quite obviously all stop words AND and OR - with one exception! That exception is the custom subquery <b>zip code is either '88200' or '00610'</b> which as such includes syntax word OR -therefore we need to cancel that out first in order to avoid erroneus splitting of the combined query. So the query must be preprocessed first before splitting into parts: </p>
+<p>Let's analyze the morphology of query. There is a clear pattern featuring [PROPERTY] [RELATIONAL_OPERATOR] [VALUE]. Queries then are combined using AND or OR operator. So we clearly must split combined query into atomic conditions before parsing them. When we split our combined query into conditions, we'll get following instances:</p>
 
-<textarea style="width:100%;height:800px;font-size:small">
+<ul>
+	<li>forname starts with 'J'</li>
+	<li>surname contains 'nen'</li>
+	<li>age is less than 40</li>
+	<li>zip code is either '88200' or '00610'</li>
+</ul>
 
-function extractEitherOrSubQueries(query) [
-   var parts = query.split(' and ')
-   var eoQueries = []
-   parts.forEach(function(part) {
-      if (part.indexOf(' is either ') > -1 && part.indexOf(' or ') > -1) {  
-        eoQueries.push(part)
-      }
-   })
-   return eoQueries
+<p>
+  How can we get there? It's pretty standard, really! Just split the query by <b>and</b> separator:
+</p>
+
+<p>
+<b>var conditions = query.split(' and ')</b>
+</p>
+
+<p>
+Now we can proceed to next step - convert each condition into JavaScript language. Let's create a loop for iterating all conditions!
+</p>
+
+<textarea style="width:100%;height:150px;font-size:small">
+
+function convertConditionsIntoJavaScript(conditions) {
+  var jsConditions = []
+  queries.forEach(function(condition) {
+     try {
+       var jsCondition = convertConditionIntoJavaScript(condition)
+       jsConditions.push(jsCondition)
+     catch(error) {
+       console.log('error in compiling condition ' + condition)
+     }
+  })
+  return jsConditions
 }
-
-function maskEitherOrSubqueries(combinedQuery, eitherOrSubQueries) {
-   eitherOrSubQueries.forEach(function(query) {
-      var replacer = query.replaceAll(' ','#')
-      combinedQuery = combinedQuery.replaceAll(query, replacer)
-   })
-   return combinedQuery
-}
-
-function preprocessEitherOrSubqueries(query) {
-   eitherOrSubqueries = extractEitherOrSubQueries(query)
-   query = maskEitherOrSubqueries(query, eitherOrSubqueries)
-   return query
-}
-
-function preprocessQuery(query) {
-   query = preprocessEitherOrSubQueries(query)
-   return splitQuery(query)
-}
-
-
-var query = "forname starts with 'M' and zip code is either '88200' or '00610'"
-query = preprocessQuery(query)
 
 </textarea>
 
+<p>
+In the code above I iterate given queries and execute the actual conversion function for each of them. The conversion function is wrapped in exception handling block -
+<b>converteQueryIntoJavaScript</b> will throw an exception if there is a syntax error. Next, I'll show how to process different kinds of conditions!
+</p>
 <h3>To be continued...</h3>
                 </div>
             </div>
