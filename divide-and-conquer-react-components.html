@@ -80,20 +80,20 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           		<p>
-In some <a href="http://www.oppikone.fi/blog/light-speed-development-combining-jquery-with-reactjs.html">previous articles</a> about creating React applications, I showed some examples on how to separate functionality and views
-in separate components. In those examples, those components were placed inside the <a href="https://github.com/develprr/reactjs-tutorial/blob/master/public/src/app-5.js">main source code file</a>. However, when your app grows a little bigger than a simple Hello World,
+In <a href="http://www.oppikone.fi/blog/light-speed-development-combining-jquery-with-reactjs.html">previous articles</a> about creating React applications, I showed some examples on how to separate functionality and views
+in separate components. In those examples, all components were placed inside the <a href="https://github.com/develprr/reactjs-tutorial/blob/master/public/src/app-5.js">main source code file</a>. However, when your app grows a little bigger than a simple Hello World,
 this solution will become increasingly unsatisfactory. To manage your code better, you will soon need to restructure it placing
 components inside their dedicated files. Moreover, you will need to regroup your software components into distinct folders in some logical way.</p>
 
-<p>In this article, I will show how to divide your monolithic App.js file into folders and files. Therefore I created just for you a <a href="https://github.com/develprr/reactjs-tutorial/tree/classes-in-separate-files/my-car-app/src">new branch</<> showing how to divide your React components into more manageable fragments inside your file system!</p>
+<p>Therefore I created just for you a <a href="https://github.com/develprr/reactjs-tutorial/tree/classes-in-separate-files/my-car-app/src">new branch</a> showing how to divide your React components into more manageable fragments inside your file system!</p>
 
-<p>Let's observe the solution in detail. You will see that <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/App.js">App</a> component's all subcomponents have been stripped off! They find their new home inside <b>components</b> folder. While this new folder structure might appear naively simplistic, let's not forget that our app is also quite naive at this point as well. No need to design a full blown fine tuned folder structure for our files at the point when we don't really have anything yet to place inside those folders!</p>
+<p>Let's observe the solution in detail. You will see that <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/App.js">App</a> component's all subcomponents have been stripped off! They find their new home inside <b>components</b> folder. While this new folder structure might appear naively simplistic, let's not forget that our app is also quite naive at this point as well. No need to design a full blown fine tuned folder structure for our files when we don't really have anything yet to place inside those folders!</p>
 
 <p>While removing subcomponents from your main App component, just add following lines to the beginning of the renewed slim App file:</p>
 
 
 <b>import { AppTitle } from './component/AppTitle.js'<br/>
-import { CarFilterList } from './component/CarFilterList.js'</p>
+import { CarFilterList } from './component/CarFilterList.js'</b>
 
 <p>
 And now that we <b>import</b> those components into main App, whe also must make sure to <b>export</b> them as well so they can be imported in the first place! That is quite simple - just add <i>export</i> keyword before the declaration of a class:
