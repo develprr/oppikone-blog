@@ -113,20 +113,24 @@ previous example, I showed how requests fired in different parts of the applicat
 that the user clicks on "Exit" button that is embedded in a component at the leaf in the component hierarchy.
 Now, logging out is a function typically implemented at the top level of the software.
 If the events must bubble through all the hierarchy before they reach their target component then we must implement quite a long chain of local listeners and dispatchers. 
-If the event launches local variable changes on its way toward the root then it will likely cause bugs resulting from data states being out of sync in various parts of the application.</p> 
+If the event launches local variable changes on its way toward the root then it will likely cause bugs resulting from data states being out of sync in various parts of the application.
+</p> 
 
-<p>It is truly a no-brainer to come up with a solution that lets the leaf component bypass all that hierarchy and deliver
+<p>It may not be too unintuitive to come up with a solution that lets the leaf component bypass all that hierarchy and deliver
 the information directly to the place where it is needed. This can be done either by dispatching a global action inside
 the leaf component or empowering it with a direct invocation handle to the data service component. Both
 solutions have their pros and cons. Redux favors dispatching actions. Before discussing benefits
 and caveats of each solution in detail let's revise how to implement a Redux-style dispatcher mechanism!</p>
  
+<p>But before we dive into different kinds of event-based solutions to transfer data inside a React (or whatever) app, you might like to view the <a href="https://github.com/develprr/reactjs-tutorial/tree/basic-navigation/my-car-app">source code of my demo implementation</a> featuring a  of bubbling type of communication between different parts of application!</p>
+
+
 <h3>Essentials of Redux</h3>
 
 <p>When you place your data in Redux, you start with writing an <b>action</b>. Action can be understood as a package that contains the payload being transferred from one place inside your App to another place. After you define the action for your data, you continue by implementing a <b>reducer</b> that catches the action, possibly executes some derivative functions on the data object received and finally places it in Redux <b>data storage</b>. Once the data is placed in Redux data storage, it can be easily made available for different parts of your application. And finally, you must remember to dispatch the data! A typical situation to dispatch your data is when you load a data object from server over an AJAX request. Loading data from server can be done either using the native <i>fetch</i> function or relying on some AJAX library such as Axios or jQuery.</p>
 
 <h3>Stay Calm and Cool With Concepts!</h3>
-
+li
 <p>For someone not so familiar with html templating frameworks, data storages, dispatchers and request frameworks it's easy to mix up these concepts. Let me clarify therefore that you 
 can combine all these things in different ways. For instance, you can skip Redux dispatcher alltogether and put your data directly into Redux data storage after loading it from server. And you can code with ReactJS without using Redux at all. In that case you can use your custom application wide data storage if you like. And you can use Redux dispatcher without using Redux data storage. Why not set up your own event framework on coffee break if you are momentarily out of tasks? And you can use Redux without using ReactJS for rendering views at all. You can code with all these frameworks using plain old good JavaScript and you can code using some other JavaScript variant such as ES6 or ES7 - in that case you must include a transpiler such as Babel in your app. You can use a package manager such as NPM to glue all these libraries together - but you don't have to do so! You can also include all these dependencies directly in browser. You can use NPM - but you can use Yarn or Bower or many alternatives as well! You can use Bootstrap with your App for html styling - but you don't have to! There are endless combinations and the world is free!</p>
 <h3>Calling a Dispatcher</h3>
