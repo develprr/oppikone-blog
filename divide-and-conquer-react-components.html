@@ -79,7 +79,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<p>
+          		<h3>Avoid Big Files</h3>
+
+<p>
 In <a href="http://www.oppikone.fi/blog/light-speed-development-combining-jquery-with-reactjs.html">previous articles</a> about creating React applications, I showed some examples on how to separate functionality and views
 into distinct components. In those examples, all components were placed inside the <a href="https://github.com/develprr/reactjs-tutorial/blob/master/public/src/app-5.js">main source code file</a>. However, when your app grows a little bigger than a simple Hello World,
 this solution will become increasingly unsatisfactory. To manage your code better, you will soon need to restructure it placing
@@ -102,6 +104,22 @@ And now that we <b>import</b> those components into main App, we also must make 
 <b>export</b> class AppTitle extends React.Component { ...
 
 <p>Not that difficult after all, right?  :) Check the full example <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/component/AppTitle.js">here!</p>
+
+<h3>Can You Place Many Components in One File?</h3>
+qq
+<p>
+  There is some debatte about placement of components and classes in separate files. Shall there be separate file for each component? Is it wise to place many components in one file?
+  The answer generally depends on following factors:
+ 
+  <ul>
+	<li>Are components defined in file really needed elsewhere?</li>
+  	<li>How many lines of code are in one file?</li>
+  </ul>
+
+<p>I think it is just okay to define react components that are not intended to be generic and reusable by many different parent components. It is just fine to define a React component that is only used by one specific parent component. If that is the case, there is definitely no need to create a separate file for that class. Neither it is necessary to or even recommendable to define such class exportable by adding <b>export</b> keyword before that file. One should not be too obsessed about creating "reusable" components. One important justification to create non-reusable components is just to improve readibility of your main component - it can be achieved through structuring with help of "internal" components". Such components can be placed in one file with their parent component - which in turn then is exported. The file should be named after the main exportable component it contains.</p>
+
+<p>The second question about file size is more tricky. I think that when a file exceeds 300 lines of code then there will be an increasing need to consider splitting the component into many files. But with modern editors that typically offer a structured view, it actually is possible to place all source code in one file only and it still remains perfectly navigable.
+There are even some benefits to this: coding is faster (at least in the beginning) when you don't need to create files and folders for your new components. But when you use a version management system and especially when there are many developers in the project - I would stick to upper limit of about 300 lines of code per file.</p>
                 </div>
             </div>
         </div>
