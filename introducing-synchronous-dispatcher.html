@@ -79,7 +79,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<h3>Synchronous Dispatcher Is Simpler, Cleanear And Better</h3>
+          		<h3>Synchronous Dispatcher Is Simpler, Cleaner And Better</h3>
 
 <p>
  In this article I will introduce how to use the super lightweight yet extremely powerful and intuitive <a href="https://www.npmjs.com/package/synchronous-dispatcher">Synchronous Dispatcher</a> event framework that I have developed just for you, dear Reader, to help you create fantastic software in a painless way. 
@@ -90,7 +90,7 @@
 </p>
 
 <p>
-  <a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was exactly the same that "Redux" is today for "React" - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the way how it handles events using endless lists of switch case structures is in my opinion quite awful - don't you think we could have something sleaker in 2017 than dozens of times <b>if else if else if else if else</b> that Redux-style switch-casing essentially is? Moreover, Redux sort-of forces the developer to divide components into "container" and "representation" components. While this makes sense in theory, in practice the separation is quite artificial and forces the developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!
+  <a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was almost the same as "Redux" is today for "React" - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the way how it handles events using endless lists of switch case structures is in my opinion quite awful - don't you think we could have something sleaker in 2017 than dozens of times <b>if else if else if else if else</b> that Redux-style switch-casing essentially is? Moreover, Redux sort-of forces the developer to divide components into "container" and "representation" components. While this makes sense in theory, in practice the separation is quite artificial and forces the developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!
 </p>
 <p>
 I bet that you may already have had this creepy feeling with Redux (but you supressed it so you would not be ridiculed by your Redux-believer peers): do things really need to be this complicated? I had this same feeling in 2010 when I had to take over a project that was using Mate. Therefore I created my own event framework - super simple, fast to implement, a lot cleaner, more intuitive and fun to use! Later I ported that for JavaScript and now that I witness a new JavaScript generation repeating the same mistakes with Redux for React as the previous did with Mate for Flex - it is time to intervene and show how to use Synchronous Dispatcher together with React. <b> Let's make coding fun again!</b>
@@ -115,7 +115,45 @@ dispatch('CAR-MODEL-SELECTED', carModelId)
 
 <p>If you are interested to check Synchronous Dispatcher in action, please have a look at source code for a version of my Car App Demo that uses Synchronous Dispatcher <a href="https://github.com/develprr/reactjs-tutorial/tree/synchronous-dispatcher/my-car-app">here!</a></p>
 
-<h3>I'll be back to you sooner than you imagine!</h3>
+<h3>Power Of Direct Binding</h3>
+
+<p>In Synchronous Dispatcher architecture, event handlers are directly bound to their corresponding events. That is truly superior to frameworks such as Redux - that require you to implement binding event handler to their event manually, through an awkward switch-case concoction. Let's look this in detail! Here is an example of a typical Redux "Reducer", taken from <a href="https://github.com/reactjs/redux/blob/master/examples/todos/src/reducers/todos.js">Redux Todos examples</a> Github project:  
+</p>
+
+<textarea style="width:100%;height:600px;font-size:small">
+const todos = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [
+        ...state,
+        {
+          id: action.id,
+          text: action.text,
+          completed: false
+        }
+      ]
+    case 'TOGGLE_TODO':
+      return state.map(todo =>
+        (todo.id === action.id) 
+          ? {...todo, completed: !todo.completed}
+          : todo
+      )
+    default:
+      return state
+  }
+
+</textarea>
+
+<p>
+What is happening here is that you are defining manually an awkward switch-case structure to tell Redux what to do in case of different events. A switch-case structure is basically nothing more than an alternative notation for <b>if else if else...</b> loop. It means that every time an event is dispatched in your application, <b>all</b> switch-cases in <b>all</b> your reducers are iterated through until a match is found for the event name!
+</p>
+
+<p>A more mature way to implement this would be using a hash table (also called HashMap in Java and associative array in JavaScript or ActionScript). Consider that you have 500 Redux events in your app. Using Redux style switch-case mapping, all possibilities are iterated <b>every time</b> an event was dispatched! Using hash tables you would spare quite a lot redundant work for your processor! Now someone might be asking, so what? I have a hyper fast Intel 7 processor! But remember that when you are creating browser-based software, not everyone has a super computer. Different kinds of tablets and phones vary greatly in performance - they might even have many tabs open and apps runnning simultaneously. And if you have a coding style that lavishly spends processing time without caring about performance, it is guaranteed that at some point when you continue decorating your app with more of this type of carelessly designed code piled on earlier wasteful code - soon even browsers running on fast computers will start crashing and displaying a cryptic error message: <b>"Oops, this is so embarrasing! Your Redux porridge just crashed!"</b></p>
+
+<p>But this does not need to be. Have look at my reference implementation of <b>Synchronous Dispatcher</b> that does not waste precious processing resources! When you call <b>handle</b> function that defines an action to be executed when a certain event is fired, what happens under the hood is that your action is mapped to its event using a hash table! If you still need
+clarification why this is better than endless switch-case loops, have a look at the <a href="https://en.wikipedia.org/wiki/Hash_table">Wikipedia article on hash tables</a>.
+
+<h3>To Be Continued...</h3>
                 </div>
             </div>
         </div>
