@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The Easiest And Fastest Event Framework for React Ever!">
+    <meta name="author" content="Oppikone">
+
+    <title>Introducing Synchronous Dispatcher</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div style="display:none" class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="http://www.oppikone.fi">Oppikone</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul style display="none" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="http://www.oppikone.fi">Oppikone</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/templates/oppikone/files/techno/slide-03.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
+                        <h1 style="color:white">Introducing Synchronous Dispatcher</h1>
+                        <h2 style="color:yellow" class="subheading">The Easiest And Fastest Event Framework for React Ever!</h2>
+                        <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 18.07.2017 09:37:36</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          		<h3>Synchronous Dispatcher Is Simpler, Cleanear And Better</h3>
+
+<p>
+ In this article I will introduce how to use the super lightweight yet extremely powerful and intuitive <a href="https://www.npmjs.com/package/synchronous-dispatcher">Synchronous Dispatcher</a> event framework that I have developed just for you, dear Reader, to help you create fantastic software in a painless way. 
+</p>
+
+<p>
+<b>Synchronous Dispatcher</b> is a wonderful little framework - or should I call it rather a design pattern - that I designed already in 2010 for ActionScript programming language. 	   Those times ActionScript (used by Flash-based web apps) already had the maturity that JavaScript-based techniques are now slowly catching up. Some who think that React is something new may be surprised to hear that React is essentially only a remake or at best a reinvention of <a href="https://en.wikipedia.org/wiki/Apache_Flex">Adobe Flex</<> (later called Apache Flex) framework that was introduced already in 2004 - it essentially introduced a virtual DOM model: you could create your own Flex components that you would then use as construction blocks inside your HTML-like templates. Adobe Flex really already had everything that React has today!
+</p>
+
+<p>
+  <a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was exactly the same that "Redux" is today for "React" - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the way how it handles events using endless lists of switch case structures is in my opinion quite awful - don't you think we could have something sleaker in 2017 than dozens of times <b>if else if else if else if else</b> that Redux-style switch-casing essentially is? Moreover, Redux sort-of forces the developer to divide components into "container" components and "representation" components. While this makes sense in theory, in practice the separation is quite articifial and forces the developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!
+</p>
+<p>
+I bet that you may have already had this creepy feeling with Redux: do things really need to be this complicated? I had this same feeling in 2010 when I had to take over a project that was using Mate. Therefore I created my own event framework - super simple, fast to implement, a lot cleaner, more intuitive and fun to use! Later I ported that for JavaScript and now that I see that the new JavaScript generation is repeating with Redux the same mistakes that the previous did with Mate for Flex - it is time to show how to use Synchronous Dispatcher together with React. <b> Let's make coding fun again!</b>
+</p>
+
+<h3>Using Synchronous Dispatcher</h3>
+
+<p>
+Using Synchronous Dispatcher is simple: when you want make a React component to listen for an event you jast add a <b>handle</b> to the constructor 
+of that component, for instance: 
+</p>
+
+<b>handle('CAR-MODEL-SELECTED', this.onCarModelSelected)</b>
+
+<p>
+And wherever you want to dispatch the event, you just call <b>dispatch</b> method:
+</p>
+
+<b>
+dispatch('CAR-MODEL-SELECTED', carModelId)
+</b>
+
+<p>Next, I'll demonstrate synchronous dispatcher with a real world example, showing how to simplify data flow in our Car Business Demo App!</p>
+
+<h3>I'll be back to you sooner than you imagine!</h3>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul style="display:none" class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+		    <p class="copyright text-muted">View this article on <a href="https://github.com/develprr/oppikone-blog/commits/master/introducing-synchronous-dispatcher.html">GitHub!</a></p>
+                    <p class="copyright text-muted">Copyright &copy; Oppikone 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
