@@ -90,17 +90,16 @@
 </p>
 
 <p>
-  <a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was almost the same as "Redux" is today for "React" - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the way how it handles events using endless lists of switch case structures is in my opinion quite awful - don't you think we could have something sleeker in 2017 than dozens of times <b>if else if else if else if else</b> that Redux-style switch-casing essentially is? Moreover, Redux sort-of forces the developer to divide components into "container" and "representation" components. While this makes sense in theory, in practice the separation is quite artificial and forces developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!
+  <a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was almost the same as "Redux" is today for "React" - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the Redux way of handling events is done using endless lists of switch-case structures - don't you think we could have something sleeker in 2017 than repeating dozens of times <b>if else if else...</b> that "switch-caseing" essentially is? Moreover, a Redux-style design pattern sort-of forces the developer to divide components into "container" and "representation" components. While this makes sense in theory, in practice the separation is often quite artificial and forces developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!
 </p>
 <p>
-I bet that you may already have had this creepy feeling with Redux (but you suppressed it so you would not be ridiculed by your Redux-believer peers): do things really need to be this complicated? I had this same feeling in 2010 when I had to take over a project that was using Mate. Therefore I created my own event framework - super simple and fast: enabling one to define events and handlers in a snap, a lot cleaner, more intuitive and fun to use! Later I ported it for JavaScript and now that I witness a new generation repeating the same mistakes with Redux for React as the previous did with Mate for Flex - it is time to intervene and show how to use Synchronous Dispatcher together with React. <b> Let's make coding fun again!</b>
+The Synchronous Dispatcher is different - it's simple and sleek: it enables you to define events and handlers in a snap. Let's make coding fun again!
 </p>
 
 <h3>Using Synchronous Dispatcher</h3>
 
 <p>
-Using Synchronous Dispatcher is simple: when you want to make a React component to listen for an event you just add a <b>handle</b> to the constructor 
-of that component, for instance: 
+Using Synchronous Dispatcher is simple: when you want to make a React component to listen for an event you just add a <b>handle</b> to the constructor of that component, for instance: 
 </p>
 
 <b>handle('CAR-MODEL-SELECTED', this.onCarModelSelected)</b>
@@ -111,6 +110,12 @@ And wherever you want to dispatch the event, you just call <b>dispatch</b> metho
 
 <b>
 dispatch('CAR-MODEL-SELECTED', carModelId)
+</b>
+
+<p>Import Synchronous Dispatcher's <b>handle</b> function to your React App:</p>
+
+<b>
+import { handle } from 'synchronous-dispatcher';
 </b>
 
 <p>If you are interested to check Synchronous Dispatcher in action, please have a look at source code for a version of my Car App Demo that uses Synchronous Dispatcher <a href="https://github.com/develprr/reactjs-tutorial/tree/synchronous-dispatcher/my-car-app">here!</a></p>
