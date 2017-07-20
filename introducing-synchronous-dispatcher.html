@@ -3,99 +3,97 @@
 
 <head>
 
-<pre><code>&lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-&lt;meta name=&quot;description&quot; content=&quot;The Easiest And Fastest Event Framework for React Ever!&quot;&gt;
-&lt;meta name=&quot;author&quot; content=&quot;Oppikone&quot;&gt;
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The Easiest And Fastest Event Framework for React Ever!">
+    <meta name="author" content="Oppikone">
 
-&lt;title&gt;Introducing Synchronous Dispatcher&lt;/title&gt;
+    <title>Introducing Synchronous Dispatcher</title>
 
-&lt;!-- Bootstrap Core CSS --&gt;
-&lt;link href=&quot;vendor/bootstrap/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-&lt;!-- Theme CSS --&gt;
-&lt;link href=&quot;css/clean-blog.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
 
-&lt;!-- Custom Fonts --&gt;
-&lt;link href=&quot;vendor/font-awesome/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
-&lt;link href=&#39;https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
-&lt;link href=&#39;https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-&lt;!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --&gt;
-&lt;!-- WARNING: Respond.js doesn&#39;t work if you view the page via file:// --&gt;
-&lt;!--[if lt IE 9]&gt;
-    &lt;script src=&quot;https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js&quot;&gt;&lt;/script&gt;
-&lt;![endif]--&gt;</code></pre>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 
 <body>
 
-<pre><code>&lt;!-- Navigation --&gt;
-&lt;nav class=&quot;navbar navbar-default navbar-custom navbar-fixed-top&quot;&gt;
-    &lt;div class=&quot;container-fluid&quot;&gt;
-        &lt;!-- Brand and toggle get grouped for better mobile display --&gt;
-        &lt;div style=&quot;display:none&quot; class=&quot;navbar-header page-scroll&quot;&gt;
-            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;&gt;
-                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
-                Menu &lt;i class=&quot;fa fa-bars&quot;&gt;&lt;/i&gt;
-            &lt;/button&gt;
-            &lt;a class=&quot;navbar-brand&quot; href=&quot;http://www.oppikone.fi&quot;&gt;Oppikone&lt;/a&gt;
-        &lt;/div&gt;
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div style="display:none" class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="http://www.oppikone.fi">Oppikone</a>
+            </div>
 
-        &lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
-        &lt;div  class=&quot;collapse navbar-collapse&quot; id=&quot;bs-example-navbar-collapse-1&quot;&gt;
-            &lt;ul style display=&quot;none&quot; class=&quot;nav navbar-nav navbar-right&quot;&gt;
-                &lt;li&gt;
-                    &lt;a href=&quot;http://www.oppikone.fi&quot;&gt;Oppikone&lt;/a&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/div&gt;
-        &lt;!-- /.navbar-collapse --&gt;
-    &lt;/div&gt;
-    &lt;!-- /.container --&gt;
-&lt;/nav&gt;
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul style display="none" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="http://www.oppikone.fi">Oppikone</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-&lt;!-- Page Header --&gt;
-&lt;!-- Set your background image for this header on the line below. --&gt;
-&lt;header class=&quot;intro-header&quot; style=&quot;background-image: url(&#39;/templates/oppikone/files/techno/slide-03.jpg&#39;)&quot;&gt;
-    &lt;div class=&quot;container&quot;&gt;
-        &lt;div class=&quot;row&quot;&gt;
-            &lt;div class=&quot;col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1&quot;&gt;
-                &lt;div class=&quot;post-heading&quot; style=&quot;background-color:rgba(50,50,50,0.3)&quot;&gt;
-                    &lt;h1 style=&quot;color:white&quot;&gt;Introducing Synchronous Dispatcher&lt;/h1&gt;
-                    &lt;h2 style=&quot;color:yellow&quot; class=&quot;subheading&quot;&gt;The Easiest And Fastest Event Framework for React Ever!&lt;/h2&gt;
-                    &lt;span class=&quot;meta&quot;&gt;Posted by &lt;a href=&quot;#&quot;&gt;Heikki Kupiainen/Oppikone&lt;/a&gt; on 18.07.2017 09:37:36&lt;/span&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/header&gt;
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/templates/oppikone/files/techno/slide-03.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
+                        <h1 style="color:white">Introducing Synchronous Dispatcher</h1>
+                        <h2 style="color:yellow" class="subheading">The Easiest And Fastest Event Framework for React Ever!</h2>
+                        <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 18.07.2017 09:37:36</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-&lt;!-- Post Content --&gt;
-&lt;article&gt;
-    &lt;div class=&quot;container&quot;&gt;
-        &lt;div class=&quot;row&quot;&gt;
-            &lt;div class=&quot;col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1&quot;&gt;
-            ### Synchronous Dispatcher Is Simpler, Cleaner And Better</code></pre>
-<p>In this article I will introduce the super lightweight yet extremely powerful and intuitive <a href="https://www.npmjs.com/package/synchronous-dispatcher">Synchronous Dispatcher</a> event framework that I created just for you, dear Reader, to help you develop fantastic software in a painless way.</p>
-<p><b>Synchronous Dispatcher</b> is a wonderful little framework - or should I rather call it a design pattern - that I designed already in 2010 for ActionScript programming language. Those times ActionScript (used by Flash-based web apps) already had the maturity that JavaScript-based techniques are now slowly catching up with. Some who think that React is something new may be surprised to hear that React is essentially only a remake or at best a reinvention of <a href="https://en.wikipedia.org/wiki/Apache_Flex">Adobe Flex</a> (initially called Macromedia Flex, later Apache Flex) framework that was introduced already in 2004 - it essentially introduced a virtual DOM model: you could create your own Flex components that you would then use as construction blocks inside your HTML-like templates. Adobe Flex really already had everything that React has today!</p>
-<p><a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was almost the same as &quot;Redux&quot; is today for &quot;React&quot; - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the Redux way of handling events is done using endless lists of switch-case structures - don't you think we could have something sleeker in 2017 than repeating dozens of times <b>if else if else...</b> that &quot;switch-caseing&quot; essentially is? Moreover, a Redux-style design pattern sort-of forces the developer to divide components into &quot;container&quot; and &quot;representation&quot; components. While this makes sense in theory, in practice the separation is often quite artificial and forces developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!</p>
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          		<h3 id="synchronous-dispatcher-is-simpler-cleaner-and-better">Synchronous Dispatcher Is Simpler, Cleaner And Better</h3>
+<p>In this article I will introduce the super lightweight yet extremely powerful and intuitive [Synchronous Dispatcher] (https://www.npmjs.com/package/synchronous-dispatcher) event framework that I created just for you, dear Reader, to help you develop fantastic software in a painless way.</p>
+<p><strong>Synchronous Dispatcher</strong> is a wonderful little framework - or should I rather call it a design pattern - that I designed already in 2010 for ActionScript programming language. Those times ActionScript (used by Flash-based web apps) already had the maturity that JavaScript-based techniques are now slowly catching up with. Some who think that React is something new may be surprised to hear that React is essentially only a remake or at best a reinvention of <a href="https://en.wikipedia.org/wiki/Apache_Flex">Adobe Flex</a> (initially called Macromedia Flex, later Apache Flex) framework that was introduced already in 2004 - it essentially introduced a virtual DOM model: you could create your own Flex components that you would then use as construction blocks inside your HTML-like templates. Adobe Flex really already had everything that React has today!</p>
+<p><a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was almost the same as &quot;Redux&quot; is today for &quot;React&quot; - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the Redux way of handling events is done using endless lists of switch-case structures - don't you think we could have something sleeker in 2017 than repeating dozens of times <strong>if else if else...</strong> that &quot;switch-caseing&quot; essentially is? Moreover, a Redux-style design pattern sort-of forces the developer to divide components into &quot;container&quot; and &quot;representation&quot; components. While this makes sense in theory, in practice the separation is often quite artificial and forces developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!</p>
 <p>The Synchronous Dispatcher is different - it's simple and sleek: it enables you to define events and handlers in a snap. Let's make coding fun again!</p>
 <h2 id="using-synchronous-dispatcher">Using Synchronous Dispatcher</h2>
-<p>Using Synchronous Dispatcher is simple: when you want to make a React component to listen for an event you just add a <b>handle</b> to the constructor of that component, for instance:</p>
+<p>Using Synchronous Dispatcher is simple: when you want to make a React component to listen for an event you just add a <strong>handle</strong> to the constructor of that component, for instance:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">handle</span>(<span class="st">&#39;CAR-MODEL-SELECTED&#39;</span>, <span class="kw">this</span>.<span class="fu">onCarModelSelected</span>)</code></pre>
-<p>And wherever you want to dispatch the event, you just call <b>dispatch</b> method:</p>
+<p>And wherever you want to dispatch the event, you just call <strong>dispatch</strong> method:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">dispatch</span>(<span class="st">&#39;CAR-MODEL-SELECTED&#39;</span>, carModelId)</code></pre>
 <p>Import Synchronous Dispatcher's <strong>handle</strong> function to your React App:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">import</span> { handle } from <span class="st">&#39;synchronous-dispatcher&#39;</span>;</code></pre>
 <p>If you are interested to check Synchronous Dispatcher in action, please have a look at source code for a version of my Car App Demo that uses Synchronous Dispatcher <a href="https://github.com/develprr/reactjs-tutorial/tree/synchronous-dispatcher/my-car-app">here</a></p>
 <h3 id="power-of-direct-binding">Power Of Direct Binding</h3>
-<p>
-In Synchronous Dispatcher architecture, event handlers are directly bound to their corresponding events. That is truly superior to frameworks such as Redux - that require you to implement binding event handler to their event manually, through an awkward switch-case concoction. Let's look at this in detail! Here is an example of a typical Redux &quot;Reducer&quot;, taken from Redux Todos examples Github project:<br />
-</p>
-
+<p>In Synchronous Dispatcher architecture, event handlers are directly bound to their corresponding events. That is truly superior to frameworks such as Redux - that require you to implement binding event handler to their event manually, through an awkward switch-case concoction. Let's look at this in detail! Here is an example of a typical Redux &quot;Reducer&quot;, taken from Redux Todos examples Github project:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> todos = (state = [], action) =&gt; {
   <span class="kw">switch</span> (<span class="ot">action</span>.<span class="fu">type</span>) {
     <span class="kw">case</span> <span class="st">&#39;ADD_TODO&#39;</span>:
@@ -116,69 +114,68 @@ In Synchronous Dispatcher architecture, event handlers are directly bound to the
     <span class="kw">default</span>:
       <span class="kw">return</span> state
   }</code></pre>
-<p>What is happening here is that you are defining manually an awkward switch-case structure to tell Redux what to do in case of different events. A switch-case structure is basically nothing more than an alternative notation for <b>if else if else...</b> loop. It means that every time an event is dispatched in your application, <b>all</b> switch-cases in <b>all</b> your reducers are iterated through until a match is found for the event name!</p>
-<p>A more mature way to implement this would be using a hash table (also called HashMap in Java and associative array in JavaScript or ActionScript). Consider that you have 500 Redux events in your app. And consider a situation that an event handler is programmed to dispatch another event and so on... Using Redux style switch-case mapping, all possibilities are iterated <b>every time</b> an event was dispatched! Using hash tables instead you would spare your processor from quite a lot redundant work! Now someone might be asking, so what? I have a super fast Intel 7 processor anyway! But remember that when you are creating browser-based software, not everyone has a supercomputer. Different kinds of tablets and phones vary greatly in performance. And if you have a coding style that lavishly spends processing time without caring about performance, it is guaranteed that at some point when you continue decorating your app with more of this type of carelessly designed code piled on top of earlier wasteful code - soon even browsers running on fast computers will start crashing and displaying a crash message something like <b>&quot;Well, this is embarrassing...&quot;</b></p>
-But this does not need to be. Have a look at my <a href="https://github.com/develprr/synchronous-dispatcher">reference implementation</a> of <b>Synchronous Dispatcher</b> that does not waste precious processing resources! When you call <b>handle</b> function that defines an action to be executed when a certain event is fired, what happens under the hood is that your action is mapped to its event using a hash table! If you still need clarification why this is better than endless switch-case loops, have a look at the <a href="https://en.wikipedia.org/wiki/Hash_table">Wikipedia article on hash tables</a>.
-</div>
+<p>What is happening here is that you are defining manually an awkward switch-case structure to tell Redux what to do in case of different events. A switch-case structure is basically nothing more than an alternative notation for <strong>if else if else...</strong> loop. It means that every time an event is dispatched in your application, <strong>all</strong> switch-cases in <strong>all</strong> your reducers are iterated through until a match is found for the event name!</p>
+<p>A more mature way to implement this would be using a hash table (also called HashMap in Java and associative array in JavaScript or ActionScript). Consider that you have 500 Redux events in your app. And consider a situation that an event handler is programmed to dispatch another event and so on... Using Redux style switch-case mapping, all possibilities are iterated <strong>every time</strong> an event was dispatched! Using hash tables instead you would spare your processor from quite a lot redundant work! Now someone might be asking, so what? I have a super fast Intel 7 processor anyway! But remember that when you are creating browser-based software, not everyone has a supercomputer. Different kinds of tablets and phones vary greatly in performance. And if you have a coding style that lavishly spends processing time without caring about performance, it is guaranteed that at some point when you continue decorating your app with more of this type of carelessly designed code piled on top of earlier wasteful code - soon even browsers running on fast computers will start crashing and displaying a crash messag like <strong>&quot;Well, this is embarrassing...&quot;</strong></p>
+<p>But this does not need to be. Have a look at my <a href="https://github.com/develprr/synchronous-dispatcher">reference implementation</a> of <strong>Synchronous Dispatcher</strong> that does not waste precious processing resources! When you call <strong>handle</strong> function that defines an action to be executed when a certain event is fired, what happens under the hood is that your action is mapped to its event using a hash table! If you still need clarification why this is better than endless switch-case loops, have a look at the <a href="https://en.wikipedia.org/wiki/Hash_table">article on hash tables</a></p>
 
-<pre><code>        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/article&gt;
+                </div>
+            </div>
+        </div>
+    </article>
 
-&lt;hr&gt;
+    <hr>
 
-&lt;!-- Footer --&gt;
-&lt;footer&gt;
-    &lt;div class=&quot;container&quot;&gt;
-        &lt;div class=&quot;row&quot;&gt;
-            &lt;div class=&quot;col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1&quot;&gt;
-                &lt;ul style=&quot;display:none&quot; class=&quot;list-inline text-center&quot;&gt;
-                    &lt;li&gt;
-                        &lt;a href=&quot;#&quot;&gt;
-                            &lt;span class=&quot;fa-stack fa-lg&quot;&gt;
-                                &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
-                                &lt;i class=&quot;fa fa-twitter fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
-                            &lt;/span&gt;
-                        &lt;/a&gt;
-                    &lt;/li&gt;
-                    &lt;li&gt;
-                        &lt;a href=&quot;#&quot;&gt;
-                            &lt;span class=&quot;fa-stack fa-lg&quot;&gt;
-                                &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
-                                &lt;i class=&quot;fa fa-facebook fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
-                            &lt;/span&gt;
-                        &lt;/a&gt;
-                    &lt;/li&gt;
-                    &lt;li&gt;
-                        &lt;a href=&quot;#&quot;&gt;
-                            &lt;span class=&quot;fa-stack fa-lg&quot;&gt;
-                                &lt;i class=&quot;fa fa-circle fa-stack-2x&quot;&gt;&lt;/i&gt;
-                                &lt;i class=&quot;fa fa-github fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;
-                            &lt;/span&gt;
-                        &lt;/a&gt;
-                    &lt;/li&gt;
-                &lt;/ul&gt;
-        &lt;p class=&quot;copyright text-muted&quot;&gt;View this article on &lt;a href=&quot;https://github.com/develprr/oppikone-blog/commits/master/introducing-synchronous-dispatcher.html&quot;&gt;GitHub!&lt;/a&gt;&lt;/p&gt;
-                &lt;p class=&quot;copyright text-muted&quot;&gt;Copyright &amp;copy; Oppikone 2017&lt;/p&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/footer&gt;
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul style="display:none" class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+		    <p class="copyright text-muted">View this article on <a href="https://github.com/develprr/oppikone-blog/commits/master/introducing-synchronous-dispatcher.html">GitHub!</a></p>
+                    <p class="copyright text-muted">Copyright &copy; Oppikone 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-&lt;!-- jQuery --&gt;
-&lt;script src=&quot;vendor/jquery/jquery.min.js&quot;&gt;&lt;/script&gt;
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
 
-&lt;!-- Bootstrap Core JavaScript --&gt;
-&lt;script src=&quot;vendor/bootstrap/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-&lt;!-- Contact Form JavaScript --&gt;
-&lt;script src=&quot;js/jqBootstrapValidation.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;js/contact_me.js&quot;&gt;&lt;/script&gt;
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
 
-&lt;!-- Theme JavaScript --&gt;
-&lt;script src=&quot;js/clean-blog.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
 </body>
 
 </html>
-
-
