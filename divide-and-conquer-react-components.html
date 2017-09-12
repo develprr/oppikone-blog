@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Manage growing complexity by dividing components into separate files and folders.">
-    <meta name="author" content="Oppikone">
+    <meta name="description" content="Manage Growing Complexity by Dividing Components Into Separate Files and Folders.">
+    <meta name="author" content="Metatamatic">
 
-    <title>Divide And Conquer React Components</title>
+    <title>Divide and Conquer React Components</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,14 +42,14 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="http://www.oppikone.fi">Oppikone</a>
+                <a class="navbar-brand" href="http://www.metamatic.net">Metamatic</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul style display="none" class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="http://www.oppikone.fi">Oppikone</a>
+                        <a href="http://www.metamatic.net">Metamatic</a>
                     </li>
                 </ul>
             </div>
@@ -60,14 +60,14 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/templates/oppikone/files/nature/leaves-footer.jpg')">
+    <header class="intro-header" style="background-image: url('/images/full/divide_and_conquer_react_components.png')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
-                        <h1 style="color:white">Divide And Conquer React Components</h1>
-                        <h2 style="color:yellow" class="subheading">Manage growing complexity by dividing components into separate files and folders.</h2>
-                        <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 15.07.2017 12:20:05</span>
+                        <h1 style="color:white">Divide and Conquer React Components</h1>
+                        <h2 style="color:yellow" class="subheading">Manage Growing Complexity by Dividing Components Into Separate Files and Folders.</h2>
+                        <span class="meta">Posted by <a href="#">Metamatic</a> on 15.07.2017 12:20:05</span>
                     </div>
                 </div>
             </div>
@@ -79,49 +79,65 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<h3>Avoid Big Files</h3>
+          		<h3>
+Avoid Big Files
+</h3>
 
 <p>
-In <a href="http://www.oppikone.fi/blog/light-speed-development-combining-jquery-with-reactjs.html">previous articles</a> about creating React applications, I showed some examples on how to separate functionality and views
-into distinct components. In those examples, all components were placed inside the <a href="https://github.com/develprr/reactjs-tutorial/blob/master/public/src/app-5.js">main source code file</a>. However, when your app grows a little bigger than a simple Hello World,
-this solution will become increasingly unsatisfactory. To manage your code better, you will soon need to restructure it placing
-components inside their dedicated files. Moreover, you will need to regroup your software components into distinct folders in some logical way.</p>
+In <a href="http://www.oppikone.fi/blog/light-speed-development-combining-jquery-with-reactjs.html">previous articles</a> about creating React applications, I showed some examples on how to separate functionality and views into distinct components. In those examples, all components were placed inside the <a href="https://github.com/develprr/reactjs-tutorial/blob/master/public/src/app-5.js">main source code file</a>. However, when your app grows a little bigger than a simple Hello World, this solution will become increasingly unsatisfactory. To manage your code better, you will soon need to restructure it placing components inside their dedicated files. Moreover, you will need to regroup your software components into distinct folders in some logical way.
+</p>
 
-<p>Therefore I created just for you a <a href="https://github.com/develprr/reactjs-tutorial/tree/classes-in-separate-files/my-car-app/src">new branch</a> showing how to divide your React components into more manageable fragments inside your file system!</p>
+<p>
+Therefore I created just for you a <a href="https://github.com/develprr/reactjs-tutorial/tree/classes-in-separate-files/my-car-app/src">new branch</a> showing how to divide your React components into more manageable fragments inside your file system!
+</p>
 
-<p>Let's observe the solution in detail. You will see that <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/App.js">App</a> component's all subcomponents have been stripped off! They find their new home inside <b>components</b> folder. While this new folder structure might appear naively simplistic, let's not forget that our app is also quite naive at this point as well. No need to design a full blown fine tuned folder structure for our files when we don't really have anything yet to place inside those folders!</p>
+<p>
+Let's observe the solution in detail. You will see that <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/App.js">App</a> component's all subcomponents have been stripped off! They find their new home inside <b>components</b> folder. While this new folder structure might appear naively simplistic, let's not forget that our app is also quite naive at this point as well. No need to design a full blown fine tuned folder structure for our files when we don't really have anything yet to place inside those folders!
+</p>
 
-<p>While removing subcomponents from your main App component, just add following lines to the beginning of the renewed slim App file:</p>
+<p>
+While removing subcomponents from your main App component, just add following lines to the beginning of the renewed slim App file:
+</p>
 
 
-<b>import { AppTitle } from './component/AppTitle.js'<br/>
-import { CarFilterList } from './component/CarFilterList.js'</b>
-
+<p><b>import { AppTitle } from './component/AppTitle.js'<br/> import { CarFilterList } from './component/CarFilterList.js'</b></p>
 <p>
 And now that we <b>import</b> those components into main App, we also must make sure to <b>export</b> them as well so they can be imported in the first place! That is quite simple - just add <i>export</i> keyword before the declaration of a class:
 </p>
 
-<b>export</b> class AppTitle extends React.Component { ...
+<p><b>export</b> class AppTitle extends React.Component { ...</p>
+<p>
+Not that difficult after all, right? :) Check the full example <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/component/AppTitle.js">here!</a>
+</p>
 
-<p>Not that difficult after all, right?  :) Check the full example <a href="https://github.com/develprr/reactjs-tutorial/blob/classes-in-separate-files/my-car-app/src/component/AppTitle.js">here!</a></p>
-
-<h3>Can You Place Many Components in One File?</h3>
+<h3>
+Can You Place Many Components in One File?
+</h3>
 
 <p>
-  There is some debatte about placement of components and classes in separate files. Shall there be separate file for each component? Is it wise to place many components in one file?
-  The answer generally depends on following factors:
- 
-  <ul>
-	<li>Are components defined in file really needed elsewhere?</li>
-  	<li>How many lines of code are in one file?</li>
+  
+<p>There is some debatte about placement of components and classes in separate files. Shall there be separate file for each component? Is it wise to place many components in one file? The answer generally depends on following factors:</p>
+<ul>
+    <li>
+Are components defined in file really needed elsewhere?
+</li>
+    <li>
+How many lines of code are in one file?
+</li>
   </ul>
 
-<p>I think it is just okay to define react components that are not intended to be generic and reusable by many different parent components. It is just fine to define a React component that is only used by one specific parent component. If that is the case, there is definitely no need to create a separate file for that class. Neither it is necessary or even recommendable to declare such class exportable by adding <b>export</b> keyword before that file. One should not be too obsessed about creating "reusable" components. One important justification for creating non-reusable components is just to improve readibility of your main component - it can be achieved through structuring with help of "internal" components. Those components are not intended to be reused - they were formed only to serve structural clarity of their parent! Such components can be placed in one file with their parent component - which in turn then is exported. The file should be named after the main exportable component it contains.</p>
+<p>
+I think it is just okay to define react components that are not intended to be generic and reusable by many different parent components. It is just fine to define a React component that is only used by one specific parent component. If that is the case, there is definitely no need to create a separate file for that class. Neither it is necessary or even recommendable to declare such class exportable by adding <b>export</b> keyword before that file. One should not be too obsessed about creating &quot;reusable&quot; components. One important justification for creating non-reusable components is just to improve readibility of your main component - it can be achieved through structuring with help of &quot;internal&quot; components. Those components are not intended to be reused - they were formed only to serve structural clarity of their parent! Such components can be placed in one file with their parent component - which in turn then is exported. The file should be named after the main exportable component it contains.
+</p>
 
-<p>The second question about file size is more tricky. I think that when a file exceeds 300 lines of code then there will be an increasing need to consider splitting the component into many files. But with modern editors that typically offer a structured view, it is actually possible to place all source code in one file only and it still remains perfectly navigable.
-There are even some benefits to this: coding is faster (at least in the beginning) when you don't need to create files and folders for your new components. But when you use a version management system and especially when there are many developers in the project - I would stick to upper limit of about 300 lines of code per file.</p>
+<p>
+The second question about file size is more tricky. I think that when a file exceeds 300 lines of code then there will be an increasing need to consider splitting the component into many files. But with modern editors that typically offer a structured view, it is actually possible to place all source code in one file only and it still remains perfectly navigable. There are even some benefits to this: coding is faster (at least in the beginning) when you don't need to create files and folders for your new components. But when you use a version management system and especially when there are many developers in the project - I would stick to upper limit of about 300 lines of code per file.
+</p>
 
 <iframe src="http://www.oppikone.fi/reactjs-demo/my-car-app-4" style="border-radius:10x;width:100%;height:700px"></iframe><p/>
+
+
+
                 </div>
             </div>
         </div>
@@ -161,7 +177,7 @@ There are even some benefits to this: coding is faster (at least in the beginnin
                         </li>
                     </ul>
 		    <p class="copyright text-muted">View this article on <a href="https://github.com/develprr/oppikone-blog/commits/master/divide-and-conquer-react-components.html">GitHub!</a></p>
-                    <p class="copyright text-muted">Copyright &copy; Oppikone 2017</p>
+                    <p class="copyright text-muted">Copyright &copy; Metamatic 2017</p>
                 </div>
             </div>
         </div>
