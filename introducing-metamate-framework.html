@@ -89,11 +89,31 @@
 <p>And I think I have just succeeded in doing so!</p>
 <h2 id="why-use-metamatic">Why Use Metamatic?</h2>
 <p>When you code frontend software that run inside browser (or phone or wherever) and once you advance further than creating some &quot;Hello World&quot; apps, you will notice that the issue with data integrity grows in size. You will have many tabs and sections etc in your app. You implement data retrieval functions that get snippets of data from the server.</p>
-<p>It will all go well until you will face this kind of problems. The user updated some data (their phone number, what ever)on one form on one tab but when they enter another tab so they will see to their dismay that the data they just updated was not changed accordingly on the other tab.</p>
+<p>It will all go well until you will face this kind of problems. The user updated some data (their phone number, whatever) on one form on one tab but when they enter another tab so they will see to their dismay that the data they just updated was not changed accordingly on the other tab.</p>
 <p>The reason to this kind of problem is that there are several copies of the same data in different parts of the application. The obvious solution to this is to place all data into one central part of the application. When the user changes the data in some part of the app, then the corresponding data entry is updated in the central data location - from there change then automatically radiates to all parts of the app where it is being displayed. There are several ways to implement this kind of central data handling. One of them is the &quot;Redux&quot; framework.</p>
 <p>However, I am not a fan of Redux. I have seen many times that connecting data to the &quot;Redux store&quot; requires too many rituals. The same effect can be achieved also by simple means without too many moving parts.</p>
 <h2 id="getting-started-with-metamatic">Getting Started With Metamatic</h2>
-<p>When you have your created your first React app and you have some kind of form for data manipulation, then it's time to connect that form to the central Metamatic data storage. Let's say that we have created a car app web store and we have created a component for showing car details. In <strong>CarDetails</strong> component, we want to show details of some available car model. Now, we need that CarDetails component to retrieve the car data.</p>
+<p>When you have your created your first React app and you have some kind of form for data manipulation, then it's time to connect that form to the central Metamatic data storage. Let's say that we have created a car app web store and we have created a component for showing car details. In <strong>CarDetails</strong> componente, we want to show details of some available car model. Now, we need that CarDetails component to retrieve the car data.</p>
+<p>Okay, now that we have <strong>CarDetails</strong> component, lets import first the essential functions from <strong>synchronous-dispatcher</strong>. Add the import statement to the beginning of your class:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle<span class="op">,</span> handleAll<span class="op">,</span> dispatch<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span></code></pre></div>
+<p>And dont forget to install <strong>synchronous-dispatcher</strong> before using it, of course! With Yarn or Npm:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">npm install synchronous<span class="op">-</span>dispatcher</code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">yarn install synchronous<span class="op">-</span>dispatcher</code></pre></div>
+<p>That's it!</p>
+<h2 id="connect-your-component-to-the-metamatic-data-store">Connect Your Component to the Metamatic Data Store</h2>
+<p>Now we have all essential data event methods in our use! The next thing we need is to connect our <strong>CarDetails</strong> class to the Metamatic state, which I call <strong>MetaMate</strong>. MetaMate is the central data store that is responsible for radiating the data to all parts of the app that are listening, when the data changes. When we want to connect a react component to MetaMate, we must define which events we want our React component to listen to. Let's decide that when the car data is loaded from the server by MetaMate, <strong>CarDetails</strong> component must be updated. We modify <strong>CarDetails</strong> component's constructor to listen to CAR-DATA-LOADED event:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>() <span class="op">{</span>
+    <span class="kw">super</span>()<span class="op">;</span>
+    <span class="at">handle</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">forceUpdate</span>)<span class="op">;</span>
+  <span class="op">}</span></code></pre></div>
+<p>Quite straightforward, isn't it? We have connected <strong>CarDetails</strong> component to the central data storage with practically one single line of code! But what if our CarDetails component needs two different data types which might thechange separately, let's say owner data. We need to connect the component to listen to two different events, which both must cause the component to refresh. We can do this using handleAll function, which allows us to connect many metamatic events to the component:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>() <span class="op">{</span>
+    <span class="kw">super</span>()<span class="op">;</span>
+    <span class="at">handleAll</span>([<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span><span class="st">&#39;OWNER-DATA-CHANGE], this.forceUpdate);</span>
+  <span class="op">}</span></code></pre></div>
+<h2 id="implementing-a-metamatic-data-storage-metamate">Implementing a Metamatic Data Storage, MetaMate</h2>
+<p>(coming soon)</p>
 
                 </div>
             </div>
