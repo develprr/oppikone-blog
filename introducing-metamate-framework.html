@@ -127,8 +127,8 @@
 <p>Now, it's time to get serious. We want to make sure that MetaStore will load car data when it receives request for car data! We expand initMetaStore function to respond to car data request and do something when any component in the application dispatches a request for car data. Let's make metaStore to listen for REQUEST-CAR-DATA event and dispatch a car CAR-DATA-CHANGE event if the car data is available. If not, MetaStore shall delegate the problem and dispatch 'LOAD-CAR-DATA' event. Then some other part in the app can listen to that event and react in an appropriate way:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> initMetaStore <span class="op">=</span> () <span class="op">=&gt;</span> <span class="op">{</span>
    <span class="at">handle</span>(<span class="st">&#39;REQUEST-CAR-DATA&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
-      <span class="cf">if</span> (<span class="va">metaStore</span>.<span class="at">carData</span>) <span class="op">{</span>be
-     <span class="cf">return</span> <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="va">metaStore</span>.<span class="at">carData</span>)   
+      <span class="cf">if</span> (<span class="va">metaStore</span>.<span class="at">carData</span>) <span class="op">{</span>
+         <span class="cf">return</span> <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="va">metaStore</span>.<span class="at">carData</span>)   
       <span class="op">}</span>       
       <span class="at">dispatch</span>(<span class="st">&#39;LOAD-CAR-DATA&#39;</span>)<span class="op">;</span>
     <span class="op">}</span>)<span class="op">;</span>
