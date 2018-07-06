@@ -79,14 +79,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<h3 id="introducing-metamatic-framework">Introducing Metamatic Framework</h3>
-<p>In my previous article I wrote about the minuscule event-dispatching framework with a promise to greatly simplify frontend application development. In this article I will introduce the missing piece of the puzzle and show how to use Synchronous Dispatcher to great fantastic event driven software. I will introduce the <strong>Metamatic</strong> framework, that I have designed for you, dear Coder, to make your life easier. Metamatic framework is a Redux-alternative for centrally managing data in your Frontend app.</p>
-<h2 id="so-what-is-metamatic-framework">So What Is Metamatic Framework?</h2>
+          		<h1 id="introducing-the-metamatic-framework-for-reactjs">Introducing the Metamatic Framework for ReactJS</h1>
+<p>This article is for you if you are familiar with ReactJS framework for frontend development and maybe even have already wondered how you should handle data in your browser-based piece of software. And if don't have a slightest idea what I am talkig about, don't waste your time further!</p>
+<p>In my previous article I wrote about the minuscule event-dispatching framework with a promise to greatly simplify frontend application development. In this article I will introduce the missing piece of the puzzle and show how to use Synchronous Dispatcher to create fantastic event driven software.</p>
+<p>In this article will introduce <strong>The Metamatic Framework</strong>, that I have designed for you, dear Coder, to make your life easier. Metamatic framework is a Redux-alternative for centrally managing data in your Frontend app.</p>
+<h2 id="so-what-is-the-metamatic-framework">So What Is the Metamatic Framework?</h2>
 <p>The Metamatic framework is a little bit of software code. But I promise you: it's a very tiny bit of software code. Actually it's a way of managing the data in your app, similarly to Redux framework. It is meant to be used together with JavaScript, TypeScript, EcmaScript variants, whatever JavaSrcript variant. People use typically for coding with these languages such data handling frameworks such as Redux. I have used Redux in many project. But I never really liked it. To me, it feels that you must write too much code to get some very simple things done. Redux is too much about obsessive rituals.</p>
 <p>I wanted to create a framework that essentially offers the core benefit that Redux has to offer but is far less code, and needs far less coding from you to get things done.</p>
-<p>And I think, I think I have just succeeded in it!</p>
-<h2 id="how-to-use-the-metamatic-framework">How to Use the Metamatic Framework?</h2>
-<p>(coming soon! I am already writing like crazy!)</p>
+<p>And I think I have just succeeded in doing so!</p>
+<h2 id="why-use-metamatic">Why Use Metamatic?</h2>
+<p>When you code frontend software that run inside browser (or phone or wherever) and once you advance further than creating some &quot;Hello World&quot; apps, you will notice that the issue with data integrity grows in size. You will have many tabs and sections etc in your app. You implement data retrieval functions that get snippets of data from the server.</p>
+<p>It will all go well until you will face this kind of problems. The user updated some data (their phone number, what ever)on one form on one tab but when they enter another tab so they will see to their dismay that the data they just updated was not changed accordingly on the other tab.</p>
+<p>The reason to this kind of problem is that there are several copies of the same data in different parts of the application. The obvious solution to this is to place all data into one central part of the application. When the user changes the data in some part of the app, then the corresponding data entry is updated in the central data location - from there change then automatically radiates to all parts of the app where it is being displayed. There are several ways to implement this kind of central data handling. One of them is the &quot;Redux&quot; framework.</p>
+<p>However, I am not a fan of Redux. I have seen many times that connecting data to the &quot;Redux store&quot; requires too many rituals. The same effect can be achieved also by simple means without too many moving parts.</p>
+<h2 id="metamatic-is-a-wrapper-for-the-synchronous-dispatcher">Metamatic Is a Wrapper for the Synchronous Dispatcher</h2>
+<p>(coming soon)</p>
 
                 </div>
             </div>
