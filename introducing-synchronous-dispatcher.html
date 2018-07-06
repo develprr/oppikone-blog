@@ -86,37 +86,38 @@
 <p>The Synchronous Dispatcher is different - it's simple and sleek: it enables you to define events and handlers in a snap. Let's make coding fun again!</p>
 <h2 id="using-synchronous-dispatcher">Using Synchronous Dispatcher</h2>
 <p>Using Synchronous Dispatcher is simple: when you want to make a React component to listen for an event you just add a <strong>handle</strong> to the constructor of that component, for instance:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">handle</span>(<span class="st">&#39;CAR-MODEL-SELECTED&#39;</span>, <span class="kw">this</span>.<span class="fu">onCarModelSelected</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">handle</span>(<span class="st">&#39;CAR-MODEL-SELECTED&#39;</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">onCarModelSelected</span>)</code></pre></div>
 <p>And wherever you want to dispatch the event, you just call <strong>dispatch</strong> method:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">dispatch</span>(<span class="st">&#39;CAR-MODEL-SELECTED&#39;</span>, carModelId)</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">dispatch</span>(<span class="st">&#39;CAR-MODEL-SELECTED&#39;</span><span class="op">,</span> carModelId)</code></pre></div>
 <p>Import Synchronous Dispatcher's <strong>handle</strong> function to your React App:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">import</span> { handle } from <span class="st">&#39;synchronous-dispatcher&#39;</span>;</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span><span class="op">;</span></code></pre></div>
 <p>If you are curious to check Synchronous Dispatcher in action, please have a look at source code for a version of Car App Demo that uses Synchronous Dispatcher <a href="https://github.com/develprr/synchronous-dispatcher-demo">here</a>.</p>
 <h3 id="power-of-direct-binding">Power Of Direct Binding</h3>
 <p>In Synchronous Dispatcher architecture, event handlers are directly bound to their corresponding events. That is truly superior to frameworks such as Redux - that require you to bind event handlers to their events manually, through an awkward switch-case concoction. Let's look at this in detail! Here is an example of a typical Redux &quot;Reducer&quot;, taken from Redux Todos examples Github project:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> todos = (state = [], action) =&gt; {
-  <span class="kw">switch</span> (<span class="ot">action</span>.<span class="fu">type</span>) {
-    <span class="kw">case</span> <span class="st">&#39;ADD_TODO&#39;</span>:
-      <span class="kw">return</span> [
-        ...<span class="fu">state</span>,
-        {
-          <span class="dt">id</span>: <span class="ot">action</span>.<span class="fu">id</span>,
-          <span class="dt">text</span>: <span class="ot">action</span>.<span class="fu">text</span>,
-          <span class="dt">completed</span>: <span class="kw">false</span>
-        }
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> todos <span class="op">=</span> (state <span class="op">=</span> []<span class="op">,</span> action) <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="cf">switch</span> (<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span>
+    <span class="cf">case</span> <span class="st">&#39;ADD_TODO&#39;</span><span class="op">:</span>
+      <span class="cf">return</span> [
+        ...<span class="at">state</span><span class="op">,</span>
+        <span class="op">{</span>
+          <span class="dt">id</span><span class="op">:</span> <span class="va">action</span>.<span class="at">id</span><span class="op">,</span>
+          <span class="dt">text</span><span class="op">:</span> <span class="va">action</span>.<span class="at">text</span><span class="op">,</span>
+          <span class="dt">completed</span><span class="op">:</span> <span class="kw">false</span>
+        <span class="op">}</span>
       ]
-    <span class="kw">case</span> <span class="st">&#39;TOGGLE_TODO&#39;</span>:
-      <span class="kw">return</span> <span class="ot">state</span>.<span class="fu">map</span>(todo =&gt;
-        (<span class="ot">todo</span>.<span class="fu">id</span> === <span class="ot">action</span>.<span class="fu">id</span>) 
-          ? {...<span class="fu">todo</span>, <span class="dt">completed</span>: !<span class="ot">todo</span>.<span class="fu">completed</span>}
+    <span class="cf">case</span> <span class="st">&#39;TOGGLE_TODO&#39;</span><span class="op">:</span>
+      <span class="cf">return</span> <span class="va">state</span>.<span class="at">map</span>(todo <span class="op">=&gt;</span>
+        (<span class="va">todo</span>.<span class="at">id</span> <span class="op">===</span> <span class="va">action</span>.<span class="at">id</span>) 
+          <span class="op">?</span> <span class="op">{</span>...<span class="at">todo</span><span class="op">,</span> <span class="dt">completed</span><span class="op">:</span> <span class="op">!</span><span class="va">todo</span>.<span class="at">completed</span><span class="op">}</span>
           : todo
       )
-    <span class="kw">default</span>:
-      <span class="kw">return</span> state
-}</code></pre>
+    <span class="dt">default</span><span class="op">:</span>
+      <span class="cf">return</span> state
+<span class="op">}</span></code></pre></div>
 <p>What is happening here is that you are defining manually an awkward switch-case structure to tell Redux what to do in case of different events. A switch-case structure is basically nothing more than an alternative notation for <strong>if else if else...</strong> loop. It means that every time an event is dispatched in your application, <strong>all</strong> switch-cases in <strong>all</strong> your reducers are iterated through until a match is found for the event name!</p>
 <p>A more mature way to implement this would be using a hash table (also called HashMap in Java and associative array in JavaScript or ActionScript). Consider that you have 500 Redux events in your app. And consider a situation that an event handler is programmed to dispatch another event and so on... Using Redux style switch-case mapping, all possibilities are iterated <strong>every time</strong> an event was dispatched! Using hash tables instead you would spare your processor from quite a lot redundant work! Now someone might be asking, so what? I have a super fast Intel 7 processor anyway! But remember that when you are creating browser-based software, not everyone has a supercomputer. Different kinds of tablets and phones vary greatly in performance. And if you have a coding style that lavishly spends processing time without caring about performance, it is guaranteed that at some point when you continue decorating your app with more of this type of carelessly designed code piled on top of earlier wasteful code - soon even browsers running on fast computers will start crashing and displaying a crash messag like <strong>&quot;Well, this is embarrassing...&quot;</strong></p>
 <p>But this does not need to be. Have a look at my <a href="https://github.com/develprr/synchronous-dispatcher">reference implementation</a> of <strong>Synchronous Dispatcher</strong> that does not waste precious processing resources! When you call <strong>handle</strong> function that defines an action to be executed when a certain event is fired, what happens under the hood is that your action is mapped to its event using a hash table! If you still need clarification why this is better than endless switch-case loops, have a look at the <a href="https://en.wikipedia.org/wiki/Hash_table">article on hash tables</a>.</p>
+<p>Coming soon: how to use Syncrhonous Dispatcher in Redux-style framework setting!</p>
 
                 </div>
             </div>
@@ -157,7 +158,7 @@
                         </li>
                     </ul>
 		    <p class="copyright text-muted">View this article on <a href="https://github.com/develprr/oppikone-blog/commits/master/introducing-synchronous-dispatcher.html">GitHub!</a></p>
-                    <p class="copyright text-muted">Copyright &copy; Oppikone 2017</p>
+                    <p class="copyright text-muted">Copyright &copy; Oppikone 2018</p>
                 </div>
             </div>
         </div>
