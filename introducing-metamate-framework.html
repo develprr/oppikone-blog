@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="The Superior Way to Manage Data in Your React App">
+    <meta name="description" content="The Superior Way To Manage Data In Your React App">
     <meta name="author" content="Oppikone">
 
-    <title>Introducing the Metamatic Framework</title>
+    <title>Introducing The Metamatic Framework</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -65,8 +65,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
-                        <h1 style="color:white">Introducing the Metamatic Framework</h1>
-                        <h2 style="color:yellow" class="subheading">The Superior Way to Manage Data in Your React App</h2>
+                        <h1 style="color:white">Introducing The Metamatic Framework</h1>
+                        <h2 style="color:yellow" class="subheading">The Superior Way To Manage Data In Your React App</h2>
                         <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 06.07.2018 11:45:15</span>
                     </div>
                 </div>
@@ -79,12 +79,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<h1 id="introducing-the-metamatic-framework-for-reactjs">Introducing the Metamatic Framework for ReactJS</h1>
+          		<h1 id="introducing-the-metamatic-framework-for-reactjs">Introducing The Metamatic Framework For ReactJS</h1>
 <p>This article is for you if you are familiar with ReactJS framework for frontend development and maybe even have already wondered how you should handle data in your browser-based piece of software.</p>
 <p>In my previous article I wrote about the minuscule event-dispatching framework with a promise to greatly simplify frontend application development. In this article I will introduce the missing piece of the puzzle and show how to use Synchronous Dispatcher to create fantastic event driven software.</p>
 <p>In this article will introduce <strong>The Metamatic Framework</strong>, that I have designed for you, dear Coder, to make your life easier. Metamatic framework is a Redux-alternative for centrally managing data in your Frontend app.</p>
 <p>In these examples I'll use ES6 syntax but there should be absolutely no problem to use TypeScript or JavaScript either for Metamatic coding!</p>
-<h2 id="so-what-is-the-metamatic-framework">So What Is the Metamatic Framework?</h2>
+<h2 id="so-what-is-the-metamatic-framework">So What Is The Metamatic Framework?</h2>
 <p>The Metamatic framework is a little bit of software code. But I promise you: it's a very tiny bit of software code. Actually it's a way of managing the data in your app, similarly to Redux framework. It is meant to be used together with JavaScript, TypeScript, EcmaScript variants, whatever JavaScript variant. People use typically such data handling frameworks such as Redux for coding with these languages. I have used Redux in many projects. But I never really liked it. To me, it feels that you must write too much code to get some very simple things done. Redux is too much about obsessive rituals.</p>
 <p>I wanted to create a framework that essentially offers the core benefit that Redux has to offer but is far less code, and needs far less coding from you to get things done.</p>
 <p>And I think I have just succeeded in doing so!</p>
@@ -102,7 +102,7 @@
 <p>or</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">yarn install synchronous<span class="op">-</span>dispatcher</code></pre></div>
 <p>That's it!</p>
-<h2 id="connect-your-component-to-the-metamatic-data-store">Connect Your Component to the Metamatic Data Store</h2>
+<h2 id="connect-your-component-to-the-metamatic-data-store">Connect Your Component To The Metamatic Data Store</h2>
 <p>Now we have all essential data event methods in our use! The next thing we need is to connect our <strong>CarDetails</strong> class to the Metamatic global data state, which I call <strong>MetaStore</strong>. MetaStore is the central data store that is responsible for radiating the data to all parts of the app that are listening, when the data changes. When we want to connect a react component to MetaStore, we must define which events we want our React component to listen to. Let's decide that when the car data is loaded from the server by MetaStore, <strong>CarDetails</strong> component must be updated. We modify <strong>CarDetails</strong> component's constructor to listen to CAR-DATA-CHANGE event:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>() <span class="op">{</span>
     <span class="kw">super</span>()<span class="op">;</span>
@@ -113,7 +113,7 @@
     <span class="kw">super</span>()<span class="op">;</span>
     <span class="at">handleAll</span>([<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span><span class="st">&#39;OWNER-DATA-CHANGE&#39;</span>]<span class="op">,</span> <span class="kw">this</span>.<span class="at">forceUpdate</span>)<span class="op">;</span>
   <span class="op">}</span></code></pre></div>
-<h2 id="implementing-a-metamatic-data-storage-metastore">Implementing a Metamatic Data Storage, MetaStore</h2>
+<h2 id="implementing-a-metamatic-data-storage-meta-store">Implementing A Metamatic Data Storage, Meta Store</h2>
 <p>Let's implement the actual metamatic data storage, MetaStore. Essentially, MetaStore just needs the exactly same super simple utility functions from synchronous-dispatcher as do all other parts of the app as well. But now that we want our MetaStore to actually load the datarom server, let's add an AJAX library to MetaStore. I'll use <strong>axios</strong> but be free to use any other library as you wish. Let's add the essential imports to the beginning of MetaStore.js file:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle<span class="op">,</span> dispatch <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
 <span class="im">import</span> axios <span class="im">from</span> <span class="st">&#39;axios&#39;</span><span class="op">;</span></code></pre></div>
