@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A Simple Alternative To Redux For App Data Management">
+    <meta name="description" content="A Simple Alternative to Redux for App Data Management">
     <meta name="author" content="Oppikone">
 
     <title>The Metamatic Framework</title>
@@ -66,7 +66,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
                         <h1 style="color:white">The Metamatic Framework</h1>
-                        <h2 style="color:yellow" class="subheading">A Simple Alternative To Redux For App Data Management</h2>
+                        <h2 style="color:yellow" class="subheading">A Simple Alternative to Redux for App Data Management</h2>
                         <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 06.07.2018 11:45:15</span>
                     </div>
                 </div>
@@ -79,12 +79,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<h1 id="introducing-the-metamatic-framework-for-reactjs">Introducing The Metamatic Framework For ReactJS</h1>
+          		<h1 id="the-easier-way-to-handle-data-in-your-app">The Easier Way to Handle Data in Your App</h1>
 <p>This article is for you if you are familiar with ReactJS framework for frontend development and maybe even have already wondered how you should handle data in your browser-based piece of software. This article is also for you if you know what is Redux and ever wondered if there is a more straightforward way to achieve central data management in a web app.</p>
 <p>In my <a href="http://www.oppikone.fi/blog/introducing-synchronous-dispatcher.html" title="Introducing Synchronous Dispatcher">previous article</a> I wrote about the minuscule event-dispatching framework with a promise to greatly simplify frontend application development. In this article I will introduce the missing piece of the puzzle and show how to use Synchronous Dispatcher to create fantastic event driven software.</p>
 <p>In this article will introduce <strong>The Metamatic Framework</strong>, that I have designed for you, dear Coder, to make your life easier. Metamatic framework is a Redux-alternative for centrally managing data in your Frontend app.</p>
 <p>In these examples I'll use ES6 syntax but there should be absolutely no problem to use TypeScript or JavaScript either for Metamatic coding!</p>
-<h2 id="so-what-is-the-metamatic-framework">So What Is The Metamatic Framework?</h2>
+<h2 id="so-what-is-the-metamatic-framework">So What Is the Metamatic Framework?</h2>
 <p>The Metamatic framework is a little bit of software code - in deed, a very very very tiny bit of software code. Actually it's not at all so much about code, it's rather a new way of managing the data in your app,similarly to Redux framework. It is meant to be used together with JavaScript, TypeScript, EcmaScript variants, whatever JavaScript variant. People use typically such data handling frameworks such as Redux for coding with these languages. I have used Redux in many projects. But I never really liked it. To me, it feels that you must write too much code to get some very simple things done. Redux is too much about obsessive rituals.</p>
 <p>I wanted to create a framework that essentially offers the core benefit that Redux has to offer but is far less code, and needs far less coding from you to get things done.</p>
 <p>And I think I have just succeeded in doing so!</p>
@@ -102,7 +102,7 @@
 <p>or</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">yarn install synchronous<span class="op">-</span>dispatcher</code></pre></div>
 <p>That's it!</p>
-<h2 id="connect-your-component-to-the-metamatic-data-store">Connect Your Component To The Metamatic Data Store</h2>
+<h2 id="connect-your-component-to-the-metamatic-data-store">Connect Your Component to the Metamatic Data Store</h2>
 <p>Now we have all essential data event methods in our use! The next thing we need is to connect our <strong>CarDetails</strong> class to the Metamatic global data state, which I call <strong>MetaStore</strong>. MetaStore is the central data store that is responsible for radiating the data to all parts of the app that are listening, when the data changes. When we want to connect a react component to MetaStore, we must define which events we want our React component to listen to. Let's decide that when the car data is loaded from the server by MetaStore, <strong>CarDetails</strong> component must be updated. We modify <strong>CarDetails</strong> component's constructor to listen to CAR-DATA-CHANGE event:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>() <span class="op">{</span>
     <span class="kw">super</span>()<span class="op">;</span>
@@ -113,7 +113,7 @@
     <span class="kw">super</span>()<span class="op">;</span>
     <span class="at">handleAll</span>([<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span><span class="st">&#39;OWNER-DATA-CHANGE&#39;</span>]<span class="op">,</span> <span class="kw">this</span>.<span class="at">forceUpdate</span>)<span class="op">;</span>
   <span class="op">}</span></code></pre></div>
-<h2 id="implementing-a-metamatic-data-storage-meta-store">Implementing A Metamatic Data Storage, Meta Store</h2>
+<h2 id="implementing-a-metamatic-data-storage-meta-store">Implementing a Metamatic Data Storage, Meta Store</h2>
 <p>Let's implement the actual metamatic data storage, MetaStore. Essentially, MetaStore just needs the exactly same super simple utility functions from synchronous-dispatcher as do all other parts of the app as well. But now that we want our MetaStore to actually load the datarom server, let's add an AJAX library to MetaStore. I'll use <strong>axios</strong> but be free to use any other library as you wish. Let's add the essential imports to the beginning of MetaStore.js file:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle<span class="op">,</span> dispatch <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
 <span class="im">import</span> axios <span class="im">from</span> <span class="st">&#39;axios&#39;</span><span class="op">;</span></code></pre></div>
@@ -133,12 +133,13 @@
       <span class="at">dispatch</span>(<span class="st">&#39;LOAD-CAR-DATA&#39;</span>)<span class="op">;</span>
     <span class="op">}</span>)<span class="op">;</span>
 <span class="op">};</span></code></pre></div>
-<p>Now we need, of course, someone to listen for 'LOAD-CAR-DATA' event. That listener will need to load the actual data when the event was received. We can implement this event handler wherever we like but It's conventient to do it inside the MetaStore now that it's not all too bkig at this point. When the file size grows too big, I think, then it's the right time to split ehandlers into separate files. Let's add the car data loading request handler inside initMetaStore function:</p>
+<p>The example shown above works as a sort of a cache as well. When the car data was already available it won't be loaded from server. Rather the handler will dispatch the existing car data into the app-wide bit space. Of course it's a good question whether caching data in the browser is desirable at all in the first place. Some say say even that web sockets are a better way for data communication between a browser based app and the server - and they might be even right! But let's address this question later on.</p>
+<p>Now we need, of course, someone to listen for 'LOAD-CAR-DATA' event. That listener will need to load the actual data when the event was received. We can implement this event handler wherever we like but It's conventient to do it inside the MetaStore now that it's not all too bkig at this point. When the file size grows too big, I think, ethen it's the right time to split ehandlers into separate files. Let's add the car data loading request handler inside initMetaStore function:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> initMetaStore <span class="op">=</span> () <span class="op">=&gt;</span> <span class="op">{</span>
    
    ...
    
-   <span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA&#39;</span><span class="op">,</span> (formName) <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
       <span class="va">axios</span>.<span class="at">get</span>(<span class="vs">`</span><span class="sc">${</span>YOUR_CAR_DATA_URL_HERE<span class="sc">}</span><span class="vs">`</span>)
          .<span class="at">then</span>(response <span class="op">=&gt;</span> <span class="op">{</span>
              <span class="at">dispatch</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> <span class="va">response</span>.<span class="at">data</span>)
@@ -147,6 +148,12 @@
       <span class="op">}</span>)
    <span class="op">}</span>)<span class="op">;</span>
 }<span class="op">;</span></code></pre></div>
+<p>Now let's decide what to do when the requested data was loaded from the server. We just get the response data from the server and place it into the central MetaStore. And most kindly, we also notify aboyt car data change so all related components can update themselves with the new fresh data:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> (data) <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="va">metaStore</span>.<span class="at">carData</span> <span class="op">=</span> data<span class="op">;</span>
+      <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="op">{</span>...<span class="at">data</span><span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)</code></pre></div>
+<p>This is it, pretty much. A very easy, very straightforward, over-engineering free approach to implement robust client apps in a ridiculous timeframe. I'll be back to you soon with more examples about the topic!</p>
 
                 </div>
             </div>
