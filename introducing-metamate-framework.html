@@ -160,9 +160,76 @@
 <p>Now let's decide what to do when the requested data was loaded from the server. We just get the response data from the server and place it into the central MetaStore. And most kindly, we also nothtify about car data change so all related components can update themselves with the new fresh data. Note that I am cloning the data with spread operator {...data} to prevent the central data being changed by a hideous direct manipulation somewhere else int the app!</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> (data) <span class="op">=&gt;</span> <span class="op">{</span>
    <span class="va">metaStore</span>.<span class="at">carData</span> <span class="op">=</span> data<span class="op">;</span>
-   <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="op">{</span>...<span class="at">data</span><span class="op">}</span>)<span class="op">;</span>
+   <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="op">{</span>...<span class="va">metaStore</span>.<span class="at">carData</span><span class="op">}</span>)<span class="op">;</span>
 <span class="op">}</span>)<span class="op">;</span></code></pre></div>
-<p>To check the actual source file of this MetaStore implementation please check <a href="https://github.com/develprr/metamatic-car-app/blob/master/src/store/MetaStore.js" title="MetaStore.js">here</a>.</p>
+<p>After defining these handlers, the MetaStore.js file should appear as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span>dispatch<span class="op">,</span> handle<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
+<span class="im">import</span> axios <span class="im">from</span> <span class="st">&#39;axios&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span>CAR_DATA_URL<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;../constants&#39;</span><span class="op">;</span>
+
+<span class="kw">const</span> metaStore <span class="op">=</span> <span class="op">{</span>
+  <span class="dt">carDetails</span><span class="op">:</span> <span class="kw">null</span>
+<span class="op">};</span>
+
+<span class="im">export</span> <span class="kw">const</span> initMetaStore <span class="op">=</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+
+  <span class="at">handle</span>(<span class="st">&#39;REQUEST-CAR-DATA&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="cf">if</span> (<span class="va">metaStore</span>.<span class="at">carData</span>) <span class="op">{</span>
+      <span class="cf">return</span> <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="va">metaStore</span>.<span class="at">carData</span>)
+    <span class="op">}</span>
+    <span class="at">dispatch</span>(<span class="st">&#39;LOAD-CAR-DATA&#39;</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="va">axios</span>.<span class="at">get</span>(<span class="vs">`</span><span class="sc">${</span>CAR_DATA_URL<span class="sc">}</span><span class="vs">`</span>)
+    .<span class="at">then</span>(response <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="at">dispatch</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> <span class="va">response</span>.<span class="at">data</span>)
+    <span class="op">}</span>).<span class="at">catch</span>(error <span class="op">=&gt;</span> <span class="at">dispatch</span>(<span class="st">&quot;LOAD-CAR-DATA-ERROR&quot;</span><span class="op">,</span> error))<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> (data) <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="va">metaStore</span>.<span class="at">carDetails</span> <span class="op">=</span> data<span class="op">;</span>
+    <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="op">{</span>...<span class="va">metaStore</span>.<span class="at">carDetails</span><span class="op">}</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<h2 id="turning-your-events-into-constants">Turning Your Events Into Constants</h2>
+<p>When dispatching and handling events, you can always use plain strings, as in the previous examples. But this practice will become hazardous over time. If you make a typing n when firing events, you may end up puzzled when you are trying to figure out why your handler doesn't appear to react to the event. It may be worth of a debatte to ask whether constants should be defined in a dedicated file or should you rather introduce them as a part of an existing file. My opinion is that the ideal place the event constants is right in the file where the MetaStore resides. When MetaStore grows bigger, it might be worth of considering to separate the constants in a separate file. Until then, the constantized MetaStore file will appear as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span>dispatch<span class="op">,</span> handle<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
+<span class="im">import</span> axios <span class="im">from</span> <span class="st">&#39;axios&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span>CAR_DATA_URL<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;../constants&#39;</span><span class="op">;</span>
+
+<span class="im">export</span> <span class="kw">const</span> REQUEST_CAR_DATA <span class="op">=</span> <span class="st">&#39;REQUEST_CAR_DATA&#39;</span><span class="op">;</span>
+<span class="im">export</span> <span class="kw">const</span> CAR_DATA_CHANGE <span class="op">=</span> <span class="st">&#39;CAR_DATA_CHANGE&#39;</span><span class="op">;</span>
+<span class="im">export</span> <span class="kw">const</span> LOAD_CAR_DATA <span class="op">=</span> <span class="st">&#39;CAR_DATA_CHANGE&#39;</span><span class="op">;</span>
+<span class="im">export</span> <span class="kw">const</span> LOAD_CAR_DATA_SUCCESS <span class="op">=</span> <span class="st">&#39;LOAD_CAR_DATA_SUCCESS&#39;</span><span class="op">;</span>
+<span class="im">export</span> <span class="kw">const</span> LOAD_CAR_DATA_ERROR <span class="op">=</span> <span class="st">&#39;LOAD_CAR_DATA_ERROR&#39;</span><span class="op">;</span>
+
+<span class="kw">const</span> metaStore <span class="op">=</span> <span class="op">{</span>
+  <span class="dt">carDetails</span><span class="op">:</span> <span class="kw">null</span>
+<span class="op">};</span>
+
+<span class="im">export</span> <span class="kw">const</span> initMetaStore <span class="op">=</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+
+  <span class="at">handle</span>(REQUEST_CAR_DATA<span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="cf">if</span> (<span class="va">metaStore</span>.<span class="at">carData</span>) <span class="op">{</span>
+      <span class="cf">return</span> <span class="at">dispatch</span>(CAR_DATA_CHANGE<span class="op">,</span> <span class="va">metaStore</span>.<span class="at">carData</span>)
+    <span class="op">}</span>
+    <span class="at">dispatch</span>(LOAD_CAR_DATA)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="at">handle</span>(LOAD_CAR_DATA<span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="va">axios</span>.<span class="at">get</span>(<span class="vs">`</span><span class="sc">${</span>CAR_DATA_URL<span class="sc">}</span><span class="vs">`</span>)
+    .<span class="at">then</span>(response <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="at">dispatch</span>(LOAD_CAR_DATA_SUCCESS<span class="op">,</span> <span class="va">response</span>.<span class="at">data</span>)
+    <span class="op">}</span>).<span class="at">catch</span>(error <span class="op">=&gt;</span> <span class="at">dispatch</span>(LOAD_CAR_DATA_ERROR<span class="op">,</span> error))<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> (data) <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="va">metaStore</span>.<span class="at">carDetails</span> <span class="op">=</span> data<span class="op">;</span>
+    <span class="at">dispatch</span>(CAR_DATA_CHANGE<span class="op">,</span> <span class="op">{</span>...<span class="va">metaStore</span>.<span class="at">carDetails</span><span class="op">}</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>To check the complete source file of this MetaStore implementation please check <a href="https://github.com/develprr/metamatic-car-app/blob/master/src/store/MetaStore.js" title="MetaStore.js">here</a>.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Note that I am here splitting the logic into many sections that are quite loosely coupled to each other. Different parts of the logic live their independent life, being loosely connected only through events. There are many advocates of this kind of event-driven approach. However, I would warn against going too event-driven in the first place. The idea of events is to disconnect parts of the application from each other in the name of modularity. But disconnectedness may actually be a very bad thing. It's easy for a developer to follow the logic by clicking on a method call when using a proper editor.</p>
 <p>But when you have broken the direct connection between two different methods by joining them together not through direct method invocation but rather via events - with one function firing an event and another listening for it - you have just created an extra layer of complexity. From then on you will always need a bit more detective work to follow the application logic. You must search where the event was defined and where it's being expected. It makes the code more difficult to read. And the software code is always written as much for humans as for the machine. This concern is a major justification for writing very standard code always when possible - avoiding too much innovation - even if it results in somewhat lower results/time spent ratio. But there will always be unique problems that can only be addressed with unique code.</p>
