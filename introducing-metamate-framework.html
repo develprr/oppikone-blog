@@ -87,7 +87,6 @@
 <h2 id="so-what-is-the-metamatic-framework">So What Is the Metamatic Framework?</h2>
 <p>The Metamatic framework is a little bit of software code - in deed, a very very very tiny bit of software code. Actually it's not at all so much about code, it's rather a new way or concept of managing the data in your app. It is meant to be used together with JavaScript, TypeScript, EcmaScript variants. You can integrate it into your React app or embed it in Angular framework or anything that speaks JavaScript.</p>
 <p>People use typically data handling frameworks such as Redux for coding with these languages. I have used Redux in quite some projects. Redux is a great solution to simplify application data management. But it also can be at times frustrating when you must write too much code to get some very simple things done. I want to offer here a more simplistic solution that essentially offers the same core benefits as Redux but needs far less coding from you to get things done.</p>
-<p>And I think I have just succeeded in doing so!</p>
 <h2 id="why-use-metamatic">Why Use Metamatic?</h2>
 <p>When you code frontend software that run inside browser (or phone or wherever) and once you advance further than creating some &quot;Hello World&quot; apps, you will notice that the issue with data integrity grows in size. You will have many tabs and sections in your app. You implement data retrieval functions that get snippets of data from the server.</p>
 <p>It will all go well until you start facing data integrity issues. The user updated some data (their phone number, whatever) on one form but when they enter another tab or section they will see to their dismay that the data they just updated was not changed accordingly on the other tab.</p>
@@ -108,11 +107,22 @@
     <span class="kw">this</span>.<span class="at">state</span> <span class="op">=</span> <span class="op">{};</span>
     <span class="at">dispatch</span>(<span class="st">&#39;REQUEST-CAR-DATA&#39;</span>)<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<p>Quite straightforward, isn't it? We have connected <strong><a href="https://github.com/develprr/metamatic-car-app/blob/master/src/component/CarDetails.js" title="CarDetails">CarDetails</a></strong> component to the central data storage with practically one single line of code! But what if our CarDetails component needs two different data types which might thechange separately, let's say owner data. We need to connect the component to listen to two different events, which both must cause the component to refresh. We can do this using handleAll function, which allows us to connect many metamatic events to the component:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>() <span class="op">{</span>
-    <span class="kw">super</span>()<span class="op">;</span>
-    <span class="at">handleAll</span>([<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span><span class="st">&#39;OWNER-DATA-CHANGE&#39;</span>]<span class="op">,</span> <span class="kw">this</span>.<span class="at">forceUpdate</span>)<span class="op">;</span>
-  <span class="op">}</span></code></pre></div>
+<p>Quite straightforward, isn't it? We have connected <strong><a href="https://github.com/develprr/metamatic-car-app/blob/master/src/component/CarDetails.js" title="CarDetails">CarDetails</a></strong> component to the central data storage with practically one single line of code! Now let's make sure that also the component's local state is synchronized with MetaStore. We must add add a handle functionat that will update the component's state accordingly when CAR-DATA-CHANGE event is received:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">componentDidMount</span>() <span class="op">{</span>
+    <span class="at">handle</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> (carDetails) <span class="op">=&gt;</span> <span class="kw">this</span>.<span class="at">setState</span>(<span class="op">{</span>carDetails<span class="op">}</span>))<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Quite painless, isn't it? At least if you compare this with &quot;Redux&quot; mess! And CarDetails' render method will then function quite normally, interacting with the component's state:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">render</span>() <span class="op">{</span>
+    <span class="kw">let</span> carDetails <span class="op">=</span> <span class="kw">this</span>.<span class="va">state</span>.<span class="at">carDetails</span><span class="op">;</span>
+    <span class="cf">return</span> carDetails <span class="op">?</span> (
+        <span class="op">&lt;</span>ul className<span class="op">=</span><span class="st">&quot;list-group&quot;</span><span class="op">&gt;</span>
+          <span class="op">&lt;</span>li className<span class="op">=</span><span class="st">&quot;list-group-item&quot;</span><span class="op">&gt;&lt;</span>h3<span class="op">&gt;{</span><span class="va">carDetails</span>.<span class="at">model</span><span class="op">}&lt;</span><span class="ss">/h3&gt;&lt;/li</span><span class="op">&gt;</span>
+          <span class="op">&lt;</span>li className<span class="op">=</span><span class="st">&quot;list-group-item&quot;</span><span class="op">&gt;</span>Top Speed: <span class="op">{</span><span class="va">carDetails</span>.<span class="at">speed</span><span class="op">}&lt;</span><span class="ss">/li&gt;</span>
+<span class="ss">          &lt;li className=&quot;list-group-item&quot;&gt;Color: {carDetails.color}&lt;/li</span><span class="op">&gt;</span>
+          <span class="op">&lt;</span>li className<span class="op">=</span><span class="st">&quot;list-group-item&quot;</span><span class="op">&gt;</span><span class="dt">Price</span><span class="op">:</span> <span class="op">{</span><span class="va">carDetails</span>.<span class="at">price</span><span class="op">}&lt;</span><span class="ss">/li&gt;</span>
+<span class="ss">        &lt;/ul</span><span class="op">&gt;</span>
+    ) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <h2 id="implementing-a-metamatic-data-storage-metastore">Implementing a Metamatic Data Storage, MetaStore</h2>
 <p>Let's implement the actual metamatic data storage, MetaStore. Essentially, MetaStore just needs the exactly same super simple utility functions from synchronous-dispatcher as do all other parts of the app as well. But now that we want our MetaStore to actually load the datarom server, let's add an AJAX library to MetaStore. I'll use <strong>axios</strong> but be free to use any other library as you wish. Let's add the essential imports to the beginning of MetaStore.js file:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle<span class="op">,</span> dispatch <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
@@ -121,7 +131,7 @@
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> metaStore <span class="op">=</span> <span class="op">{</span>
   <span class="dt">carData</span><span class="op">:</span> <span class="kw">null</span>
 <span class="op">}</span></code></pre></div>
-<p>Let's also create the initialization funcction for MetaStore:</p>
+<p>Let's also create the initialization function for MetaStore:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> initMetaStore <span class="op">=</span> () <span class="op">=&gt;</span> <span class="op">{};</span></code></pre></div>
 <p>Now, it's time to get serious. We want to make sure that MetaStore will load car data when it receives request for car data! We expand initMetaStore function to respond to car data request and do something when any component in the application dispatches a request for car data. Let's make metaStore to listen for REQUEST-CAR-DATA event and dispatch a car CAR-DATA-CHANGE event if the car data is available. If not, MetaStore shall delegate the problem and dispatch 'LOAD-CAR-DATA' event. Then some other part in the app can listen to that event and react in an appropriate way:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">const</span> initMetaStore <span class="op">=</span> () <span class="op">=&gt;</span> <span class="op">{</span>
