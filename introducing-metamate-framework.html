@@ -123,7 +123,7 @@
 <span class="ss">        &lt;/ul</span><span class="op">&gt;</span>
     ) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<h2 id="implementing-a-metamatic-data-storage-metastore">Implementing a Metamatic Data Storage, MetaStore</h2>
+<h2 id="implementing-a-metamatic-data-storage-meta-store">Implementing a Metamatic Data Storage, Meta Store</h2>
 <p>Let's implement the actual metamatic data storage, MetaStore. Essentially, MetaStore just needs the exactly same super simple utility functions from synchronous-dispatcher as do all other parts of the app as well. But now that we want our MetaStore to actually load the datarom server, let's add an AJAX library to MetaStore. I'll use <strong>axios</strong> but be free to use any other library as you wish. Let's add the essential imports to the beginning of MetaStore.js file:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle<span class="op">,</span> dispatch <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
 <span class="im">import</span> axios <span class="im">from</span> <span class="st">&#39;axios&#39;</span><span class="op">;</span></code></pre></div>
@@ -230,7 +230,7 @@
   <span class="op">}</span>)<span class="op">;</span>
 <span class="op">};</span></code></pre></div>
 <p>Please check GitHub for changes made to turn MetaStore events into constants <a href="https://github.com/develprr/metamatic-car-app/commit/3b45f8a444e604db7e5474d6f3d5c962335b00e9">here</a>. To check the complete source file of this MetaStore implementation please check <a href="https://github.com/develprr/metamatic-car-app/blob/master/src/store/MetaStore.js" title="MetaStore.js">here</a>.</p>
-<h2 id="initializing-the-metastore">Initializing The MetaStore</h2>
+<h2 id="initializing-the-meta-store">Initializing the Meta Store</h2>
 <p>When you have implemented MetaStore, make sure to actually initialize it by calling initMetaStore function. A good play to do this is at the earliest point of the Application wakeup, for instance in the constructor of App's main component, for example App.js, as many React apps tend to have as their main object:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> App <span class="kw">extends</span> <span class="va">React</span>.<span class="at">Component</span> <span class="op">{</span>
 
@@ -240,6 +240,38 @@
     ...
   <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
+<h2 id="create-the-mock-server">Create the Mock Server</h2>
+<p>When you start creating any serious frontend app, be sure to implement a mock server for serving fake data for your frontend app as soon as possible. There may be some people saying that you shouldn't use mock data at all but rather rely on real data. That may be true at some point of the application development cycle. But that point comes in question rather later on when the design meets the very minimal definition maturity and the final database structure has already been determined and implemented.</p>
+<p>But when you are implementing a new solution from scratch, I highly recommend to implement a mock server in the very beginning of the project, until the business department has come up witha clearer vision about how the software should actually function. If you wait for the &quot;final data&quot; before starting to implement the frontend, you will have a grave chicken-and-egg problem. The business won't ever be able to envision what they really want if they don't have the inital app - even with mock data - that they can play with to decide how the app should work. Therefore you must create a mock data server so you can speed up quickly to implement a frontend based on the early wireframes. When the business department can test out how the demo works then the ideas will pouring out of these experiences like a fountain of wisdom helping define the required database structure. If you start creating the software upside down, starting from database and server-side implementation, it will surely slow down all development to a disastrous snail speed because you don't even know in the first place how the data should be structured to make the optimal app possible. All changes to the frontend will be extremely slow and expensive - of course depending a bit on how heavy the server side design is.</p>
+<p>Creating the initial mock server for the evolving app is actually ridiculously easy:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> bodyParser <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;body-parser&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> cors <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;cors&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> express <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;express&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> path <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;path&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> app <span class="op">=</span> <span class="at">express</span>()<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">use</span>(<span class="va">bodyParser</span>.<span class="at">urlencoded</span>(<span class="op">{</span>
+  <span class="dt">extended</span><span class="op">:</span> <span class="kw">true</span>
+<span class="op">}</span>))<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">use</span>(<span class="va">bodyParser</span>.<span class="at">json</span>())<span class="op">;</span>
+<span class="va">app</span>.<span class="at">use</span>(<span class="at">cors</span>())<span class="op">;</span>
+<span class="va">app</span>.<span class="at">use</span>(<span class="va">express</span>.<span class="at">static</span>(<span class="st">&#39;public&#39;</span>))<span class="op">;</span>
+
+
+<span class="va">app</span>.<span class="at">use</span>(<span class="st">&#39;/app&#39;</span><span class="op">,</span> <span class="va">express</span>.<span class="at">static</span>(<span class="st">&#39;public&#39;</span>))
+<span class="va">app</span>.<span class="at">use</span>(<span class="st">&#39;/app&#39;</span><span class="op">,</span> <span class="va">express</span>.<span class="at">static</span>(<span class="va">path</span>.<span class="at">join</span>(__dirname<span class="op">,</span> <span class="st">&#39;public&#39;</span>)))
+
+<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/api/car-details&#39;</span><span class="op">,</span> <span class="kw">function</span>(req<span class="op">,</span> res) <span class="op">{</span>
+  <span class="va">res</span>.<span class="at">json</span>(<span class="op">{</span>
+    <span class="dt">speed</span><span class="op">:</span> <span class="fl">211.0</span><span class="op">,</span>
+    <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;blue&#39;</span><span class="op">,</span>
+    <span class="dt">model</span><span class="op">:</span> <span class="st">&#39;Alpha Julia&#39;</span><span class="op">,</span>
+    <span class="dt">price</span><span class="op">:</span> <span class="fl">28000.0</span>
+  <span class="op">}</span>)
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>module.exports = app; app.listen(3001);</p>
+<p>It's just (one silly commit)[https://github.com/develprr/metamatic-car-app/commit/f0e26ed24f8e50eb86d17e6c26924c2774fac2bb] alltogether!</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Note that I am here splitting the logic into many sections that are quite loosely coupled to each other. Different parts of the logic live their independent life, being loosely connected only through events. There are many advocates of this kind of event-driven approach. However, I would warn against going too event-driven in the first place. The idea of events is to disconnect parts of the application from each other in the name of modularity. But disconnectedness may actually be a very bad thing. It's easy for a developer to follow the logic by clicking on a method call when using a proper editor.</p>
 <p>But when you have broken the direct connection between two different methods by joining them together not through direct method invocation but rather via events - with one function firing an event and another listening for it - you have just created an extra layer of complexity. From then on you will always need a bit more detective work to follow the application logic. You must search where the event was defined and where it's being expected. It makes the code more difficult to read. And the software code is always written as much for humans as for the machine. This concern is a major justification for writing very standard code always when possible - avoiding too much innovation - even if it results in somewhat lower results/time spent ratio. But there will always be unique problems that can only be addressed with unique code.</p>
