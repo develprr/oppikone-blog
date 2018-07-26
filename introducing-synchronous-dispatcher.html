@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="The Easiest And Fastest Event Framework for React Ever!">
+    <meta name="description" content="The Easiest and Fastest Event Framework for React Ever!">
     <meta name="author" content="Oppikone">
 
     <title>Introducing Synchronous Dispatcher</title>
@@ -60,13 +60,13 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/templates/oppikone/files/techno/slide-03.jpg')">
+    <header class="intro-header" style="background-image: url('/images/full/introducing-synchronous-dispatcher.png')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading" style="background-color:rgba(50,50,50,0.3)">
                         <h1 style="color:white">Introducing Synchronous Dispatcher</h1>
-                        <h2 style="color:yellow" class="subheading">The Easiest And Fastest Event Framework for React Ever!</h2>
+                        <h2 style="color:yellow" class="subheading">The Easiest and Fastest Event Framework for React Ever!</h2>
                         <span class="meta">Posted by <a href="#">Heikki Kupiainen/Oppikone</a> on 18.07.2017 09:37:36</span>
                     </div>
                 </div>
@@ -79,8 +79,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          		<h3 id="synchronous-dispatcher-is-simpler-cleaner-and-better">Synchronous Dispatcher Is Simpler, Cleaner And Better</h3>
-<p>In this article I will introduce the super lightweight yet extremely powerful and intuitive <a href="https://www.npmjs.com/package/synchronous-dispatcher">Synchronous Dispatcher</a> event framework that I created just for you, dear Reader, to help you develop fantastic software in a painless way.</p>
+          		<h3 id="synchronous-dispatcher-is-simpler-cleaner-and-better">Synchronous Dispatcher Is Simpler, Cleaner and Better</h3>
+<p>In this article I will introduce the super lightweight yet extremely powerful and intuitive <a href="https://www.npmjs.com/package/synchronous-dispatcher">Synchronous Dispatcher</a> event framework that I created just for you, dear Reader, to help you develop fantastic software in a painless way. It can be used as a central building block for creating a <a href="http://www.oppikone.fi/blog/introducing-metamate-framework.html">simple centralized application data storage</a>.</p>
 <p><strong>Synchronous Dispatcher</strong> is a wonderful little framework - or should I rather call it a design pattern - that I designed already in 2010 for ActionScript programming language - later I ported it for JavaScript as well. Those times ActionScript (used by Flash-based web apps) already had the maturity that JavaScript-based techniques are now slowly catching up with. Some who think that React is something new may be surprised to hear that React essentially is only a remake or at best a reinvention of <a href="https://en.wikipedia.org/wiki/Apache_Flex">Adobe Flex</a> (initially called Macromedia Flex, later Apache Flex) framework that was introduced already in 2004 - it essentially introduced a virtual DOM model: you could create your own Flex components that you would then use as construction blocks inside your HTML-like templates. Adobe Flex really already had everything that React has today!</p>
 <p><a href="https://mate.asfusion.com/">Mate Framework</a> introduced in 2010, event framework for Adobe Flex, was almost the same as &quot;Redux&quot; is today for &quot;React&quot; - but Mate Framework had exactly the same weakness that Redux has today. It is unnecessarily complex! But Redux is even worse: the Redux way of handling events is done using endless lists of switch-case structures - don't you think we could have something sleeker in 2017 than repeating dozens of times <strong>if else if else...</strong> that &quot;switch-caseing&quot; essentially is about? Moreover, a Redux-style design pattern sort-of forces the developer to divide components into &quot;container&quot; and &quot;representation&quot; components. While this makes sense in theory, in practice the separation is often quite artificial and forces developers into rigid programming style that will yield counterproductive results - you will get awkward complexity instead of clarity that was perhaps the initial intention!</p>
 <p>The Synchronous Dispatcher is different - it's simple and sleek: it enables you to define events and handlers in a snap. Let's make coding fun again!</p>
@@ -92,7 +92,7 @@
 <p>Import Synchronous Dispatcher's <strong>handle</strong> function to your React App:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span><span class="op">;</span></code></pre></div>
 <p>If you are curious to check Synchronous Dispatcher in action, please have a look at source code for a version of Car App Demo that uses Synchronous Dispatcher <a href="https://github.com/develprr/synchronous-dispatcher-demo">here</a>.</p>
-<h3 id="power-of-direct-binding">Power Of Direct Binding</h3>
+<h3 id="power-of-direct-binding">Power of Direct Binding</h3>
 <p>In Synchronous Dispatcher architecture, event handlers are directly bound to their corresponding events. That is truly superior to frameworks such as Redux - that require you to bind event handlers to their events manually, through an awkward switch-case concoction. Let's look at this in detail! Here is an example of a typical Redux &quot;Reducer&quot;, taken from Redux Todos examples Github project:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> todos <span class="op">=</span> (state <span class="op">=</span> []<span class="op">,</span> action) <span class="op">=&gt;</span> <span class="op">{</span>
   <span class="cf">switch</span> (<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span>
