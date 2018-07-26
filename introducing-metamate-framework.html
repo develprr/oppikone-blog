@@ -303,16 +303,19 @@ snail speed because you don't even know in the first place how the data should b
       <span class="op">&lt;</span>form<span class="op">&gt;</span>
         <span class="op">&lt;</span>div className<span class="op">=</span><span class="st">&quot;form-group&quot;</span><span class="op">&gt;</span>
           <span class="op">&lt;</span>label htmlFor<span class="op">=</span><span class="st">&quot;email&quot;</span><span class="op">&gt;</span>Email <span class="dt">address</span><span class="op">:&lt;</span><span class="ss">/label&gt;</span>
-<span class="ss">          &lt;input type=&quot;email&quot; className=&quot;form-control&quot; id=&quot;email&quot; onChange={this.updateEmail}/</span><span class="op">&gt;</span>
+<span class="ss">          &lt;input type=&quot;email&quot; className=&quot;form-control&quot; id=&quot;email&quot; </span>
+<span class="ss">        onChange={this.updateEmail}/</span><span class="op">&gt;</span>
         <span class="op">&lt;</span><span class="ss">/div&gt;</span>
 <span class="ss">        &lt;div className=&quot;form-group&quot;&gt;</span>
 <span class="ss">          &lt;label htmlFor=&quot;pwd&quot;&gt;Password:&lt;/label</span><span class="op">&gt;</span>
-          <span class="op">&lt;</span>input type<span class="op">=</span><span class="st">&quot;password&quot;</span> className<span class="op">=</span><span class="st">&quot;form-control&quot;</span> id<span class="op">=</span><span class="st">&quot;pwd&quot;</span> onChange<span class="op">={</span><span class="kw">this</span>.<span class="at">updatePassword</span><span class="op">}</span><span class="ss">/&gt;</span>
+          <span class="op">&lt;</span>input type<span class="op">=</span><span class="st">&quot;password&quot;</span> className<span class="op">=</span><span class="st">&quot;form-control&quot;</span> id<span class="op">=</span><span class="st">&quot;pwd&quot;</span> 
+        onChange<span class="op">={</span><span class="kw">this</span>.<span class="at">updatePassword</span><span class="op">}</span><span class="ss">/&gt;</span>
 <span class="ss">        &lt;/div</span><span class="op">&gt;</span>
         <span class="op">&lt;</span>div className<span class="op">=</span><span class="st">&quot;checkbox&quot;</span><span class="op">&gt;</span>
           <span class="op">&lt;</span>label<span class="op">&gt;&lt;</span>input type<span class="op">=</span><span class="st">&quot;checkbox&quot;</span><span class="ss">/&gt; Remember me&lt;/label</span><span class="op">&gt;</span>
         <span class="op">&lt;</span><span class="ss">/div&gt;</span>
-<span class="ss">        &lt;button type=&quot;submit&quot; className=&quot;btn btn-default&quot; onClick={this.handleSubmit}&gt;Submit&lt;/button</span><span class="op">&gt;</span>
+<span class="ss">        &lt;button type=&quot;submit&quot; className=&quot;btn btn-default&quot; </span>
+<span class="ss">        onClick={this.handleSubmit}&gt;Submit&lt;/button</span><span class="op">&gt;</span>
       <span class="op">&lt;</span><span class="ss">/form&gt;</span>
 <span class="ss">  </span><span class="sc">)</span><span class="ss">;</span>
 <span class="ss">}</span></code></pre></div>
