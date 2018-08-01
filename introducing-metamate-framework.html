@@ -157,7 +157,7 @@
       <span class="op">}</span>)
    <span class="op">}</span>)<span class="op">;</span>
 }<span class="op">;</span></code></pre></div>
-<p>Now let's decide what to do when the requested data was loaded from the server. We just get the response data from the server and place it into the central MetaStore. And most kindly, we also nothtify about car data change so all related components can update themselves with the new fresh data. Note that I am cloning the data with spread operator {...data} to prevent the central data being changed by a hideous direct manipulation somewhere else int the app!</p>
+<p>Now let's decide what to do when the requested data was loaded from the server. We just get the response data from the server and place it into the central MetaStore. And most kindly, we also notify about car data change so all related components can update themselves with the new fresh data. Note that I am cloning the data with spread operator {...data} to prevent the central data being changed by a hideous direct manipulation somewhere else int the app!</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">handle</span>(<span class="st">&#39;LOAD-CAR-DATA-SUCCESS&#39;</span><span class="op">,</span> (data) <span class="op">=&gt;</span> <span class="op">{</span>
    <span class="va">metaStore</span>.<span class="at">carData</span> <span class="op">=</span> data<span class="op">;</span>
    <span class="at">dispatch</span>(<span class="st">&#39;CAR-DATA-CHANGE&#39;</span><span class="op">,</span> <span class="op">{</span>...<span class="va">metaStore</span>.<span class="at">carData</span><span class="op">}</span>)<span class="op">;</span>
@@ -261,22 +261,80 @@ snail speed because you don't even know in the first place how the data should b
 <span class="va">app</span>.<span class="at">use</span>(<span class="at">cors</span>())<span class="op">;</span>
 <span class="va">app</span>.<span class="at">use</span>(<span class="va">express</span>.<span class="at">static</span>(<span class="st">&#39;public&#39;</span>))<span class="op">;</span>
 
-
 <span class="va">app</span>.<span class="at">use</span>(<span class="st">&#39;/app&#39;</span><span class="op">,</span> <span class="va">express</span>.<span class="at">static</span>(<span class="st">&#39;public&#39;</span>))
 <span class="va">app</span>.<span class="at">use</span>(<span class="st">&#39;/app&#39;</span><span class="op">,</span> <span class="va">express</span>.<span class="at">static</span>(<span class="va">path</span>.<span class="at">join</span>(__dirname<span class="op">,</span> <span class="st">&#39;public&#39;</span>)))
 
-<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/api/car-details&#39;</span><span class="op">,</span> <span class="kw">function</span>(req<span class="op">,</span> res) <span class="op">{</span>
-  <span class="va">res</span>.<span class="at">json</span>(<span class="op">{</span>
-    <span class="dt">speed</span><span class="op">:</span> <span class="fl">211.0</span><span class="op">,</span>
-    <span class="dt">color</span><span class="op">:</span> <span class="st">&#39;blue&#39;</span><span class="op">,</span>
-    <span class="dt">model</span><span class="op">:</span> <span class="st">&#39;Alpha Julia&#39;</span><span class="op">,</span>
-    <span class="dt">price</span><span class="op">:</span> <span class="fl">28000.0</span>
-  <span class="op">}</span>)
+<span class="kw">const</span> getCars <span class="op">=</span> () <span class="op">=&gt;</span> [
+  <span class="op">{</span>
+    <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>
+    <span class="st">&#39;model&#39;</span><span class="op">:</span> <span class="st">&#39;Audi&#39;</span><span class="op">,</span>
+    <span class="st">&#39;speed&#39;</span><span class="op">:</span> <span class="dv">170</span><span class="op">,</span>
+    <span class="st">&#39;color&#39;</span><span class="op">:</span> <span class="st">&#39;black&#39;</span><span class="op">,</span>
+    <span class="st">&#39;price&#39;</span><span class="op">:</span> <span class="dv">28500</span><span class="op">,</span>
+    <span class="st">&#39;marketShare&#39;</span><span class="op">:</span> []
+  <span class="op">},</span>
+  <span class="op">{</span>
+    <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span>
+    <span class="st">&#39;model&#39;</span><span class="op">:</span> <span class="st">&#39;Porsche&#39;</span><span class="op">,</span>
+    <span class="st">&#39;speed&#39;</span><span class="op">:</span> <span class="dv">250</span><span class="op">,</span>
+    <span class="st">&#39;color&#39;</span><span class="op">:</span> <span class="st">&#39;white&#39;</span><span class="op">,</span>
+    <span class="st">&#39;price&#39;</span><span class="op">:</span> <span class="dv">61000</span><span class="op">,</span>
+    <span class="st">&#39;marketShare&#39;</span><span class="op">:</span> []
+  <span class="op">},</span>
+  <span class="op">{</span>
+    <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span>
+    <span class="st">&#39;model&#39;</span><span class="op">:</span> <span class="st">&#39;Tesla&#39;</span><span class="op">,</span>
+    <span class="st">&#39;speed&#39;</span><span class="op">:</span> <span class="dv">280</span><span class="op">,</span>
+    <span class="st">&#39;color&#39;</span><span class="op">:</span> <span class="st">&#39;green&#39;</span><span class="op">,</span>
+    <span class="st">&#39;price&#39;</span><span class="op">:</span> <span class="dv">79000</span><span class="op">,</span>
+    <span class="st">&#39;marketShare&#39;</span><span class="op">:</span> []
+  <span class="op">},</span>
+  <span class="op">{</span>
+    <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>
+    <span class="st">&#39;model&#39;</span><span class="op">:</span> <span class="st">&#39;Ferrari&#39;</span><span class="op">,</span>
+    <span class="st">&#39;speed&#39;</span><span class="op">:</span> <span class="dv">320</span><span class="op">,</span>
+    <span class="st">&#39;color&#39;</span><span class="op">:</span> <span class="st">&#39;red&#39;</span><span class="op">,</span>
+    <span class="st">&#39;price&#39;</span><span class="op">:</span> <span class="dv">344000</span><span class="op">,</span>
+    <span class="st">&#39;marketShare&#39;</span><span class="op">:</span> []
+  <span class="op">},</span>
+  <span class="op">{</span>
+    <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span>
+    <span class="st">&#39;model&#39;</span><span class="op">:</span> <span class="st">&#39;Lamborghini&#39;</span><span class="op">,</span>
+    <span class="st">&#39;speed&#39;</span><span class="op">:</span> <span class="dv">334</span><span class="op">,</span>
+    <span class="st">&#39;color&#39;</span><span class="op">:</span> <span class="st">&#39;yellow&#39;</span><span class="op">,</span>
+    <span class="st">&#39;price&#39;</span><span class="op">:</span> <span class="dv">521000</span><span class="op">,</span>
+    <span class="st">&#39;marketShare&#39;</span><span class="op">:</span> []
+  <span class="op">},</span>
+  <span class="op">{</span>
+    <span class="st">&#39;id&#39;</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span>
+    <span class="st">&#39;model&#39;</span><span class="op">:</span> <span class="st">&#39;Bugatti&#39;</span><span class="op">,</span>
+    <span class="st">&#39;speed&#39;</span><span class="op">:</span> <span class="dv">420</span><span class="op">,</span>
+    <span class="st">&#39;color&#39;</span><span class="op">:</span> <span class="st">&#39;blue&#39;</span><span class="op">,</span>
+    <span class="st">&#39;price&#39;</span><span class="op">:</span> <span class="dv">1591000</span><span class="op">,</span>
+    <span class="st">&#39;marketShare&#39;</span><span class="op">:</span> []
+  <span class="op">}</span>
+]<span class="op">;</span>
+
+<span class="kw">const</span> getCarsMap <span class="op">=</span> () <span class="op">=&gt;</span> <span class="at">getCars</span>().<span class="at">reduce</span>((map<span class="op">,</span> car) <span class="op">=&gt;</span> <span class="op">{</span>
+  map[<span class="va">car</span>.<span class="at">id</span>] <span class="op">=</span> car<span class="op">;</span>
+  <span class="cf">return</span> map<span class="op">;</span>
+<span class="op">},</span> <span class="op">{}</span>)<span class="op">;</span>
+
+<span class="kw">const</span> getCarById <span class="op">=</span> (id) <span class="op">=&gt;</span> <span class="at">getCarsMap</span>()[id]<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/api/cars&#39;</span><span class="op">,</span> <span class="kw">function</span> (req<span class="op">,</span> res) <span class="op">{</span>
+  <span class="kw">const</span> id <span class="op">=</span> <span class="va">req</span>.<span class="va">params</span>.<span class="at">id</span><span class="op">;</span>
+  <span class="va">res</span>.<span class="at">json</span>(<span class="at">getCars</span>())<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/api/cars/:id&#39;</span><span class="op">,</span> <span class="kw">function</span> (req<span class="op">,</span> res) <span class="op">{</span>
+  <span class="kw">const</span> id <span class="op">=</span> <span class="va">req</span>.<span class="va">params</span>.<span class="at">id</span><span class="op">;</span>
+  <span class="va">res</span>.<span class="at">json</span>(<span class="at">getCarById</span>(id))<span class="op">;</span>
 <span class="op">}</span>)<span class="op">;</span>
 
 <span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> app<span class="op">;</span>
 <span class="va">app</span>.<span class="at">listen</span>(<span class="dv">3001</span>)<span class="op">;</span></code></pre></div>
-<p>It's just <a href="https://github.com/develprr/metamatic-car-app/commit/f0e26ed24f8e50eb86d17e6c26924c2774fac2bb">one silly commit</a> alltogether!</p>
+<p>What we did here is that we implement two endpoints, one for getting many cars and one for retrieving details of one car only. While we want to keep the server simple at this point, the data is hard-coded only so we don't need to integrate the server with a database yet.</p>
 <h2 id="strip-off-complexity-with-central-event-handling">Strip Off Complexity With Central Event Handling</h2>
 <p>When you start creating frontend software with ReactJS and implement new components, you will notice over time how your component hierarchy grows into a tree-like structure. It will become challenging to pass events from leaf components downward towards the root component. For instance, when the user clicks on LoginButton component on LoginForm component, you must implement a click event dispatch function inside LoginButton and then another handler function in its parent LoginForm component and so on. LoginForm component then forwards event further to its parent and so on, until the event reaches the component that can do the actually login validation.</p>
 <p>This kind of event &quot;bubbling&quot; through hierarchy creates incredibly much unnecessary complexity in your app because you must remember to implement an ever growing chain of event dispatchers and handlers all the way through the hierarchy starting from the leaf until the very root component. This kind of event bubbling degrades the application over time into some seriously unmaintainable bubble gum, indeed! All changes in the logic will be slow and error prone to implement because of the chain reaction of changes that will always be required even on the slightest update in the application logic. But you can avoid this kind of bubble gum complexity completely if you implement a central location for handling events, the MetaStore! Have a look at the Login component that dispatches Login form data directly to MetaStore when the user clicks on 'Submit' button. This implementation makes the Login component independent from its parent. The parent does not need to pass any event listeners as props to this component, it only needs to know where to place it!</p>
@@ -322,7 +380,7 @@ snail speed because you don't even know in the first place how the data should b
 <span class="ss">}</span></code></pre></div>
 <p>In the implementation above, all keystrokes made in the input fields will cause this component's local state to change. But when the user clicks on the submit button, the local state will be dispatched inside SUBMIT_LOGIN event. Thus, this solution has its own private local state but is also communicating with the central MetaStore state. Some say that components shouldn't have any local state at all but have all their states stored in a central location instead. I think such view is rather academic and serves no real purpose. Encapsulation of data is a very serious principle and should not be forgotten in the excitement of some new yet-another hype &quot;paradigm&quot;.</p>
 <p>In my opinion, all properties that are not needed all the time by outsiders can and should be stored in the local state. In this case, other parts of the application will need to know Login form's email and password properties only after the submit button has been clicked. And that's exactly what we are doing in this exercise!</p>
-<h2 id="access-logic-simple-versus-rbac">Access Logic, Simple Versus Rbac</h2>
+<h2 id="access-logic-simple-versus-rbac">Access Logic, Simple versus RBAC</h2>
 <p>Now that LoginForm component can fire a SUBMIT_LOGIN event, there must be a handler in the MetaStore to receive that event and perform an AJAX request accordingly to post the authentication request to the server:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  <span class="at">handle</span>(SUBMIT_LOGIN<span class="op">,</span> (credentials) <span class="op">=&gt;</span> <span class="op">{</span>
     <span class="va">axios</span>.<span class="at">post</span>(LOGIN_URL<span class="op">,</span> credentials)
