@@ -123,7 +123,7 @@
 <span class="ss">        &lt;/ul</span><span class="op">&gt;</span>
     ) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span>
 <span class="op">}</span></code></pre></div>
-<h2 id="implementing-a-metamatic-data-storage-metastore">Implementing a Metamatic Data Storage, MetaStore</h2>
+<h2 id="implementing-a-metamatic-data-storage-meta-store">Implementing a Metamatic Data Storage, Meta Store</h2>
 <p>Let's implement the actual metamatic data storage, MetaStore. Essentially, MetaStore just needs the exactly same super simple utility functions from synchronous-dispatcher as do all other parts of the app as well. But now that we want our MetaStore to actually load the datarom server, let's add an AJAX library to MetaStore. I'll use <strong>axios</strong> but be free to use any other library as you wish. Let's add the essential imports to the beginning of MetaStore.js file:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> handle<span class="op">,</span> dispatch <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span>
 <span class="im">import</span> axios <span class="im">from</span> <span class="st">&#39;axios&#39;</span><span class="op">;</span></code></pre></div>
@@ -231,7 +231,7 @@
   <span class="op">}</span>)<span class="op">;</span>
 <span class="op">};</span></code></pre></div>
 <p>Please check GitHub for changes made to turn MetaStore events into constants <a href="https://github.com/develprr/metamatic-car-app/commit/3b45f8a444e604db7e5474d6f3d5c962335b00e9">here</a>. To check the complete source file of this MetaStore implementation please check <a href="https://github.com/develprr/metamatic-car-app/blob/master/src/store/MetaStore.js" title="MetaStore.js">here</a>.</p>
-<h2 id="initializing-the-metastore">Initializing the MetaStore</h2>
+<h2 id="initializing-the-meta-store">Initializing the Meta Store</h2>
 <p>When you have implemented MetaStore, make sure to actually initialize it by calling initMetaStore function. A good play to do this is at the earliest point of the Application wakeup, for instance in the constructor of App's main component, for example App.js, as many React apps tend to have as their main object:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> App <span class="kw">extends</span> <span class="va">React</span>.<span class="at">Component</span> <span class="op">{</span>
 
@@ -322,19 +322,72 @@ snail speed because you don't even know in the first place how the data should b
 <span class="ss">}</span></code></pre></div>
 <p>In the implementation above, all keystrokes made in the input fields will cause this component's local state to change. But when the user clicks on the submit button, the local state will be dispatched inside SUBMIT_LOGIN event. Thus, this solution has its own private local state but is also communicating with the central MetaStore state. Some say that components shouldn't have any local state at all but have all their states stored in a central location instead. I think such view is rather academic and serves no real purpose. Encapsulation of data is a very serious principle and should not be forgotten in the excitement of some new yet-another hype &quot;paradigm&quot;.</p>
 <p>In my opinion, all properties that are not needed all the time by outsiders can and should be stored in the local state. In this case, other parts of the application will need to know Login form's email and password properties only after the submit button has been clicked. And that's exactly what we are doing in this exercise!</p>
-<h2 id="access-logic-simple-versus-rbac">Access Logic, Simple Versus RBAC</h2>
+<h2 id="access-logic-simple-versus-rbac">Access Logic, Simple Versus Rbac</h2>
 <p>Now that LoginForm component can fire a SUBMIT_LOGIN event, there must be a handler in the MetaStore to receive that event and perform an AJAX request accordingly to post the authentication request to the server:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  <span class="at">handle</span>(SUBMIT_LOGIN<span class="op">,</span> (credentials) <span class="op">=&gt;</span> <span class="op">{</span>
     <span class="va">axios</span>.<span class="at">post</span>(LOGIN_URL<span class="op">,</span> credentials)
     .<span class="at">then</span>(response <span class="op">=&gt;</span> <span class="op">{</span>
-      <span class="va">metaStore</span>.<span class="at">accessToken</span> <span class="op">=</span> <span class="va">response</span>.<span class="at">data</span><span class="op">;</span>
-      <span class="at">dispatch</span>(LOGIN_SUCCESS<span class="op">,</span> <span class="va">metaStore</span>.<span class="at">accessToken</span>)
+      <span class="va">metaStore</span>.<span class="at">loggedIn</span> <span class="op">=</span> <span class="va">response</span>.<span class="va">data</span>.<span class="at">loggedIn</span><span class="op">;</span>
+      <span class="at">dispatch</span>(LOGIN_STATE_CHANGE<span class="op">,</span> <span class="va">metaStore</span>.<span class="at">loggedIn</span>)
     <span class="op">}</span>).<span class="at">catch</span>(error <span class="op">=&gt;</span> <span class="at">dispatch</span>(LOGIN_FAILURE<span class="op">,</span> error))<span class="op">;</span>
   <span class="op">}</span>)<span class="op">;</span></code></pre></div>
-<p>This simple authentication implementation will be adequate in the formative period of the Metamatic Car App but remember that when your Car App grows into production-quality business, you will need a more complex authentication and access control scheme - you will need a serious RBAC (role-based access control) and you may need to enable login through existing channels that the users prefer to use, such as Facebook, Google or Twitter login, whatever. They hate creating unique credentials for each service. You will need an entire system not smaller than your car app itself just for managing user accounts; adding new accounts, removing old accounts, sending automated sign-up confirmation emails, re-sending password reset links, maybe setting expiration dates etc. If you start implementing all these administrative features on your own, your team will find themselves in a cuagmire burning their budget once again reinventing something that has been implemented many times over before. I think those teams will win the race that don't try to do everything by themselves so they can concentrate on the core business logic. They rather use existing authentication solutions such as <a href="https://auth0.com/">Auth0</a>. I will be explaining later <a href="http://www.oppikone.fi/blog/implement-role-based-access-control-within-hours.html">how to integrate Auth0 to enable RBAC for your app in just couple of hours</a>, not in weeks or months as you may have seen sometime in the past!</p>
-<p>But this being said, we still need to start with a naive solution to implement simplest possible login first - we will need to get something working very fast and then later on gradually improve the solution step by step! Next, I will show how to implement a simple login handler on the server side.</p>
+<p>This simple authentication implementation will be adequate in the formative period of the Metamatic Car App but remember that when your Car App grows into production-quality business, you will need a more complex authentication and access control scheme - you will need a serious RBAC (role-based access control) and you may need to enable login through existing channels that the users prefer to use, such as Facebook, Google or Twitter login, whatever. They hate creating unique credentials for each service. You will need an entire system not smaller than your car app itself just for managing user accounts; adding new accounts, removing old accounts, sending automated sign-up confirmation emails, re-sending password reset links, maybe setting expiration dates etc. If you start implementing all these administrative features on your own, your team will find themselves in a quagmire burning their budget once again reinventing something that has been implemented many times over before. I think those teams will win the race that don't try to do everything by themselves so they can concentrate on the core business logic. They rather use existing authentication solutions such as <a href="https://auth0.com/">Auth0</a>. I will be explaining later <a href="http://www.oppikone.fi/blog/implement-role-based-access-control-within-hours.html">how to integrate Auth0 to enable RBAC for your app in just couple of hours</a>, not in weeks or months as you may have seen sometime in the past!</p>
+<p>But this being said, we still need to start with a naive solution to implement simplest possible login first - we will need to get something working very fast and then later on gradually improve the solution step by step. Until then, we have to be happy with a naive solution so we can really storm to implement the actual logic!</p>
+<p>In the Metamatic Car App there is a main class to hold the visual components. It's called <a href="https://github.com/develprr/metamatic-car-app/blob/master/src/App.js">App.js</a>. Depending on whether the user has logged in or not, App component will display either Login or Management component:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> React <span class="im">from</span> <span class="st">&#39;react&#39;</span><span class="op">;</span>
+<span class="im">import</span> ReactDOM <span class="im">from</span> <span class="st">&#39;react-dom&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="st">&#39;./App.css&#39;</span><span class="op">;</span>
+
+<span class="im">import</span> <span class="op">{</span>AppTitle<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;./component/AppTitle.js&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span>Management<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;./component/Management.js&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span>Login<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;./component/Login.js&#39;</span><span class="op">;</span>
+
+<span class="im">import</span> <span class="op">{</span>handle<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;synchronous-dispatcher&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span>initMetaStore<span class="op">,</span> LOGIN_STATE_CHANGE<span class="op">,</span> LOGOUT<span class="op">}</span> <span class="im">from</span> <span class="st">&#39;./store/MetaStore&#39;</span><span class="op">;</span>
+
+<span class="im">export</span> <span class="kw">class</span> App <span class="kw">extends</span> <span class="va">React</span>.<span class="at">Component</span> <span class="op">{</span>
+
+  <span class="at">constructor</span>(props) <span class="op">{</span>
+    <span class="kw">super</span>(props)<span class="op">;</span>
+    <span class="at">initMetaStore</span>()<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">state</span> <span class="op">=</span> <span class="op">{};</span>
+    <span class="at">handle</span>(LOGIN_STATE_CHANGE<span class="op">,</span> (loggedIn) <span class="op">=&gt;</span> <span class="op">{</span>
+        <span class="kw">this</span>.<span class="at">setState</span>(<span class="op">{</span>loggedIn<span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)
+  <span class="op">}</span>
+
+  <span class="at">createViewComponent</span>() <span class="op">{</span>
+    <span class="cf">if</span> (<span class="kw">this</span>.<span class="va">state</span>.<span class="at">loggedIn</span>) <span class="op">{</span>
+      <span class="cf">return</span> <span class="op">&lt;</span>Management/<span class="op">&gt;;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+      <span class="cf">return</span> <span class="op">&lt;</span>Login/<span class="op">&gt;;</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+
+  <span class="at">render</span>() <span class="op">{</span>
+    <span class="kw">let</span> viewComponent <span class="op">=</span> <span class="kw">this</span>.<span class="at">createViewComponent</span>()<span class="op">;</span>
+    <span class="cf">return</span> (
+        <span class="op">&lt;</span>div className<span class="op">=</span><span class="st">&quot;container-fluid&quot;</span><span class="op">&gt;</span>
+          <span class="op">&lt;</span>AppTitle name<span class="op">=</span><span class="st">&quot;Cars&quot;</span><span class="ss">/&gt;</span>
+<span class="ss">          {viewComponent}</span>
+<span class="ss">        &lt;/div</span><span class="op">&gt;</span>
+    )<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="va">ReactDOM</span>.<span class="at">render</span>(
+    <span class="op">&lt;</span>App/<span class="op">&gt;,</span>
+    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;root&#39;</span>)
+)<span class="op">;</span></code></pre></div>
+<p>In the example above, MetaStore will be firing <b>LOGIN_STATE_CHANGE</b> events depending on what happens. When authentication was succesful, the value for <b>loggedIn</b> will be true and when the user clicks on EXIT button, it will lead MetaStore to dispatching loggedIn as false within LOGIN_STATE_CHANGE event.</p>
+<p>Let's have a look at logging out definition inside MetaStore. We just add:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">handle</span>(LOGOUT<span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="va">metaStore</span>.<span class="at">loggedIn</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+  <span class="at">dispatch</span>(LOGIN_STATE_CHANGE<span class="op">,</span> <span class="va">metaStore</span>.<span class="at">loggedIn</span>)<span class="op">;</span>
+<span class="op">}</span>)</code></pre></div>
+<p>When MetaStore receives LOGOUT event from Navigation component it then just updates its loggedIn state to false and dispatches this new state further to anybody that listens LOGIN_STATE_CHANGE event.</p>
 <h2 id="coming-soon...">Coming Soon...</h2>
-<p>Either way, I hope these examples hightlight the idea of a very easy, very straightforward, over-engineering-free approach to implement robust central data storage without too complex frameworks. I can barely wait to continue highlighting The Metamatic Approach: An event-driven, minimalistic, simple way to manage data in your app. I'll be back to you soon with more examples about the topic!</p>
+<p>Either way, I hope these examples highlight the idea of a very easy, very straightforward, over-engineering-free approach to implement robust central data storage without too complex frorks. I can barely wait to continue highlighting The Metamatic Approach: An event-driven, minimalistic, simple way to manage data in your app. I'll be back to you soon with more examples about the topic!</p>
 
                 </div>
             </div>
