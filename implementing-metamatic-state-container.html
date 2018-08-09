@@ -82,7 +82,7 @@
           		<p>In an <a href="http://www.oppikone.fi/blog/introducing-metamate-framework.html">earlier article</a>, I introduced the <a href="https://www.npmjs.com/package/metamatic">Metamatic framework</a>, which is a toolset of utility functions to implement a clean and easy-to-use state container in a JavaScript-based application.</p>
 <p>In this article I am going to discuss different architectural related approaches to implement a state container.</p>
 <p>There are two major strategies to implement a state container, which are the <strong>Two-Way-Events</strong> strategy and the <strong>One-Way-Events</strong> strategy. The <em>Two-Way-Events</em> strategy means that the central data container (MetaStore) communicates with the rest of the software only through events. In Two-Way-Events strategy, the state container uses events for both sending and receiving data. It listens for events for receiving data and dispatches events for sending data. But in <em>One-Way-Events</em> strategy instead, events are used only for broadcasting. The State Container does not listen for events to receive data. The data is placed inside the container directly through setter or update method invocations from outside.</p>
-<h2 id="the-two-way-events-state-container-strategy">The Two-Way-Events State Container Strategy</h2>
+<h2 id="the-two-way-events-state-container-strategy">The Two Way Events State Container Strategy</h2>
 <p>In the Two-Way strategy, the events flow in two directions. They flow downstream, from the state container downward to the UI components. And they flow upstream, from components upward back to the container. Downstream flow happens when the state container fires an event. The event is being handled down the stream in the UI components that listen for the events from the State container. And when they flow upstream, from the UI components back to the state container, when a UI component dispatches an event back to the State Container.</p>
 <p>With Metamatic, both <em>Two-Way-Events</em> strategy and <em>One-Way-Events</em> strategy are available. <em>One-Way-Events</em> strategy enables you to write more straightforward code because it will be easier to track the program flow upstream back to container from the components but <em>Two-Way-Events</em> will make it possible to add interceptors to upstream data flow.</p>
 <h2 id="why-direct-invocation-is-natural">Why Direct Invocation Is Natural</h2>
@@ -95,13 +95,13 @@
 <p>For this reason, it is quite justified that the state container uses event dispatching as the strategy to broadcast events all around when something changes.</p>
 <h2 id="why-state-container-should-not-listen-for-events">Why State Container Should Not Listen for Events</h2>
 <p>When the case is, however, that a component must notify the state container about data change, <em>we do not</em> have a <strong>one-to-many</strong> scenario. We have rather a <strong>many-to-one</strong> or at least <strong>one-to-one</strong> communication case. The idea of a central state container is in deed that there is just a single source of truth. Therefore it's not advisable to implement a state container that has a <strong>two-way-events</strong> communication scenario. There is absolutely no need to make the communication FROM components TO the container to use events. The better and cleaner way to implement the upstream flow, from components to the container, is simply through direct method invocation. All components that want to notify the container about a change will just need to directly invoke the container's change function.</p>
-<h1 id="creating-the-metastore">Creating the MetaStore</h1>
+<h1 id="creating-the-meta-store">Creating the Meta Store</h1>
 <h2 id="implement-the-core">Implement the Core</h2>
 <p>Create MetaStore.js file. In that file, type:</p>
 <pre class="js"><code>const metaStore = {};</code></pre>
 <p>You can also name it as you wish, I just call it <em>MetaStore</em> for convenience!</p>
-<h2 id="enabling-metastore-to-receive-and-broadcast-changes">Enabling MetaStore to Receive and Broadcast Changes</h2>
-<h3 id="with-one-way-events-strategy...">With One-Way-Events Strategy...</h3>
+<h2 id="enabling-meta-store-to-receive-and-broadcast-changes">Enabling Meta Store to Receive and Broadcast Changes</h2>
+<h3 id="with-one-way-events-strategy...">With One Way Events Strategy...</h3>
 <p>Let's say that you want MetaStore to centrally hold some piece of data, let's say email address, and when the email address changes, to broadcast the change:</p>
 <pre class="js"><code>export const EMAIL_ADDRESS_CHANGE = &#39;EMAIL_ADDRESS_CHANGE&#39;;
 
@@ -110,7 +110,7 @@ export const setEmailAddress = (changedEmailAddress) =&gt; {
   dispatch(EMAIL_ADDRESS_CHANGE, emailAddress)
 }</code></pre>
 <p>That's all what you need!</p>
-<h3 id="with-two-way-events-strategy...">With Two-Way-Events Strategy...</h3>
+<h3 id="with-two-way-events-strategy...">With Two Way Events Strategy...</h3>
 <p>The Two-Way-Events strategy is not recommendable for most cases because of the loss of followability, but it's supported by Metamatic anyway. If you want to add interceptors such as logging to upstream events, <em>Two-Way-Events</em> may in deed be the desirable strategy:</p>
 <pre class="js"><code>export const EMAIL_ADDRESS_UPDATE = &#39;EMAIL_ADDRESS_UPDATE&#39;;
 export const EMAIL_ADDRESS_CHANGE = &#39;EMAIL_ADDRESS_CHANGE&#39;;
